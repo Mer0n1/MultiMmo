@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Library>
+	<character id="101" IDO="0" name="redis" width="112" height="100" speed="1" xp="50" visibility="400" DistanceFromOpponent="5">
+		<SA>
+			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Tile ValueX="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " ValueY="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Description FuncAttack="Left" TypeAttack="Do" Distantion="5" Recharge="3" QuanityTile="20" />
+		</SA>
+	</character>
+
+	<character id="102" IDO="0" name="ananas" width="40" height="75" speed="1" xp="80" visibility="400" DistanceFromOpponent="5">
+		<SA>
+			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Tile ValueX="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " ValueY="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Description FuncAttack="Left" TypeAttack="Do" Distantion="5" Recharge="3" QuanityTile="20" />
+		</SA>
+	</character>
+
+	<character id="98" name="Sans" IDO="0" width="90" height="130" speed="3" xp="500" visibility="400" DistanceFromOpponent="5">
+		<AttackDamage At1="30" At2="30" At3="30" normAt="30" />
+		<SA id="98" name="Sans1">
+			<delay Value="0 0 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 0 0 0 0 " />
+			<Tile ValueX="8 7 6 5 4 8 7 6 5 4 8 7 6 5 4 8 7 6 5 4 8 7 6 5 4 0 0 0 0 0 " ValueY="4 4 4 4 4 2 2 2 2 2 0 0 0 0 0 -2 -2 -2 -2 -2 -4 -4 -4 -4 -4 0 0 0 0 0 " />
+			<Description FuncAttack="ClickPlace" TypeAttack="ida" Distantion="20" Recharge="1" QuanityTile="30" Size="16" />
+			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
+		</SA>
+		<SA id="98" name="Sans2">
+			<delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Tile ValueX="0 -2 -1 -3 -4 -5 -6 -7 0 -1 -2 -3 -4 -5 -6 -7 0 0 0 0 0 0 0" ValueY="-2 -2 -2 -2 -2 -2 -2 -2 2 2 2 2 2 2 2 2 0 0 0 0 0 0 " />
+			<Description FuncAttack="Direction" TypeAttack="ida" Distantion="12" Recharge="1" QuanityTile="30" Size="64" />
+			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
+		</SA>
+		<SA id="98" name="Sans3">
+			<delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0" />
+			<Tile ValueX="2 3 2 3 3 4 3 4 4 5 4 5 5 6 5 6 7 6 4 5 -7 -8 -8 -9 -9 -10 -10 -11 -11 -12 -12 -13 -13 -14 -14 -15 -14 -13 -15 -13 9 8 8 8 7 9 7 6 6 7 6 5 5 -12 -13 -12 -12 -12 -12 -11 -13 -11 -11 -11 -12 -12 -12 -12 -13 -13 -13 -13 -13 4 4 5 6 -21 -21 -20 -20 -19 -20 -20 -19 -19 -18 -19 -18 -18 -17 -18 -17 0 0 0 0 0 " ValueY="-17 -17 -16 -16 -15 -15 -14 -14 -13 -13 -12 -12 -11 -11 -10 -10 -11 -12 -10 -9 -19 -19 -18 -18 -17 -17 -16 -16 -15 -15 -14 -14 -13 -13 -12 -12 -11 -11 -11 -12 -7 -7 -6 -5 -5 -6 -4 -4 -3 -3 -2 -2 0 -4 -4 -3 -2 -1 0 0 -5 1 2 3 3 -5 1 2 -3 -2 -1 3 2 -1 0 -1 -1 -13 -12 -12 -11 -11 -13 -10 -10 -9 -9 -8 -8 -7 -7 -6 -6 0 0 0 0 0 " />
+			<Description FuncAttack="ClickPlace" TypeAttack="dpsa" Distantion="20" Recharge="3" QuanityTile="90" Size="8" />
+			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
+		</SA>
+	</character>
+
+	<character id="97" name="Papyrus" IDO="0" width="87" height="163" speed="2" xp="1" visibility="800" DistanceFromOpponent="8">
+		<AttackDamage At1="50" At2="50" At3="10" normAt="0" />
+		<SA id="97" name="Papyrus1">
+			<delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Tile ValueX="1 2 3 4 5 6 -1 -2 -3 -4 -5 -6 -1 -2 -3 -4 -5 -6 1 2 3 4 5 6 0" ValueY="0 -1 -2 -3 -4 -5 0 -1 -2 -3 -4 -5 2 3 4 5 6 7 2 3 4 5 6 7 0" />
+			<Description FuncAttack="ClickPlace" TypeAttack="Do" Distantion="7" Recharge="10" QuanityTile="27" Size="32" />
+			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
+		</SA>
+		<SA id="97" name="Papyrus2"> <!--не существует-->
+			<delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 " />
+			<Tile ValueX="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " ValueY="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Description FuncAttack="Fixed" TypeAttack="Do" Distantion="10" Recharge="1" QuanityTile="27" Size="32" />
+			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
+		</SA>
+		<SA id="97" name="Papyrus3"> 
+			<delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 5 0 " />
+			<Tile ValueX="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " ValueY="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Description FuncAttack="Fixed" TypeAttack="Do" Distantion="10" Recharge="10" QuanityTile="27" Size="32" />
+			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
+		</SA>
+	</character>
+
+	<character id="96" name="Chara" IDO="0" width="78" height="120" speed="8" xp="1" visibility="500" DistanceFromOpponent="6">
+		<AttackDamage At1="10" At2="50" At3="20" normAt="100" />
+		<SA id="96" name="Chara1">
+			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Tile ValueX="4 5 6 7 7 7 6 5 4 3 2 2 3 1 0 -1 2 1 0 0 " ValueY="11 10 9 8 7 6 6 7 8 9 10 11 11 12 13 14 12 13 14 0 " />
+			<Description FuncAttack="null" TypeAttack="Do" Distantion="10" Recharge="10" QuanityTile="20" Size="8" />
+			<mobs Vide="2" pVide="1" qVide="6" tVide="3"/>
+		</SA>
+		<SA id="96" name="Chara2">
+			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Tile ValueX="4 5 6 7 7 7 6 5 4 3 2 2 3 1 0 -1 2 1 0 0 " ValueY="11 10 9 8 7 6 6 7 8 9 10 11 11 12 13 14 12 13 14 0 " />
+			<Description FuncAttack="ClickPlace" TypeAttack="ida" Distantion="20" Recharge="3" QuanityTile="20" Size="8" />
+			<mobs Vide="4" pVide="1" qVide="0" tVide="10"/>
+		</SA>
+		<SA id="96" name="Chara3">
+			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+			<Tile ValueX="4 5 6 7 7 7 6 5 4 3 2 2 3 1 0 -1 2 1 0 0 " ValueY="11 10 9 8 7 6 6 7 8 9 10 11 11 12 13 14 12 13 14 0 " />
+			<Description FuncAttack="null" TypeAttack="dpsa" Distantion="10" Recharge="3" QuanityTile="20" Size="8" />
+			<mobs Vide="3" pVide="1" qVide="0" tVide="5"/>
+		</SA>
+	</character>
+
+</Library>

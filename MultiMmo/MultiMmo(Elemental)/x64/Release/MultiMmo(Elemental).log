@@ -1,0 +1,506 @@
+﻿  algorithm.cpp
+  Animation.cpp
+  Attack.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(58): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(59): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(60): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(63): warning C4305: =: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(105): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(109): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(123): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(176): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(203): warning C4305: =: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(221): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(240): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(241): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(242): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(245): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(269): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(270): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(272): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(303): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(304): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(311): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(312): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(313): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(330): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(331): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(346): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(347): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(350): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(351): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(352): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(353): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(356): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(357): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(372): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(384): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(390): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(391): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(394): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(395): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(429): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(430): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(431): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(432): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(435): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(436): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(446): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(447): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(455): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(460): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(479): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(480): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(494): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(495): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(522): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(523): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(531): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(536): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(564): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(590): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(591): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(607): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(609): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(610): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(626): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  BridgeClient.cpp
+  Client.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(145): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(152): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(250): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(260): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(114): warning C4390: ";": обнаружен пустой контролируемый оператор; это правильно?
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(335): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(340): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(404): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(405): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(410): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\client.cpp(441): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Engine.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\engine.cpp(56): warning C4244: аргумент: преобразование "const T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\engine.cpp(45): warning C4390: ";": обнаружен пустой контролируемый оператор; это правильно?
+  Enemy.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(71): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(88): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(89): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(130): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(131): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(154): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(155): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(163): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(164): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(171): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(205): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(257): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(364): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\enemy.cpp(365): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  Entity.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\entity.cpp(15): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\entity.cpp(20): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  GameWorld.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\gameworld.cpp(31): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\gameworld.cpp(92): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Group.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+  Interface.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(41): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(42): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(43): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(86): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(104): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(109): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(125): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(163): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(164): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(182): warning C4305: аргумент: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(200): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(204): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(205): warning C4244: аргумент: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(206): warning C4244: аргумент: преобразование "const T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(213): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\interface.cpp(224): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+  Inventor.cpp
+  JATS.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\jats.cpp(19): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\jats.cpp(68): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\jats.cpp(97): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  main.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\main.cpp(16): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Map.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(48): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(49): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(52): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(53): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(54): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(55): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(63): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(64): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(110): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(116): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(151): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(152): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(164): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\map.cpp(165): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Mobs.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\mobs.cpp(25): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\mobs.cpp(46): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  Player.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\player.cpp(66): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\player.cpp(109): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\player.cpp(115): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\player.cpp(121): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\player.cpp(127): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\player.cpp(193): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  Profile.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(150): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(137): warning C4390: ";": обнаружен пустой контролируемый оператор; это правильно?
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(239): warning C4305: аргумент: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(253): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(254): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(255): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(261): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(265): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(324): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(325): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(330): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(356): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(357): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(374): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(375): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(382): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(474): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(475): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(476): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(546): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\profile.cpp(548): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Redactor.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(34): warning C4305: аргумент: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(37): warning C4305: аргумент: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(207): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(210): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(213): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(216): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(228): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(231): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(235): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(238): warning C4244: аргумент: преобразование "const T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(264): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(269): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(296): warning C4305: +=: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(304): warning C4305: -=: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(311): warning C4305: +=: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(319): warning C4305: -=: усечение из "double" в "float"
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(340): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(346): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(366): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(371): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(164): warning C4390: ";": обнаружен пустой контролируемый оператор; это правильно?
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(445): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              T=int
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(467): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(468): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(499): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(500): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(501): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(502): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(429): warning C4390: ";": обнаружен пустой контролируемый оператор; это правильно?
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(523): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(524): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(555): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\redactor.cpp(556): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+  ServerPlayer.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\serverplayer.cpp(16): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+  Компиляция...
+  TCP.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\tcp.cpp(10): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\tcp.cpp(17): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\tcp.cpp(25): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\tcp.cpp(37): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\tcp.cpp(43): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+  Textures.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\textures.cpp(11): warning C4305: аргумент: усечение из "double" в "float"
+  tinystr.cpp
+  tinyxml.cpp
+  tinyxmlerror.cpp
+  tinyxmlparser.cpp
+  xmltest.cpp
+  UniqueCharacters.cpp
+d:\github\multimmo\multimmo\multimmo(elemental)\group.h(6): warning C4099: Group_Rpg: имя типа, ранее отображенное с помощью "class", теперь отображено с помощью "struct"
+  d:\github\multimmo\multimmo\multimmo(elemental)\group.h(5): note:  см. объявление "Group_Rpg"
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(24): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(73): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(95): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(96): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(108): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(109): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(110): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(111): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(112): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(113): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(156): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(189): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(209): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(244): warning C4244: =: преобразование "int" в "T", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(263): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(264): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(302): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(332): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(333): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(335): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(336): warning C4244: =: преобразование "T" в "int", возможна потеря данных
+          with
+          [
+              T=float
+          ]
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(342): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(343): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(352): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(357): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(361): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(362): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(377): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\github\multimmo\multimmo\multimmo(elemental)\uniquecharacters.cpp(432): warning C4554: "&": проверьте приоритет операторов на ошибки; для уточнения приоритета используйте скобки
+  Создание кода
+d:\github\multimmo\multimmo\multimmo(elemental)\attack.cpp(774): warning C4715: AttackSystem::getNum: значение возвращается не при всех путях выполнения
+d:\github\multimmo\multimmo\multimmo(elemental)\algorithm.cpp(30): warning C4172: возвращение адреса локальной или временной переменной : ItogMassv
+  1420 of 1441 functions (98.5%) were compiled, the rest were copied from previous compilation.
+    7 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  MultiMmo(Elemental).vcxproj -> D:\Github\MultiMmo\MultiMmo\x64\Release\MultiMmo(Elemental).exe
