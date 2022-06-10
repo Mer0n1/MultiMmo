@@ -1,0 +1,12 @@
+MultiMmo/Debug
+MultiMmo/packages
+MultiMmo/Release
+MultiMmo/x64
+MultiMmo(Elemental).sln
+MultiMmo/MultiMmo(Elemental)/Debug
+MultiMmo/MultiMmo(Elemental)/Release
+MultiMmo/MultiMmo(Elemental)/x64
+MultiMmo(Elemental).vcxproj
+MultiMmo(Elemental).vcxproj.filters
+MultiMmo(Elemental).vcxproj.user
+packages.config
