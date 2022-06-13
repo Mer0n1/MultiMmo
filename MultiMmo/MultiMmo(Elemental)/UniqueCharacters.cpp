@@ -1,4 +1,4 @@
-#include "UniqueCharacters.h"
+п»ї#include "UniqueCharacters.h"
 
 //---------------Chara
 
@@ -22,40 +22,40 @@ void Chara::update()
 {
 	gamer.setPosition(x, y);
 	hb.setPosition(x - 10, y - 10);
-	hb.setProgress((float)xp / (float)max_Xp);
-	hb.setXp(xp, max_Xp);
+	hb.setProgress((float)hp / (float)max_hp);
+	hb.setHp(hp, max_hp);
 	pidOp = 0;
 	
 	controlEnemy();
-	interactionWithMap(); //связь с картой
-	go_move(); //движение бота
-	ai(); //двигаемся только если активно specialAt
+	interactionWithMap(); //СЃРІСЏР·СЊ СЃ РєР°СЂС‚РѕР№
+	go_move(); //РґРІРёР¶РµРЅРёРµ Р±РѕС‚Р°
+	ai(); //РґРІРёРіР°РµРјСЃСЏ С‚РѕР»СЊРєРѕ РµСЃР»Рё Р°РєС‚РёРІРЅРѕ specialAt
 
-	if (pidOp != 0) //если противник не найден не активируем систему атаки
+	if (pidOp != 0) //РµСЃР»Рё РїСЂРѕС‚РёРІРЅРёРє РЅРµ РЅР°Р№РґРµРЅ РЅРµ Р°РєС‚РёРІРёСЂСѓРµРј СЃРёСЃС‚РµРјСѓ Р°С‚Р°РєРё
 		attacks();
 
 	AttackMode.go_attack();
 
-	if (xp <= 0) life = false;
+	if (hp <= 0) life = false;
 }
 
 void Chara::attacks()
 {
-	pr->posX = new float(attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2); //сделаем отслеживание позиции противника
+	pr->posX = new float(attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2); //СЃРґРµР»Р°РµРј РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РїРѕР·РёС†РёРё РїСЂРѕС‚РёРІРЅРёРєР°
 	pr->posY = new float(attack::world->getEntity(jOp)->getPos().y + attack::world->getEntity(jOp)->getHeight() / 2);
 
 	attack::time = clock.getElapsedTime().asSeconds();
 	//----------------------------------------
 	
-	//1 способность
+	//1 СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
 	if (!AttackMode.getNum(3))
 		AttackMode.setNum(1, true);
 
-	//2 способность
+	//2 СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
 	if (!AttackMode.getNum(1)) 
 		AttackMode.setNum(2, true);
 
-	//3 способность
+	//3 СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
 	if (!AttackMode.getNum(2)) 
 		AttackMode.setNum(3, true);
 	//sp attack
@@ -63,34 +63,34 @@ void Chara::attacks()
 		specialAt = true;
 
 	//------------------------------------
-	if (AttackMode.getNum(1)) //запускаем атаку множеством обьектов (1 атака чары)
+	if (AttackMode.getNum(1)) //Р·Р°РїСѓСЃРєР°РµРј Р°С‚Р°РєСѓ РјРЅРѕР¶РµСЃС‚РІРѕРј РѕР±СЊРµРєС‚РѕРІ (1 Р°С‚Р°РєР° С‡Р°СЂС‹)
 		for (int j = 0; j < AttackMode.getMany().size(); j++) {
 			
 			if (AttackMode.getMany()[j].getVidE() != 0)
-				AttackMode.getMany()[j].go_attack(); //запуск рендера обьекта
+				AttackMode.getMany()[j].go_attack(); //Р·Р°РїСѓСЃРє СЂРµРЅРґРµСЂР° РѕР±СЊРµРєС‚Р°
 
-			if (sleeptime < attack::time) { //очередь нового обьекта
+			if (sleeptime < attack::time) { //РѕС‡РµСЂРµРґСЊ РЅРѕРІРѕРіРѕ РѕР±СЊРµРєС‚Р°
 				sleeptime = attack::time + 0.7;
 				arg++;
 			}
 
 			if (arg == AttackMode.getMany().size() + 2) {
 				AttackMode.setNum(1, false); arg = -1;
-			} //отключаем атаку как только обьекты заканчиваются
+			} //РѕС‚РєР»СЋС‡Р°РµРј Р°С‚Р°РєСѓ РєР°Рє С‚РѕР»СЊРєРѕ РѕР±СЊРµРєС‚С‹ Р·Р°РєР°РЅС‡РёРІР°СЋС‚СЃСЏ
 
-			if (arg == j) break; //выходим чтобы соблюдать очередь обьектов 
+			if (arg == j) break; //РІС‹С…РѕРґРёРј С‡С‚РѕР±С‹ СЃРѕР±Р»СЋРґР°С‚СЊ РѕС‡РµСЂРµРґСЊ РѕР±СЊРµРєС‚РѕРІ 
 		}
 
-	//дело в скорости (слишком быстро) //дело еще в том, что атака не начинается пока другая идет //AttackMode
+	//РґРµР»Рѕ РІ СЃРєРѕСЂРѕСЃС‚Рё (СЃР»РёС€РєРѕРј Р±С‹СЃС‚СЂРѕ) //РґРµР»Рѕ РµС‰Рµ РІ С‚РѕРј, С‡С‚Рѕ Р°С‚Р°РєР° РЅРµ РЅР°С‡РёРЅР°РµС‚СЃСЏ РїРѕРєР° РґСЂСѓРіР°СЏ РёРґРµС‚ //AttackMode
 	if (arg <= AttackMode.getMany().size() && !AttackMode.getNum(1))
 		AttackMode.setNum(1, true);
 	
-	//спец атака
-	if (specialAt || life_attack) { //может быть переместить ее в attacks?
+	//СЃРїРµС† Р°С‚Р°РєР°
+	if (specialAt || life_attack) { //РјРѕР¶РµС‚ Р±С‹С‚СЊ РїРµСЂРµРјРµСЃС‚РёС‚СЊ РµРµ РІ attacks?
 		special_attack();
 		
 		if (!life_attack) specialAt = false; else
-		if (!BlockAi) //таким образом после того как будет задана точка нанесется атака
+		if (!BlockAi) //С‚Р°РєРёРј РѕР±СЂР°Р·РѕРј РїРѕСЃР»Рµ С‚РѕРіРѕ РєР°Рє Р±СѓРґРµС‚ Р·Р°РґР°РЅР° С‚РѕС‡РєР° РЅР°РЅРµСЃРµС‚СЃСЏ Р°С‚Р°РєР°
 		{
 			x_move[0] = Enemy::world->getEntity(jOp)->getPos().x + 60;
 			y_move[0] = Enemy::world->getEntity(jOp)->getPos().y;
@@ -103,7 +103,7 @@ void Chara::attacks()
 void Chara::special_attack()
 {	
 	if (!life_attack) BlockVidE = 0;
-	if (attack::time_save > attack::time) return; //перезарядка навыка
+	if (attack::time_save > attack::time) return; //РїРµСЂРµР·Р°СЂСЏРґРєР° РЅР°РІС‹РєР°
 
 	x_attack[0] = *attack::pr->x - 32;
 	y_attack[0] = *attack::pr->y;
@@ -116,7 +116,7 @@ void Chara::special_attack()
 	delay_attack[0] = 1;
 	SAAttack->SizeTile = 32; 
 	type_attack = Do;
-	*pr->currentAt = rations.normAt; //задаем урон
+	*pr->currentAt = rations.normAt; //Р·Р°РґР°РµРј СѓСЂРѕРЅ
 
 	if (BlockVidE == 0) {
 		life_attack = true;
@@ -126,9 +126,9 @@ void Chara::special_attack()
 	attack_start();
 
 	SAAttack->SizeTile = save;
-	if (!life_attack) attack::time_save = attack::time + RechargeSpecialAt; //добавляем время перезярядки
-	//go mov с увеличением скорости
-	//удар может быть либо с правой либо с левой стороны
+	if (!life_attack) attack::time_save = attack::time + RechargeSpecialAt; //РґРѕР±Р°РІР»СЏРµРј РІСЂРµРјСЏ РїРµСЂРµР·СЏСЂСЏРґРєРё
+	//go mov СЃ СѓРІРµР»РёС‡РµРЅРёРµРј СЃРєРѕСЂРѕСЃС‚Рё
+	//СѓРґР°СЂ РјРѕР¶РµС‚ Р±С‹С‚СЊ Р»РёР±Рѕ СЃ РїСЂР°РІРѕР№ Р»РёР±Рѕ СЃ Р»РµРІРѕР№ СЃС‚РѕСЂРѕРЅС‹
 }
 
 
@@ -154,75 +154,75 @@ void Papyrus::update()
 {
 	gamer.setPosition(x, y);
 	hb.setPosition(x - 10, y - 10);
-	hb.setProgress((float)xp / (float)max_Xp);
-	hb.setXp(xp, max_Xp);
-	pidOp = 0; //сброс айди оппонента если 
+	hb.setProgress((float)hp / (float)max_hp);
+	hb.setHp(hp, max_hp);
+	pidOp = 0; //СЃР±СЂРѕСЃ Р°Р№РґРё РѕРїРїРѕРЅРµРЅС‚Р° РµСЃР»Рё 
 
 	controlEnemy();
-	interactionWithMap(); //связь с картой
-	go_move(); //движение бота
-	ai(); //поведение к игроку
+	interactionWithMap(); //СЃРІСЏР·СЊ СЃ РєР°СЂС‚РѕР№
+	go_move(); //РґРІРёР¶РµРЅРёРµ Р±РѕС‚Р°
+	ai(); //РїРѕРІРµРґРµРЅРёРµ Рє РёРіСЂРѕРєСѓ
 
-	if (pidOp != 0) //если видит противника
+	if (pidOp != 0) //РµСЃР»Рё РІРёРґРёС‚ РїСЂРѕС‚РёРІРЅРёРєР°
 		attacks();
 
-	if (xp <= 0) life = false;
+	if (hp <= 0) life = false;
 }
 
 void Papyrus::special_attack()
 {
-	//замедление противника
+	//Р·Р°РјРµРґР»РµРЅРёРµ РїСЂРѕС‚РёРІРЅРёРєР°
 	if (attack::time < timerSpecialAt) return;
 	if (!life_attack) {
 		attack::time = 0; clock.restart();
 		timerSpecialAt = 0;
-	} //нужен счетчик времени атаки
+	} //РЅСѓР¶РµРЅ СЃС‡РµС‚С‡РёРє РІСЂРµРјРµРЅРё Р°С‚Р°РєРё
 
 	life_attack = true;
 
-	attack::world->getEntity(jOp)->setSpeed(attack::world->getEntity(jOp)->getSpeed() / 3); //замедляем
+	attack::world->getEntity(jOp)->setSpeed(attack::world->getEntity(jOp)->getSpeed() / 3); //Р·Р°РјРµРґР»СЏРµРј
 	attack::world->getEntity(jOp)->getModel()->setColor(Color(230, 146, 60));
 
-	if (attack::time > 10) life_attack = false; //конец если замедление используется больше 10 сек
-	if (!life_attack) { //конец атаки
-		attack::world->getEntity(jOp)->getModel()->setColor(Color::White); //возвращаем цвет
+	if (attack::time > 10) life_attack = false; //РєРѕРЅРµС† РµСЃР»Рё Р·Р°РјРµРґР»РµРЅРёРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ Р±РѕР»СЊС€Рµ 10 СЃРµРє
+	if (!life_attack) { //РєРѕРЅРµС† Р°С‚Р°РєРё
+		attack::world->getEntity(jOp)->getModel()->setColor(Color::White); //РІРѕР·РІСЂР°С‰Р°РµРј С†РІРµС‚
 		timerSpecialAt = attack::time + 20;
 	}
 }
 
 void Papyrus::attacks()
 {
-	pr->posX = new float(attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2); //сделаем отслеживание позиции противника
+	pr->posX = new float(attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2); //СЃРґРµР»Р°РµРј РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РїРѕР·РёС†РёРё РїСЂРѕС‚РёРІРЅРёРєР°
 	pr->posY = new float(attack::world->getEntity(jOp)->getPos().y + attack::world->getEntity(jOp)->getHeight() / 2);
 
 	attack::time = clock.getElapsedTime().asSeconds();
-	//----------------------------------------------Условия запуса атак
-	//1 способность (признаки)
-	if (true) //условие - пока позволяет перезарядка
+	//----------------------------------------------РЈСЃР»РѕРІРёСЏ Р·Р°РїСѓСЃР° Р°С‚Р°Рє
+	//1 СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ (РїСЂРёР·РЅР°РєРё)
+	if (true) //СѓСЃР»РѕРІРёРµ - РїРѕРєР° РїРѕР·РІРѕР»СЏРµС‚ РїРµСЂРµР·Р°СЂСЏРґРєР°
 		AttackMode.setNum(1, true);
 
-	//2 способности нет, итак слишком жесткий
+	//2 СЃРїРѕСЃРѕР±РЅРѕСЃС‚Рё РЅРµС‚, РёС‚Р°Рє СЃР»РёС€РєРѕРј Р¶РµСЃС‚РєРёР№
 
-	//3 способность
-	if (true) { //условие - пока позволяет перезарядка
+	//3 СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
+	if (true) { //СѓСЃР»РѕРІРёРµ - РїРѕРєР° РїРѕР·РІРѕР»СЏРµС‚ РїРµСЂРµР·Р°СЂСЏРґРєР°
 		num3_ = true;
 		timerNum3 = attack::time + 10;
-		pr->currentAt = pr->at3; //делаем текущую атаку 3
+		pr->currentAt = pr->at3; //РґРµР»Р°РµРј С‚РµРєСѓС‰СѓСЋ Р°С‚Р°РєСѓ 3
 	}
 	//----------
 
-	if (*AttackMode.getPr()->xp != *AttackMode.getPr()->maxXp) //наступает когда его ранят
-		special_attack(); //замедление от папируса
+	if (*AttackMode.getPr()->hp != *AttackMode.getPr()->maxHp) //РЅР°СЃС‚СѓРїР°РµС‚ РєРѕРіРґР° РµРіРѕ СЂР°РЅСЏС‚
+		special_attack(); //Р·Р°РјРµРґР»РµРЅРёРµ РѕС‚ РїР°РїРёСЂСѓСЃР°
 
-	// 3 атака (атака создает обьекты (множественная атака))
-	if (num3_) //3 атака
+	// 3 Р°С‚Р°РєР° (Р°С‚Р°РєР° СЃРѕР·РґР°РµС‚ РѕР±СЊРµРєС‚С‹ (РјРЅРѕР¶РµСЃС‚РІРµРЅРЅР°СЏ Р°С‚Р°РєР°))
+	if (num3_) //3 Р°С‚Р°РєР°
 	{
-		//В данном случае мы не используем AttackSystem т.к нам нужны немного другие свойства и алгоритм атаки
+		//Р’ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ РјС‹ РЅРµ РёСЃРїРѕР»СЊР·СѓРµРј AttackSystem С‚.Рє РЅР°Рј РЅСѓР¶РЅС‹ РЅРµРјРЅРѕРіРѕ РґСЂСѓРіРёРµ СЃРІРѕР№СЃС‚РІР° Рё Р°Р»РіРѕСЂРёС‚Рј Р°С‚Р°РєРё
 		attack3();
-		if (!life_attack) //атака обьекта закончилась - перезапускаем
+		if (!life_attack) //Р°С‚Р°РєР° РѕР±СЊРµРєС‚Р° Р·Р°РєРѕРЅС‡РёР»Р°СЃСЊ - РїРµСЂРµР·Р°РїСѓСЃРєР°РµРј
 			BlockVidE = 0;
 
-		if (timerNum3 < attack::time && !life_attack) //таймер истек - атака закончилась
+		if (timerNum3 < attack::time && !life_attack) //С‚Р°Р№РјРµСЂ РёСЃС‚РµРє - Р°С‚Р°РєР° Р·Р°РєРѕРЅС‡РёР»Р°СЃСЊ
 			num3_ = false;
 	}
 
@@ -231,17 +231,17 @@ void Papyrus::attacks()
 
 void Papyrus::attack3()
 {
-	// создание вокруг пройтивника лучей
+	// СЃРѕР·РґР°РЅРёРµ РІРѕРєСЂСѓРі РїСЂРѕР№С‚РёРІРЅРёРєР° Р»СѓС‡РµР№
 	if (BlockVidE == 0)
 	{
 		Vector2f end, begin;
 		distantion = 30;
 		
-		end.x = attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2; //поиск и сохранение позиций противника
+		end.x = attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2; //РїРѕРёСЃРє Рё СЃРѕС…СЂР°РЅРµРЅРёРµ РїРѕР·РёС†РёР№ РїСЂРѕС‚РёРІРЅРёРєР°
 		end.y = attack::world->getEntity(jOp)->getPos().y + attack::world->getEntity(jOp)->getHeight() / 2;
 		//---------------------------
 		int idx = 1;
-		begin.x = rand() % 820 - 300; //установка координат относительно зоны игрока end точки
+		begin.x = rand() % 820 - 300; //СѓСЃС‚Р°РЅРѕРІРєР° РєРѕРѕСЂРґРёРЅР°С‚ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ Р·РѕРЅС‹ РёРіСЂРѕРєР° end С‚РѕС‡РєРё
 		
 		if (begin.x < 0) idx = -1;
 		begin.y = 520 - begin.x * idx;
@@ -249,7 +249,7 @@ void Papyrus::attack3()
 		if (rand() % 2 == 1) begin.x *= -1;
 		if (rand() % 2 == 0) begin.y *= -1; 
 		
-		begin.x = end.x + begin.x; //координаты begin переводим из относительных координат в мировые
+		begin.x = end.x + begin.x; //РєРѕРѕСЂРґРёРЅР°С‚С‹ begin РїРµСЂРµРІРѕРґРёРј РёР· РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚ РІ РјРёСЂРѕРІС‹Рµ
 		begin.y = end.y + begin.y;
 		
 		end.x /= SAAttack->SizeTile;
@@ -258,8 +258,8 @@ void Papyrus::attack3()
 		begin.y /= SAAttack->SizeTile;
 		//---------------------------
 		
-		Vector2f* ms = algorithmLine(begin, end);  //единственный минус - стандартный макс размер в 20
-		for (int j = 0; j < 20; j++) { //перевод в используемый формат
+		Vector2f* ms = algorithmLine(begin, end);  //РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№ РјРёРЅСѓСЃ - СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РјР°РєСЃ СЂР°Р·РјРµСЂ РІ 20
+		for (int j = 0; j < 20; j++) { //РїРµСЂРµРІРѕРґ РІ РёСЃРїРѕР»СЊР·СѓРµРјС‹Р№ С„РѕСЂРјР°С‚
 			x_attack[j] = ms->x;
 			y_attack[j] = ms->y;
 			x_attack[j] *= SAAttack->SizeTile;
@@ -270,7 +270,7 @@ void Papyrus::attack3()
 		delay_attack[0] = 1;
 		duration_attack[18] = 1;
 		type_attack = Do;
-		SAAttack->SizeTile = 32; //может быть ошибка
+		SAAttack->SizeTile = 32; //РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС€РёР±РєР°
 		life_attack = true;
 		BlockVidE = 1;
 	}
@@ -300,71 +300,71 @@ void Sans::update()
 {
 	gamer.setPosition(x, y);
 	hb.setPosition(x - 10, y - 10);
-	hb.setProgress((float)xp / (float)max_Xp);
-	hb.setXp(xp, max_Xp);
+	hb.setProgress((float)hp / (float)max_hp);
+	hb.setHp(hp, max_hp);
 
 	controlEnemy();
-	interactionWithMap(); //связь с картой
-	go_move(); //движение бота
-	ai(); //поведение к игроку
+	interactionWithMap(); //СЃРІСЏР·СЊ СЃ РєР°СЂС‚РѕР№
+	go_move(); //РґРІРёР¶РµРЅРёРµ Р±РѕС‚Р°
+	ai(); //РїРѕРІРµРґРµРЅРёРµ Рє РёРіСЂРѕРєСѓ
 
-	attacks(); //Pid у Санса фиксируется даже когда он потерял из виду врага
+	attacks(); //Pid Сѓ РЎР°РЅСЃР° С„РёРєСЃРёСЂСѓРµС‚СЃСЏ РґР°Р¶Рµ РєРѕРіРґР° РѕРЅ РїРѕС‚РµСЂСЏР» РёР· РІРёРґСѓ РІСЂР°РіР°
 	AttackMode.go_attack();
 
-	if (xp <= 0) life = false;
+	if (hp <= 0) life = false;
 }
 
 void Sans::special_attack()
 {
-	//особая способность санса изменение координат противника
-	if (!life_attack) { //атака только начинается
-		clock_Sp.restart(); //нужен счетчик времени атаки
+	//РѕСЃРѕР±Р°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ СЃР°РЅСЃР° РёР·РјРµРЅРµРЅРёРµ РєРѕРѕСЂРґРёРЅР°С‚ РїСЂРѕС‚РёРІРЅРёРєР°
+	if (!life_attack) { //Р°С‚Р°РєР° С‚РѕР»СЊРєРѕ РЅР°С‡РёРЅР°РµС‚СЃСЏ
+		clock_Sp.restart(); //РЅСѓР¶РµРЅ СЃС‡РµС‚С‡РёРє РІСЂРµРјРµРЅРё Р°С‚Р°РєРё
 		DelaySpAt = 0;
 		BlockVidE = 0;
 		life_attack = true;
 	}
 	
 	TimerSp = clock_Sp.getElapsedTime().asSeconds() + 1;
-	if (TimerSp < DelaySpAt) return; //регулирование скорости задержкой
+	if (TimerSp < DelaySpAt) return; //СЂРµРіСѓР»РёСЂРѕРІР°РЅРёРµ СЃРєРѕСЂРѕСЃС‚Рё Р·Р°РґРµСЂР¶РєРѕР№
 
-	if (BlockVidE == 0) //находим начальную и конечную точки
+	if (BlockVidE == 0) //РЅР°С…РѕРґРёРј РЅР°С‡Р°Р»СЊРЅСѓСЋ Рё РєРѕРЅРµС‡РЅСѓСЋ С‚РѕС‡РєРё
 	{
-		posX_VidE = attack::world->getEntity(jOp)->getPos().x + 500; //конечные точки
+		posX_VidE = attack::world->getEntity(jOp)->getPos().x + 500; //РєРѕРЅРµС‡РЅС‹Рµ С‚РѕС‡РєРё
 		posY_VidE = attack::world->getEntity(jOp)->getPos().y + 400;
 		
-		saveX_VidE = attack::world->getEntity(jOp)->getPos().x - attack::world->getEntity(jOp)->getWidth() / 2 - posX_VidE; //дистанция от начала до конца
+		saveX_VidE = attack::world->getEntity(jOp)->getPos().x - attack::world->getEntity(jOp)->getWidth() / 2 - posX_VidE; //РґРёСЃС‚Р°РЅС†РёСЏ РѕС‚ РЅР°С‡Р°Р»Р° РґРѕ РєРѕРЅС†Р°
 		saveY_VidE = attack::world->getEntity(jOp)->getPos().y - attack::world->getEntity(jOp)->getHeight() / 2 - posY_VidE;
 
 		BlockVidE = 1;
 	}
 	
-	//алгоритм построение отрезка (в данном случае мы не используем algorithmLine т.к нам нужны другие данные)
-	float poX = saveX_VidE; //переведем во float
+	//Р°Р»РіРѕСЂРёС‚Рј РїРѕСЃС‚СЂРѕРµРЅРёРµ РѕС‚СЂРµР·РєР° (РІ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ РјС‹ РЅРµ РёСЃРїРѕР»СЊР·СѓРµРј algorithmLine С‚.Рє РЅР°Рј РЅСѓР¶РЅС‹ РґСЂСѓРіРёРµ РґР°РЅРЅС‹Рµ)
+	float poX = saveX_VidE; //РїРµСЂРµРІРµРґРµРј РІРѕ float
 	float poY = saveY_VidE;
 	int nx = 0, ny = 0;
-	float dx = 0, dy = 0; //переменные (на сколько суммировать позицию? чтобы дойти до конца отрезка)
+	float dx = 0, dy = 0; //РїРµСЂРµРјРµРЅРЅС‹Рµ (РЅР° СЃРєРѕР»СЊРєРѕ СЃСѓРјРјРёСЂРѕРІР°С‚СЊ РїРѕР·РёС†РёСЋ? С‡С‚РѕР±С‹ РґРѕР№С‚Рё РґРѕ РєРѕРЅС†Р° РѕС‚СЂРµР·РєР°)
 
-	if (saveX_VidE + posX_VidE < posX_VidE) nx = 1; else nx = -1; //по графику
+	if (saveX_VidE + posX_VidE < posX_VidE) nx = 1; else nx = -1; //РїРѕ РіСЂР°С„РёРєСѓ
 	if (saveY_VidE + posY_VidE < posY_VidE) ny = 1; else ny = -1;
 	
-	if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
+	if (poX / poY > 1 || poX / poY < -1) { //РµСЃР»Рё x РїСЂРµРІС‹С€Р°РµС‚ 1 С‚Рѕ x = 1 Р° y < 1
 
-		dx = nx; //высчитываем алгоритм прибавления для равномерной уменьшении дистанции
+		dx = nx; //РІС‹СЃС‡РёС‚С‹РІР°РµРј Р°Р»РіРѕСЂРёС‚Рј РїСЂРёР±Р°РІР»РµРЅРёСЏ РґР»СЏ СЂР°РІРЅРѕРјРµСЂРЅРѕР№ СѓРјРµРЅСЊС€РµРЅРёРё РґРёСЃС‚Р°РЅС†РёРё
 		dy = poY / poX * nx;
 
-	} else { //наоборот
+	} else { //РЅР°РѕР±РѕСЂРѕС‚
 		dx = poX / poY * ny;
 		dy = ny;
 	}
 	/////////////////////////////////////////
-	//график скорости
+	//РіСЂР°С„РёРє СЃРєРѕСЂРѕСЃС‚Рё
 	DelaySpAt = TimerSp + 0.01;
-	int kof = pow(TimerSp, 6) * 4/*скорость*/;
+	int kof = pow(TimerSp, 6) * 4/*СЃРєРѕСЂРѕСЃС‚СЊ*/;
 	
 	if (TimerSp < 1.1) {
 		dx *= -1;
 		dy *= -1;
-	} //обратный ход
+	} //РѕР±СЂР°С‚РЅС‹Р№ С…РѕРґ
 
 	dx *= kof;
 	dy *= kof; 
@@ -372,14 +372,14 @@ void Sans::special_attack()
 	
 	if (attack::world->getEntity(jOp)->getPos().x >= posX_VidE &&
 		attack::world->getEntity(jOp)->getPos().y >= posY_VidE)
-		life_attack = false; //останавливаем при достижении точки конца 
+		life_attack = false; //РѕСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїСЂРё РґРѕСЃС‚РёР¶РµРЅРёРё С‚РѕС‡РєРё РєРѕРЅС†Р° 
 
- 	attack::world->getEntity(jOp)->addPos(dx, dy); //изменяем координаты
+ 	attack::world->getEntity(jOp)->addPos(dx, dy); //РёР·РјРµРЅСЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹
 	attack::world->getEntity(jOp)->getModel()->setColor(Color::Blue);
 
-	if (!life_attack) { //конец атаки
-		attack::world->getEntity(jOp)->getModel()->setColor(Color::White); //возвращаем цвет
-		attack::world->getEntity(jOp)->updateXp(10); //урон
+	if (!life_attack) { //РєРѕРЅРµС† Р°С‚Р°РєРё
+		attack::world->getEntity(jOp)->getModel()->setColor(Color::White); //РІРѕР·РІСЂР°С‰Р°РµРј С†РІРµС‚
+		attack::world->getEntity(jOp)->updateHp(10); //СѓСЂРѕРЅ
 		DelaySpAt = TimerSp + 5;
 	}
 }
@@ -387,58 +387,58 @@ void Sans::special_attack()
 void Sans::attacks()
 {
 	bool BlockAi = false;
-	bool SPNum4 = false; //переменная активирующая спец атаку санса
+	bool SPNum4 = false; //РїРµСЂРµРјРµРЅРЅР°СЏ Р°РєС‚РёРІРёСЂСѓСЋС‰Р°СЏ СЃРїРµС† Р°С‚Р°РєСѓ СЃР°РЅСЃР°
 
-	pr->posX = new float(attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2); //сделаем отслеживание позиции противника
+	pr->posX = new float(attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2); //СЃРґРµР»Р°РµРј РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РїРѕР·РёС†РёРё РїСЂРѕС‚РёРІРЅРёРєР°
 	pr->posY = new float(attack::world->getEntity(jOp)->getPos().y + attack::world->getEntity(jOp)->getHeight() / 2);
 
-	attack::time = clock.getElapsedTime().asSeconds(); //таймер не имеет никакого отношения к AttackMode
+	attack::time = clock.getElapsedTime().asSeconds(); //С‚Р°Р№РјРµСЂ РЅРµ РёРјРµРµС‚ РЅРёРєР°РєРѕРіРѕ РѕС‚РЅРѕС€РµРЅРёСЏ Рє AttackMode
 	//-----------------------------------------------------------------
 	
-	//Признаки и следствия активации телепорта и спец атаки
-	if (xp < max_Xp)
+	//РџСЂРёР·РЅР°РєРё Рё СЃР»РµРґСЃС‚РІРёСЏ Р°РєС‚РёРІР°С†РёРё С‚РµР»РµРїРѕСЂС‚Р° Рё СЃРїРµС† Р°С‚Р°РєРё
+	if (hp < max_hp)
 	if (*AttackMode.getPr()->x - attack::world->getEntity(jOp)->getPos().x > 1500 ||
 		*AttackMode.getPr()->x - attack::world->getEntity(jOp)->getPos().x < -1500 ||
 		*AttackMode.getPr()->y - attack::world->getEntity(jOp)->getPos().y > 1500 ||
 		*AttackMode.getPr()->y - attack::world->getEntity(jOp)->getPos().y < -1500)
-		teleport_ = true; //телепорт если противник далеко
+		teleport_ = true; //С‚РµР»РµРїРѕСЂС‚ РµСЃР»Рё РїСЂРѕС‚РёРІРЅРёРє РґР°Р»РµРєРѕ
 
 	if (attack::world->getEntity(jOp)->getPos().x > x - 200 &&
 		attack::world->getEntity(jOp)->getPos().x < x + 200 &&
 		attack::world->getEntity(jOp)->getPos().y > y - 200 &&
 		attack::world->getEntity(jOp)->getPos().y < y + 200)
-		SPNum4 = true; //если близко к себе отталкивание
+		SPNum4 = true; //РµСЃР»Рё Р±Р»РёР·РєРѕ Рє СЃРµР±Рµ РѕС‚С‚Р°Р»РєРёРІР°РЅРёРµ
 	
 	//--------------------------------
-	//1 атака
-	if ((!SPNum4 && AttackMode.getNum(2)) || //если SPNum4(спец.атака) не активна 
-		(attack::world->getEntity(jOp)->getXp() < attack::world->getEntity(jOp)->getMaxXp() / 10)) //если у противника меньше 10% хп (добить)
+	//1 Р°С‚Р°РєР°
+	if ((!SPNum4 && AttackMode.getNum(2)) || //РµСЃР»Рё SPNum4(СЃРїРµС†.Р°С‚Р°РєР°) РЅРµ Р°РєС‚РёРІРЅР° 
+		(attack::world->getEntity(jOp)->getHp() < attack::world->getEntity(jOp)->getMaxHp() / 10)) //РµСЃР»Рё Сѓ РїСЂРѕС‚РёРІРЅРёРєР° РјРµРЅСЊС€Рµ 10% С…Рї (РґРѕР±РёС‚СЊ)
 			AttackMode.setNum(1, true);
 
-	//2 атака
+	//2 Р°С‚Р°РєР°
 	if ((attack::world->getEntity(jOp)->getPos().x < x - 200 && attack::world->getEntity(jOp)->getPos().x > x - 600) ||
 		(attack::world->getEntity(jOp)->getPos().x > x + 200 && attack::world->getEntity(jOp)->getPos().x < x + 600) ||
 		(attack::world->getEntity(jOp)->getPos().y < y - 200 && attack::world->getEntity(jOp)->getPos().y > y - 600) ||
-		(attack::world->getEntity(jOp)->getPos().y > y + 200 && attack::world->getEntity(jOp)->getPos().y < y + 600)) //средняя дистанция
+		(attack::world->getEntity(jOp)->getPos().y > y + 200 && attack::world->getEntity(jOp)->getPos().y < y + 600)) //СЃСЂРµРґРЅСЏСЏ РґРёСЃС‚Р°РЅС†РёСЏ
 		AttackMode.setNum(2, true); 
 
-	//3 атака
+	//3 Р°С‚Р°РєР°
 	if (teleport_ ||
-		attack::world->getEntity(jOp)->getXp() < attack::world->getEntity(jOp)->getMaxXp() / 4) //если у противника меньше 25% хп (добить)
+		attack::world->getEntity(jOp)->getHp() < attack::world->getEntity(jOp)->getMaxHp() / 4) //РµСЃР»Рё Сѓ РїСЂРѕС‚РёРІРЅРёРєР° РјРµРЅСЊС€Рµ 25% С…Рї (РґРѕР±РёС‚СЊ)
 		AttackMode.setNum(3, true);
 	//---------------------------------------
 
-	if (teleport_ && attack::time > RechargeTeleport) //использование отброса после телепорта
-		if (rand() & 10 + 1 > 7) SPNum4 = true; //с шансом 30%
+	if (teleport_ && attack::time > RechargeTeleport) //РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ РѕС‚Р±СЂРѕСЃР° РїРѕСЃР»Рµ С‚РµР»РµРїРѕСЂС‚Р°
+		if (rand() & 10 + 1 > 7) SPNum4 = true; //СЃ С€Р°РЅСЃРѕРј 30%
 
-	if (teleport_) { //телепорт санса
+	if (teleport_) { //С‚РµР»РµРїРѕСЂС‚ СЃР°РЅСЃР°
 		teleport();
 		teleport_ = false; 
 		BlockAi = true;
 	}
 	
 	if (life_attack || SPNum4) {
-		special_attack(); //спец атака 
+		special_attack(); //СЃРїРµС† Р°С‚Р°РєР° 
 		teleport_ = false;
 		SPNum4 = false;
 	}
@@ -446,11 +446,11 @@ void Sans::attacks()
 
 void Sans::teleport()
 {
-	if (RechargeTeleport < attack::time) BlockVidE = 0; //перезарядка навыка телепорта
+	if (RechargeTeleport < attack::time) BlockVidE = 0; //РїРµСЂРµР·Р°СЂСЏРґРєР° РЅР°РІС‹РєР° С‚РµР»РµРїРѕСЂС‚Р°
 	if (BlockVidE != 0) return;
-	RechargeTeleport = attack::time + 2; //таймер для перезарядки
+	RechargeTeleport = attack::time + 2; //С‚Р°Р№РјРµСЂ РґР»СЏ РїРµСЂРµР·Р°СЂСЏРґРєРё
 	
-	//Изменение своих координат
+	//РР·РјРµРЅРµРЅРёРµ СЃРІРѕРёС… РєРѕРѕСЂРґРёРЅР°С‚
 	x = attack::world->getEntity(jOp)->getPos().x + rand() % 1000 - 500;
 	y = attack::world->getEntity(jOp)->getPos().y + rand() % 1000 - 500;
 

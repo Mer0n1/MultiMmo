@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include "Animation.h"
 
 AnimationAttackModule::AnimationAttackModule()
 {

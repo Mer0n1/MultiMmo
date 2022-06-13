@@ -1,20 +1,20 @@
-#include "Profile.h"
+п»ї#include "Profile.h"
 #include "Windows.h"
 
 Profile::Profile() 
 {
 	texture[0].loadFromFile("Textures/profile/MenuProfile.png");
-	texture[1].loadFromFile("Textures/profile/character_fon.jpg"); //фон персонажа
+	texture[1].loadFromFile("Textures/profile/character_fon.jpg"); //С„РѕРЅ РїРµСЂСЃРѕРЅР°Р¶Р°
 	texture[2].loadFromFile("Textures/profile/button.png");
 	texture[3] = texture[2];
 	texture[4].loadFromFile("Textures/profile/characterInv.png");
 	texture[5].loadFromFile("Textures/profile/abilityInv.png");
 	texture[6].loadFromFile("Textures/profile/frameAbility.png");
-	texture[8] = texture[7] = texture[6]; //3 особых способности
-	texture[9].loadFromFile("Textures/profile/Inv.png"); //интерфейс инвентаря
-	texture[10].loadFromFile("Textures/profile/interface.png"); //интерфейс характеристик
-	//texture[11].loadFromFile("Textures/profile/Options.png"); //значок настроек
-	texture[12].loadFromFile("Textures/profile/exit.png"); //значок выхода
+	texture[8] = texture[7] = texture[6]; //3 РѕСЃРѕР±С‹С… СЃРїРѕСЃРѕР±РЅРѕСЃС‚Рё
+	texture[9].loadFromFile("Textures/profile/Inv.png"); //РёРЅС‚РµСЂС„РµР№СЃ РёРЅРІРµРЅС‚Р°СЂСЏ
+	texture[10].loadFromFile("Textures/profile/interface.png"); //РёРЅС‚РµСЂС„РµР№СЃ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє
+	//texture[11].loadFromFile("Textures/profile/Options.png"); //Р·РЅР°С‡РѕРє РЅР°СЃС‚СЂРѕРµРє
+	texture[12].loadFromFile("Textures/profile/exit.png"); //Р·РЅР°С‡РѕРє РІС‹С…РѕРґР°
 	texture[13].loadFromFile("Textures/profile/frameCharacter.png");
 	texture[14].loadFromFile("Textures/profile/TestFon.jpg");
 	texture[15] = texture[2];
@@ -48,22 +48,22 @@ Profile::Profile()
 		text[j].setString("");
 		values[j] = text[j];
 	}
-	text[0].setString("Ширина: ");
-	text[1].setString("Высота: ");
-	text[2].setString("Урон обычного удара: ");
-	text[3].setString("Урон 1 атаки: ");
-	text[4].setString("Урон 2 атаки: ");
-	text[5].setString("Урон 3 атаки: ");
-	text[6].setString("Здоровье: ");
-	text[7].setString("Скорость: ");
-	text[8].setString("Информация");
-	text[9].setString("Название аккаунта");
-	text[10].setString("Имя персонажа");
-	text[11].setString("Редактор");
-	text[12].setString("Мир");
+	text[0].setString("РЁРёСЂРёРЅР°: ");
+	text[1].setString("Р’С‹СЃРѕС‚Р°: ");
+	text[2].setString("РЈСЂРѕРЅ РѕР±С‹С‡РЅРѕРіРѕ СѓРґР°СЂР°: ");
+	text[3].setString("РЈСЂРѕРЅ 1 Р°С‚Р°РєРё: ");
+	text[4].setString("РЈСЂРѕРЅ 2 Р°С‚Р°РєРё: ");
+	text[5].setString("РЈСЂРѕРЅ 3 Р°С‚Р°РєРё: ");
+	text[6].setString("Р—РґРѕСЂРѕРІСЊРµ: ");
+	text[7].setString("РЎРєРѕСЂРѕСЃС‚СЊ: ");
+	text[8].setString("РРЅС„РѕСЂРјР°С†РёСЏ");
+	text[9].setString("РќР°Р·РІР°РЅРёРµ Р°РєРєР°СѓРЅС‚Р°");
+	text[10].setString("РРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°");
+	text[11].setString("Р РµРґР°РєС‚РѕСЂ");
+	text[12].setString("РњРёСЂ");
 	text[13].setString("<");
 	text[14].setString(">");
-	text[15].setString("Выбрать карту");
+	text[15].setString("Р’С‹Р±СЂР°С‚СЊ РєР°СЂС‚Сѓ");
 	//text[16].setString("ID: "); 
 	//text[17].setString("PID: ");
 
@@ -106,7 +106,7 @@ Profile::Profile()
 	text[7].setColor(Color(108, 167, 207));
 	//----
 
-	//Инициализация переменных
+	//РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїРµСЂРµРјРµРЅРЅС‹С…
 	for (int j = 0; j < 3; j++) {
 		CurSAElements[j] = new SAElementInv();
 		CurSAElements[j]->sprite.setTexture(texture[6]);
@@ -117,7 +117,7 @@ Profile::Profile()
 	CurCh->id = 0; 
 
 	CurMap = new infoMap(); 
-	CurMap->name = "Valley"; //т.к карта стоит по стандарту
+	CurMap->name = "Valley"; //С‚.Рє РєР°СЂС‚Р° СЃС‚РѕРёС‚ РїРѕ СЃС‚Р°РЅРґР°СЂС‚Сѓ
 } 
 
 void Profile::menu(RenderWindow& window)
@@ -137,35 +137,35 @@ void Profile::menu(RenderWindow& window)
 			else if (events.type == Event::MouseWheelMoved);
 		}
 		
-		//----Отслеживание мышки
-		if (IntRect(70, 300, 170, 40).contains(Mouse::getPosition(window))) { menunum = 1; } //редактор
-		if (IntRect(70, 350, 170, 40).contains(Mouse::getPosition(window))) { menunum = 2; } //вход в мир
-		if (IntRect(240, 200, 70, 70).contains(Mouse::getPosition(window))) { menunum = 3; } //инвентарь персов
-		if (IntRect(600, 300, 70, 70).contains(Mouse::getPosition(window))) { menunum = 4; } //инвентарь ос
+		//----РћС‚СЃР»РµР¶РёРІР°РЅРёРµ РјС‹С€РєРё
+		if (IntRect(70, 300, 170, 40).contains(Mouse::getPosition(window))) { menunum = 1; } //СЂРµРґР°РєС‚РѕСЂ
+		if (IntRect(70, 350, 170, 40).contains(Mouse::getPosition(window))) { menunum = 2; } //РІС…РѕРґ РІ РјРёСЂ
+		if (IntRect(240, 200, 70, 70).contains(Mouse::getPosition(window))) { menunum = 3; } //РёРЅРІРµРЅС‚Р°СЂСЊ РїРµСЂСЃРѕРІ
+		if (IntRect(600, 300, 70, 70).contains(Mouse::getPosition(window))) { menunum = 4; } //РёРЅРІРµРЅС‚Р°СЂСЊ РѕСЃ
 
-		if (IntRect(80, 170, 30, 30).contains(Mouse::getPosition(window))) { menunum = 8; } //две стрелочки переключения персонажа
+		if (IntRect(80, 170, 30, 30).contains(Mouse::getPosition(window))) { menunum = 8; } //РґРІРµ СЃС‚СЂРµР»РѕС‡РєРё РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ РїРµСЂСЃРѕРЅР°Р¶Р°
 		if (IntRect(220, 170, 30, 30).contains(Mouse::getPosition(window))) { menunum = 9; } //
-		if (IntRect(70, 420, 170, 40).contains(Mouse::getPosition(window))) { menunum = 11; } //меню выбора карты
+		if (IntRect(70, 420, 170, 40).contains(Mouse::getPosition(window))) { menunum = 11; } //РјРµРЅСЋ РІС‹Р±РѕСЂР° РєР°СЂС‚С‹
 
 		if (IntRect(sprite[12].getPosition().x, sprite[12].getPosition().y, 45, 45).contains(Mouse::getPosition(window)))  
-			menunum = 10;  //кнопка выхода
+			menunum = 10;  //РєРЅРѕРїРєР° РІС‹С…РѕРґР°
 
-		for (int j = 0; j < 3; j++) //выбрать 3 способности
+		for (int j = 0; j < 3; j++) //РІС‹Р±СЂР°С‚СЊ 3 СЃРїРѕСЃРѕР±РЅРѕСЃС‚Рё
 			if (IntRect(330 + j * 100, 280, 100, 100).contains(Mouse::getPosition(window))) 
-				menunum = 5 + j; //инвентарь ос
+				menunum = 5 + j; //РёРЅРІРµРЅС‚Р°СЂСЊ РѕСЃ
 		
-		if (Mouse::isButtonPressed(Mouse::Left)) //при нажатии 
+		if (Mouse::isButtonPressed(Mouse::Left)) //РїСЂРё РЅР°Р¶Р°С‚РёРё 
 		{
-			if (menunum == 1) redactor.menu(window); //зайти в редактор
+			if (menunum == 1) redactor.menu(window); //Р·Р°Р№С‚Рё РІ СЂРµРґР°РєС‚РѕСЂ
 			if (menunum == 3) Character_Inventor(window);
 			if (menunum == 4) SA_Inventor(window, 0);
 			if (menunum == 11) SelectingMap(window);
 
-			if (menunum == 5) SA_Inventor(window, 1); //3 текущих способности
+			if (menunum == 5) SA_Inventor(window, 1); //3 С‚РµРєСѓС‰РёС… СЃРїРѕСЃРѕР±РЅРѕСЃС‚Рё
 			if (menunum == 6) SA_Inventor(window, 2);
 			if (menunum == 7) SA_Inventor(window, 3);
 
-			if (menunum == 2) { //зайти в движок (инициализирование настроек движка перед его открытием)
+			if (menunum == 2) { //Р·Р°Р№С‚Рё РІ РґРІРёР¶РѕРє (РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅРёРµ РЅР°СЃС‚СЂРѕРµРє РґРІРёР¶РєР° РїРµСЂРµРґ РµРіРѕ РѕС‚РєСЂС‹С‚РёРµРј)
 				engine.LoadMap(CurMap->name);
 				engine.start(window);
 			} 
@@ -197,35 +197,35 @@ void Profile::menu(RenderWindow& window)
 				Sleep(200);
 			}
 
-			if (menunum == 10) exit(0); //выход
+			if (menunum == 10) exit(0); //РІС‹С…РѕРґ
 		}
 		
 		//Draw - display
 		window.clear();
 
-		window.draw(sprite[0]); //фон
+		window.draw(sprite[0]); //С„РѕРЅ
 
-		window.draw(sprite[10]); //интерфейс для характеристик
-		window.draw(sprite[11]); //значок настроек
-		window.draw(sprite[12]); //значок выхода
+		window.draw(sprite[10]); //РёРЅС‚РµСЂС„РµР№СЃ РґР»СЏ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє
+		window.draw(sprite[11]); //Р·РЅР°С‡РѕРє РЅР°СЃС‚СЂРѕРµРє
+		window.draw(sprite[12]); //Р·РЅР°С‡РѕРє РІС‹С…РѕРґР°
 
-		window.draw(sprite[2]); //кнопки
+		window.draw(sprite[2]); //РєРЅРѕРїРєРё
 		window.draw(sprite[3]); 
 		window.draw(sprite[15]);
 
 		for (int j = 0; j < 20; j++) {
-			window.draw(text[j]); //вывод всего текста
+			window.draw(text[j]); //РІС‹РІРѕРґ РІСЃРµРіРѕ С‚РµРєСЃС‚Р°
 			window.draw(values[j]);
 		}
 
-		window.draw(sprite[6]); //3 особых способности (рамки)
+		window.draw(sprite[6]); //3 РѕСЃРѕР±С‹С… СЃРїРѕСЃРѕР±РЅРѕСЃС‚Рё (СЂР°РјРєРё)
 		window.draw(sprite[7]);
 		window.draw(sprite[8]);
 
-		window.draw(sprite[4]); //инвентарь персонажей
-		window.draw(sprite[5]); //инвентарь особыъ способностей
+		window.draw(sprite[4]); //РёРЅРІРµРЅС‚Р°СЂСЊ РїРµСЂСЃРѕРЅР°Р¶РµР№
+		window.draw(sprite[5]); //РёРЅРІРµРЅС‚Р°СЂСЊ РѕСЃРѕР±С‹СЉ СЃРїРѕСЃРѕР±РЅРѕСЃС‚РµР№
 
-		window.draw(sprite[1]); //фон персонажа
+		window.draw(sprite[1]); //С„РѕРЅ РїРµСЂСЃРѕРЅР°Р¶Р°
 		window.draw(CurCh->sprite);
 
 		window.display();
@@ -234,7 +234,7 @@ void Profile::menu(RenderWindow& window)
 
 void Profile::SA_Inventor(RenderWindow& window, int arg)
 {
-	updateSA(); //обновить список особых способностей
+	updateSA(); //РѕР±РЅРѕРІРёС‚СЊ СЃРїРёСЃРѕРє РѕСЃРѕР±С‹С… СЃРїРѕСЃРѕР±РЅРѕСЃС‚РµР№
 
 	sprite[9].setScale(0.6, 1.02);
 	sprite[9].setPosition(395, 100);
@@ -257,40 +257,40 @@ void Profile::SA_Inventor(RenderWindow& window, int arg)
 			}
 
 		if (Keyboard::isKeyPressed(Keyboard::Escape)) 
-			break;  //выход
+			break;  //РІС‹С…РѕРґ
 		if (IntRect(sprite[9].getPosition().x, sprite[9].getPosition().y, 510, 410).contains(Mouse::getPosition(window)))
-			menunum = -1;  //выход при нажатии на область вне рамки
+			menunum = -1;  //РІС‹С…РѕРґ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РѕР±Р»Р°СЃС‚СЊ РІРЅРµ СЂР°РјРєРё
 
 		for (int j = 0; j < SAElements.size(); j++) 
 			if (IntRect(SAElements[j]->sprite.getPosition().x, SAElements[j]->sprite.getPosition().y, 300, 70).contains(Mouse::getPosition(window)))
-				menunum = SAElements[j]->id; //menunum будет равен наведенной idSA
+				menunum = SAElements[j]->id; //menunum Р±СѓРґРµС‚ СЂР°РІРµРЅ РЅР°РІРµРґРµРЅРЅРѕР№ idSA
 		
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			if (menunum == 0) { break; }   //выход при нажатии на область вне рамки
+			if (menunum == 0) { break; }   //РІС‹С…РѕРґ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РѕР±Р»Р°СЃС‚СЊ РІРЅРµ СЂР°РјРєРё
 
-			if (menunum != -1) //сменяем способность
-				if (CurSAElements[arg - 1]->id != menunum) { //проверяем не выставлена ли уже эта способность
+			if (menunum != -1) //СЃРјРµРЅСЏРµРј СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
+				if (CurSAElements[arg - 1]->id != menunum) { //РїСЂРѕРІРµСЂСЏРµРј РЅРµ РІС‹СЃС‚Р°РІР»РµРЅР° Р»Рё СѓР¶Рµ СЌС‚Р° СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ
 					CurSAElements[arg - 1]->id = menunum;
-					saveOptions_SA(arg - 1, menunum); //сохраняем изменение
+					saveOptions_SA(arg - 1, menunum); //СЃРѕС…СЂР°РЅСЏРµРј РёР·РјРµРЅРµРЅРёРµ
 					Sleep(200); break;
 				}
 			
 		}
 		
 		//-----------------------------------------------------
-		window.draw(sprite[9]); //фон
+		window.draw(sprite[9]); //С„РѕРЅ
 
 		for (int j = 0; j < SAElements.size(); j++)
 			if (SAElements[j]->sprite.getPosition().y >= 170 && 
-				SAElements[j]->sprite.getPosition().y <= 450) //позиция видимости
+				SAElements[j]->sprite.getPosition().y <= 450) //РїРѕР·РёС†РёСЏ РІРёРґРёРјРѕСЃС‚Рё
 			{
 				window.draw(SAElements[j]->sprite);
 				window.draw(SAElements[j]->name);
 				window.draw(SAElements[j]->idSA);
 			}
 
-		if (arg != 0) { //текущая способность не поддается скроллингу
+		if (arg != 0) { //С‚РµРєСѓС‰Р°СЏ СЃРїРѕСЃРѕР±РЅРѕСЃС‚СЊ РЅРµ РїРѕРґРґР°РµС‚СЃСЏ СЃРєСЂРѕР»Р»РёРЅРіСѓ
 			window.draw(CurSAElements[arg - 1]->sprite);
 			window.draw(CurSAElements[arg - 1]->idSA);
 			window.draw(CurSAElements[arg - 1]->name);
@@ -316,8 +316,8 @@ void Profile::Character_Inventor(RenderWindow& window)
 		{
 			if (events.type == Event::MouseWheelMoved)
 			{
-				if (events.mouseWheel.delta == 1) {} //для того чтобы менюшная картинка
-				if (events.mouseWheel.delta == -1) {} //двигалась вместе со скроллингом
+				if (events.mouseWheel.delta == 1) {} //РґР»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РјРµРЅСЋС€РЅР°СЏ РєР°СЂС‚РёРЅРєР°
+				if (events.mouseWheel.delta == -1) {} //РґРІРёРіР°Р»Р°СЃСЊ РІРјРµСЃС‚Рµ СЃРѕ СЃРєСЂРѕР»Р»РёРЅРіРѕРј
 
 				for (int j = 0; j < PElements.size(); j++)
 				{
@@ -328,18 +328,18 @@ void Profile::Character_Inventor(RenderWindow& window)
 		}
 		
 		if (IntRect(sprite[9].getPosition().x, sprite[9].getPosition().y, 530, 410).contains(Mouse::getPosition(window))) 
-			menunum = 1;  //выход
+			menunum = 1;  //РІС‹С…РѕРґ
 
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			if (menunum == 0) { break; } //выход
+			if (menunum == 0) { break; } //РІС‹С…РѕРґ
 		}
 		
-		window.draw(sprite[9]); //фон
+		window.draw(sprite[9]); //С„РѕРЅ
 		
 		for (int j = 0; j < PElements.size(); j++)
 			if (PElements[j]->sprite.getPosition().y >= 100 &&
-				PElements[j]->sprite.getPosition().y <= 345) { //показывать спрайты только в зоне видимости меню
+				PElements[j]->sprite.getPosition().y <= 345) { //РїРѕРєР°Р·С‹РІР°С‚СЊ СЃРїСЂР°Р№С‚С‹ С‚РѕР»СЊРєРѕ РІ Р·РѕРЅРµ РІРёРґРёРјРѕСЃС‚Рё РјРµРЅСЋ
 				window.draw(PElements[j]->frame);
 				window.draw(PElements[j]->sprite);
 			}
@@ -415,9 +415,9 @@ void Profile::saveOptions_SA(int numb, int id)
 	
 	while (true)
 	{
-		if (sizeQ->Attribute("id") == to_string(CurCh->id)) break; //проходимся по персонажам в поисках нужного id (из saveCharacter)
+		if (sizeQ->Attribute("id") == to_string(CurCh->id)) break; //РїСЂРѕС…РѕРґРёРјСЃСЏ РїРѕ РїРµСЂСЃРѕРЅР°Р¶Р°Рј РІ РїРѕРёСЃРєР°С… РЅСѓР¶РЅРѕРіРѕ id (РёР· saveCharacter)
 
-		if (!(sizeQ = sizeQ->NextSiblingElement("character"))) return; //если персонажей нет больше выходим
+		if (!(sizeQ = sizeQ->NextSiblingElement("character"))) return; //РµСЃР»Рё РїРµСЂСЃРѕРЅР°Р¶РµР№ РЅРµС‚ Р±РѕР»СЊС€Рµ РІС‹С…РѕРґРёРј
 	}
 	sizeQ = sizeQ->FirstChildElement("saveSA");
 
@@ -444,14 +444,14 @@ void Profile::updateSA()
 	TiXmlDocument object("Save/account.xml");
 	if (!object.LoadFile()) return;
 
-	//загрузка SA в вывод информации
+	//Р·Р°РіСЂСѓР·РєР° SA РІ РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё
 	TiXmlElement* SATiny;
 	SATiny = object.FirstChildElement("account")->FirstChildElement("inventor");
 
-	TiXmlElement* SAElement; //читает все SA элементы
+	TiXmlElement* SAElement; //С‡РёС‚Р°РµС‚ РІСЃРµ SA СЌР»РµРјРµРЅС‚С‹
 	SAElement = SATiny->FirstChildElement("SA");
 
-	for (int j = 0; j < SAElements.size(); j++) //сброс
+	for (int j = 0; j < SAElements.size(); j++) //СЃР±СЂРѕСЃ
 		delete SAElements[j];
 	SAElements.clear(); 
 
@@ -467,7 +467,7 @@ void Profile::updateSA()
 		SAElements.back()->id = atoi(SAElement->Attribute("id"));
 		
 		if (!(SAElement = SAElement->NextSiblingElement("SA")))
-			break; //если элементов больше нет выходим
+			break; //РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ РЅРµС‚ РІС‹С…РѕРґРёРј
 	}
 
 	for (int j = 0; j < SAElements.size(); j++) {
@@ -480,7 +480,7 @@ void Profile::updateSA()
 		SAElements[j]->sprite.move(0, 70);
 	}
 
-	//Обновление текущих выбранный SA
+	//РћР±РЅРѕРІР»РµРЅРёРµ С‚РµРєСѓС‰РёС… РІС‹Р±СЂР°РЅРЅС‹Р№ SA
 	TiXmlElement* uk = object.FirstChildElement("account")->FirstChildElement("inventor")->FirstChildElement("SA");
 	TiXmlElement* infoCharacter;
 
@@ -489,12 +489,12 @@ void Profile::updateSA()
 
 	infoCharacter = object.FirstChildElement("account")->FirstChildElement("character");
 
-	for (int j = 0; j < 50; j++) //поиск нашего id
+	for (int j = 0; j < 50; j++) //РїРѕРёСЃРє РЅР°С€РµРіРѕ id
 	{
-		if (idCh == infoCharacter->Attribute("id")) break; //если найдем наш айди то сохраняем путь
+		if (idCh == infoCharacter->Attribute("id")) break; //РµСЃР»Рё РЅР°Р№РґРµРј РЅР°С€ Р°Р№РґРё С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј РїСѓС‚СЊ
 
 		if (!(infoCharacter = infoCharacter->NextSiblingElement("character")))
-			break; //если элементов больше нет выходим
+			break; //РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ РЅРµС‚ РІС‹С…РѕРґРёРј
 	}
 
 	infoCharacter = infoCharacter->FirstChildElement("saveSA"); 
@@ -535,7 +535,7 @@ void Profile::updateCharacter()
 
 	TiXmlElement* infoCharacter = object.FirstChildElement("account")->FirstChildElement("character");
 
-	for (int j = 0; j < PElements.size(); j++) //сброс
+	for (int j = 0; j < PElements.size(); j++) //СЃР±СЂРѕСЃ
 		delete PElements[j];
 	PElements.clear();
 
@@ -556,10 +556,10 @@ void Profile::updateCharacter()
 		PElements[j]->At2 = atoi(currentCh->FirstChildElement("AttackDamage")->Attribute("At2"));
 		PElements[j]->At3 = atoi(currentCh->FirstChildElement("AttackDamage")->Attribute("At3"));
 		PElements[j]->speed = atoi(currentCh->FirstChildElement("Speed")->Attribute("Value"));
-		PElements[j]->xp = atoi(currentCh->FirstChildElement("Xp")->Attribute("Value"));
+		PElements[j]->hp = atoi(currentCh->FirstChildElement("Hp")->Attribute("Value"));
 		
 		if (!(infoCharacter = infoCharacter->NextSiblingElement("character")))
-			break; //если элементов больше нет выходим
+			break; //РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ РЅРµС‚ РІС‹С…РѕРґРёРј
 	}
 
 	infoCharacter = object.FirstChildElement("account")->FirstChildElement("saveCharacter");
@@ -579,18 +579,18 @@ void Profile::updateCharacter()
 	values[1].setString(to_string(CurCh->At1));
 	values[2].setString(to_string(CurCh->At2));
 	values[3].setString(to_string(CurCh->At3));
-	values[4].setString(to_string(CurCh->xp));
+	values[4].setString(to_string(CurCh->hp));
 	values[5].setString(to_string(CurCh->speed));
 	text[9].setString(CurCh->name); //update name account
 }
 
 void Profile::updateMaps()
-{
+{ 
 	//load maps
 	WIN32_FIND_DATAA findData;
 	HANDLE hf;
 
-	for (int j = 0; j < Maps.size(); j++) //сброс и удаление
+	for (int j = 0; j < Maps.size(); j++) //СЃР±СЂРѕСЃ Рё СѓРґР°Р»РµРЅРёРµ
 		delete Maps[j];
 	Maps.clear();
 

@@ -1,4 +1,4 @@
-#include <SFML/Graphics.hpp>
+п»ї#include <SFML/Graphics.hpp>
 #include <iostream>
 
 #include "Inventor.h"
@@ -11,16 +11,16 @@ using namespace sf;
 
 int main()
 {
-	RenderWindow window(VideoMode(800, 600), "MultiMmo");       //создание окна //800-600
-	
-	srand(time(0)); setlocale(LC_ALL, "Russian");
-	window.setFramerateLimit(120);
-
+	RenderWindow window(VideoMode(800, 600), "MultiMmo");       //СЃРѕР·РґР°РЅРёРµ РѕРєРЅР°
 	Client client;
 	Profile profile;
+	
+	srand(time(0)); 
+	setlocale(LC_ALL, "Russian");
+	window.setFramerateLimit(120);
 
-	//client.ClientMenu(window);
-	BridgeClient::inisialization(&client); //возможно можно было бы инициализировать этот класс в классе клиента
+	client.ClientMenu(window);
+	BridgeClient::inisialization(&client); //РІРѕР·РјРѕР¶РЅРѕ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ Р±С‹ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°С‚СЊ СЌС‚РѕС‚ РєР»Р°СЃСЃ РІ РєР»Р°СЃСЃРµ РєР»РёРµРЅС‚Р°
 	
 	profile.menu(window);
 }

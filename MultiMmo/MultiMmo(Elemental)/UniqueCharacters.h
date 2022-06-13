@@ -1,17 +1,17 @@
-#pragma once
+п»ї#pragma once
 #include "SubEntity.h"
 #include "GameWorld.h"
 #include "algorithm.h"
 
 /*
-Задача UniqueCharacters - добавление индивидуальных персонажей, которые используют свою логику и алгоритмы атаки
+Р—Р°РґР°С‡Р° UniqueCharacters - РґРѕР±Р°РІР»РµРЅРёРµ РёРЅРґРёРІРёРґСѓР°Р»СЊРЅС‹С… РїРµСЂСЃРѕРЅР°Р¶РµР№, РєРѕС‚РѕСЂС‹Рµ РёСЃРїРѕР»СЊР·СѓСЋС‚ СЃРІРѕСЋ Р»РѕРіРёРєСѓ Рё Р°Р»РіРѕСЂРёС‚РјС‹ Р°С‚Р°РєРё
 */
 
 class Chara : public Enemy, public attack
 {
 	bool specialAt;
 	float sleeptime;
-	int arg; //номер активного обьекта (в цикле множества атак)
+	int arg; //РЅРѕРјРµСЂ Р°РєС‚РёРІРЅРѕРіРѕ РѕР±СЊРµРєС‚Р° (РІ С†РёРєР»Рµ РјРЅРѕР¶РµСЃС‚РІР° Р°С‚Р°Рє)
 	int RechargeSpecialAt;
 public:
 	Chara(int IDO); 
@@ -37,9 +37,9 @@ public:
 class Sans : public Enemy, public attack
 {
 	bool teleport_, num4;
-	float RechargeTeleport, DelaySpAt; //перезарядка телепорта и задержка спец. атаки
-	float TimerSp; //таймер для спец. атаки
-	Clock clock_Sp; //под таймер
+	float RechargeTeleport, DelaySpAt; //РїРµСЂРµР·Р°СЂСЏРґРєР° С‚РµР»РµРїРѕСЂС‚Р° Рё Р·Р°РґРµСЂР¶РєР° СЃРїРµС†. Р°С‚Р°РєРё
+	float TimerSp; //С‚Р°Р№РјРµСЂ РґР»СЏ СЃРїРµС†. Р°С‚Р°РєРё
+	Clock clock_Sp; //РїРѕРґ С‚Р°Р№РјРµСЂ
 public:
 	Sans(int IDO);
 	Sans();
@@ -50,6 +50,6 @@ public:
 };
 
 /*
-BadTimeTrio демонстрирует как можно использовать класс attack и систему AttackSystem чтобы создавать свои алгоритмы и
-поведение атаки
+BadTimeTrio РґРµРјРѕРЅСЃС‚СЂРёСЂСѓРµС‚ РєР°Рє РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РєР»Р°СЃСЃ attack Рё СЃРёСЃС‚РµРјСѓ AttackSystem С‡С‚РѕР±С‹ СЃРѕР·РґР°РІР°С‚СЊ СЃРІРѕРё Р°Р»РіРѕСЂРёС‚РјС‹ Рё
+РїРѕРІРµРґРµРЅРёРµ Р°С‚Р°РєРё
 */

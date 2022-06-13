@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "SubEntity.h"
@@ -10,28 +10,28 @@ using namespace sf;
 class Engine
 {
 	/*
-	Основной класс - движок, который обьединяет все классы игры
+	РћСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ - РґРІРёР¶РѕРє, РєРѕС‚РѕСЂС‹Р№ РѕР±СЊРµРґРёРЅСЏРµС‚ РІСЃРµ РєР»Р°СЃСЃС‹ РёРіСЂС‹
 	*/
 public:
 	Engine();
 	~Engine();
-	void start(RenderWindow& window); //запуск движка
-	void LoadMap(string name); //загрузка карты
+	void start(RenderWindow& window); //Р·Р°РїСѓСЃРє РґРІРёР¶РєР°
+	void LoadMap(string name); //Р·Р°РіСЂСѓР·РєР° РєР°СЂС‚С‹
 private:
-	void changeview(); //доп функции карты //загрузка карты
+	void changeview(); //РґРѕРї С„СѓРЅРєС†РёРё РєР°СЂС‚С‹ //Р·Р°РіСЂСѓР·РєР° РєР°СЂС‚С‹
 
-	AnimationAttackModule animation; //класс анимации
-	Player* pr; //класс нашего игрока
-	maps Map; //загрузка и вывод текстуры карты а также взаимодействие
-	GameWorld world; //класс мира и находящихся в нем игроков
+	AnimationAttackModule animation; //РєР»Р°СЃСЃ Р°РЅРёРјР°С†РёРё
+	Player* pr; //РєР»Р°СЃСЃ РЅР°С€РµРіРѕ РёРіСЂРѕРєР°
+	maps Map; //Р·Р°РіСЂСѓР·РєР° Рё РІС‹РІРѕРґ С‚РµРєСЃС‚СѓСЂС‹ РєР°СЂС‚С‹ Р° С‚Р°РєР¶Рµ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ
+	GameWorld world; //РєР»Р°СЃСЃ РјРёСЂР° Рё РЅР°С…РѕРґСЏС‰РёС…СЃСЏ РІ РЅРµРј РёРіСЂРѕРєРѕРІ
 	RpgInterface* Interface;
-	GroupSystem group; //класс групп
+	GroupSystem group; //РєР»Р°СЃСЃ РіСЂСѓРїРї
 
-	Vector2i pixelPos; //забираем коорд курсора
+	Vector2i pixelPos; //Р·Р°Р±РёСЂР°РµРј РєРѕРѕСЂРґ РєСѓСЂСЃРѕСЂР°
 	Vector2f pos; 
 	View view;
 
-	float Timer; //таймер
+	float Timer; //С‚Р°Р№РјРµСЂ
 	float sleeptime;
 	Clock clock;
 }; 

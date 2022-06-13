@@ -1,11 +1,11 @@
-#include "Entity.h"
+ï»¿#include "Entity.h"
 #include "GameWorld.h"
 
 Entity::Entity()
 {
 }
 
-Entity::~Entity() //îøèáêà ïðè óäàëåíèè äèíàìè÷åñêîãî îáüåêòà
+Entity::~Entity() //Ð¾ÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ ÑƒÐ´Ð°Ð»ÐµÐ½Ð¸Ð¸ Ð´Ð¸Ð½Ð°Ð¼Ð¸Ñ‡ÐµÑÐºÐ¾Ð³Ð¾ Ð¾Ð±ÑŒÐµÐºÑ‚Ð°
 {
 	world->deleteEntity(id, pid);
 }
@@ -62,14 +62,14 @@ void Entity::setSpeed(float q)
 //	dir = q;
 //}
 
-void Entity::setXp(int xp_)
+void Entity::setHp(int xp_)
 {
-	xp = xp_;
+	hp = xp_;
 }
 
-void Entity::setMaxXp(int max)
+void Entity::setMaxHp(int max)
 {
-	max_Xp = max;
+	max_hp = max;
 }
 
 void Entity::setLife(bool life_)
@@ -121,14 +121,14 @@ int Entity::getHeight()
 	return Height;
 }
 
-int Entity::getXp()
+int Entity::getHp()
 {
-	return xp;
+	return hp;
 }
 
-int Entity::getMaxXp()
+int Entity::getMaxHp()
 {
-	return max_Xp;
+	return max_hp;
 }
 
 bool Entity::getLife()

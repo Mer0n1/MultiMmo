@@ -1,60 +1,60 @@
-#include "algorithm.h"
+п»ї#include "algorithm.h"
 #include <Windows.h>
 
 Vector2f* algorithmLine(Vector2f begin, Vector2f end)
 {
-	//найдем направление
+	//РЅР°Р№РґРµРј РЅР°РїСЂР°РІР»РµРЅРёРµ
 	Vector2f ItogMassv[20];
-	Vector2f itog; //каждый тайловый итоговый ход
+	Vector2f itog; //РєР°Р¶РґС‹Р№ С‚Р°Р№Р»РѕРІС‹Р№ РёС‚РѕРіРѕРІС‹Р№ С…РѕРґ
 
-	int nx = 0, ny = 0; //направления
-	if (begin.x < end.x) nx = 1; else nx = -1; //по графику
+	int nx = 0, ny = 0; //РЅР°РїСЂР°РІР»РµРЅРёСЏ
+	if (begin.x < end.x) nx = 1; else nx = -1; //РїРѕ РіСЂР°С„РёРєСѓ
 	if (begin.y < end.y) ny = 1; else ny = -1;
 
-	float poX = begin.x - end.x; //сколько нужно тайлов пройти
-	float poY = begin.y - end.y; //до нужной позиции
+	float poX = begin.x - end.x; //СЃРєРѕР»СЊРєРѕ РЅСѓР¶РЅРѕ С‚Р°Р№Р»РѕРІ РїСЂРѕР№С‚Рё
+	float poY = begin.y - end.y; //РґРѕ РЅСѓР¶РЅРѕР№ РїРѕР·РёС†РёРё
 
-	for (int j = 0; j < 20; j++) { //x и y не должны превышать 1
+	for (int j = 0; j < 20; j++) { //x Рё y РЅРµ РґРѕР»Р¶РЅС‹ РїСЂРµРІС‹С€Р°С‚СЊ 1
 
-		if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
+		if (poX / poY > 1 || poX / poY < -1) { //РµСЃР»Рё x РїСЂРµРІС‹С€Р°РµС‚ 1 С‚Рѕ x = 1 Р° y < 1
 			itog.x += nx;
 			itog.y += poY / poX * nx;
-		} else { //наоборот
+		} else { //РЅР°РѕР±РѕСЂРѕС‚
 			itog.x += poX / poY * ny;
 			itog.y += ny;
 		}
-		Sleep(0); //из за бага 
-		ItogMassv[j].x = begin.x + itog.x; //прорисовываем от конца до начала
+		Sleep(0); //РёР· Р·Р° Р±Р°РіР° 
+		ItogMassv[j].x = begin.x + itog.x; //РїСЂРѕСЂРёСЃРѕРІС‹РІР°РµРј РѕС‚ РєРѕРЅС†Р° РґРѕ РЅР°С‡Р°Р»Р°
 		ItogMassv[j].y = begin.y + itog.y;
 	}
 	return &ItogMassv[0];
-	//Отрезок как вектор, имеет направление (от begin до end)
+	//РћС‚СЂРµР·РѕРє РєР°Рє РІРµРєС‚РѕСЂ, РёРјРµРµС‚ РЅР°РїСЂР°РІР»РµРЅРёРµ (РѕС‚ begin РґРѕ end)
 }
 
 Vector2f* algorithmLine2Prototype(Vector2f begin, Vector2f end)
 {
 	Vector2f Massv[20];
-	float itogX = 0, itogY = 0; //каждый тайловый итоговый ход
+	float itogX = 0, itogY = 0; //РєР°Р¶РґС‹Р№ С‚Р°Р№Р»РѕРІС‹Р№ РёС‚РѕРіРѕРІС‹Р№ С…РѕРґ
 
-	int nx = 0, ny = 0; //направления
+	int nx = 0, ny = 0; //РЅР°РїСЂР°РІР»РµРЅРёСЏ
 	if (end.x + begin.x < end.x) nx = 1; else nx = -1;
 	if (end.y + begin.y < end.y) ny = 1; else ny = -1;
 
-	float poX = begin.x; //сколько нужно тайлов пройти
-	float poY = begin.y; //до нужной позиции
+	float poX = begin.x; //СЃРєРѕР»СЊРєРѕ РЅСѓР¶РЅРѕ С‚Р°Р№Р»РѕРІ РїСЂРѕР№С‚Рё
+	float poY = begin.y; //РґРѕ РЅСѓР¶РЅРѕР№ РїРѕР·РёС†РёРё
 
 	for (int j = 0; j < 20; j++)
 	{
-		if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
+		if (poX / poY > 1 || poX / poY < -1) { //РµСЃР»Рё x РїСЂРµРІС‹С€Р°РµС‚ 1 С‚Рѕ x = 1 Р° y < 1
 
 			itogX += nx;
 			itogY += poY / poX * nx;
 		}
-		else { //наоборот
+		else { //РЅР°РѕР±РѕСЂРѕС‚
 			itogX += poX / poY * ny;
 			itogY += ny;
 		}
-		Massv[j].x = begin.x + end.x + itogX; // (прибавляем начало атаки к дополнению)
+		Massv[j].x = begin.x + end.x + itogX; // (РїСЂРёР±Р°РІР»СЏРµРј РЅР°С‡Р°Р»Рѕ Р°С‚Р°РєРё Рє РґРѕРїРѕР»РЅРµРЅРёСЋ)
 		Massv[j].y = begin.y + end.y + itogY;
 	}
 	return &Massv[0];

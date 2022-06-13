@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "JATS.h"
 #include "Map.h"
 #include "Interface.h"
@@ -13,8 +13,8 @@ public:
 	Entity();
 	virtual ~Entity();
 
-	virtual void updateXp(int attack) = 0; //принятие дамага
-	virtual void update() = 0; //общий метод для всех обьектов
+	virtual void updateHp(int attack) = 0; //РїСЂРёРЅСЏС‚РёРµ РґР°РјР°РіР°
+	virtual void update() = 0; //РѕР±С‰РёР№ РјРµС‚РѕРґ РґР»СЏ РІСЃРµС… РѕР±СЊРµРєС‚РѕРІ
 
 	static void setMap(maps* Map);
 	static void setVector2i(Vector2f* pos_);
@@ -22,15 +22,15 @@ public:
 	static void setGameWorld(GameWorld* world_);
 	static void setView(View* view_);
 
-	static void inisialize(); //пока неопределенный метод
+	static void inisialize(); //РїРѕРєР° РЅРµРѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ РјРµС‚РѕРґ
 
-	void setPosX(int x); //установка позиций координат
+	void setPosX(int x); //СѓСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёР№ РєРѕРѕСЂРґРёРЅР°С‚
 	void setPosY(int y);
-	void addPos(int x_, int y_); //добавление позиции к уже существующей (+=)
+	void addPos(int x_, int y_); //РґРѕР±Р°РІР»РµРЅРёРµ РїРѕР·РёС†РёРё Рє СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµР№ (+=)
 
 	void setSpeed(float);
-	void setXp(int);
-	void setMaxXp(int);
+	void setHp(int);
+	void setMaxHp(int);
 	void setLife(bool); 
 
 	Vector2f getPos();
@@ -40,35 +40,35 @@ public:
 	int getPid();
 	int getWidth();
 	int getHeight();
-	int getXp();
-	int getMaxXp();
+	int getHp();
+	int getMaxHp();
 	bool getLife();
 
 	Sprite* getModel();
 protected:
-	string name; //имя игрока
+	string name; //РёРјСЏ РёРіСЂРѕРєР°
 	Texture gamer_texture;
 
-	float time_save, sleeptime; //time_save - перезарядка обычной атаки
-	float dx, dy; //координаты направления
+	float time_save, sleeptime; //time_save - РїРµСЂРµР·Р°СЂСЏРґРєР° РѕР±С‹С‡РЅРѕР№ Р°С‚Р°РєРё
+	float dx, dy; //РєРѕРѕСЂРґРёРЅР°С‚С‹ РЅР°РїСЂР°РІР»РµРЅРёСЏ
 
-	static float* time; //таймер мира
-	static TexturesFile* TFPack; //пак текстур
-	static maps* Map; //указатель на карту
-	static Vector2f* pixelPos; //позиция мышки 
+	static float* time; //С‚Р°Р№РјРµСЂ РјРёСЂР°
+	static TexturesFile* TFPack; //РїР°Рє С‚РµРєСЃС‚СѓСЂ
+	static maps* Map; //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РєР°СЂС‚Сѓ
+	static Vector2f* pixelPos; //РїРѕР·РёС†РёСЏ РјС‹С€РєРё 
 	static View* view;
 	static GameWorld* world; 
 
-	float speed; //текущая скорость (движение)
-	float speedConst; //характеристика скорости (или макс скорость)
-	float x, y; //координаты персонажа
-	int dir; //направление персонажа
-	int id, pid; //id - персонажа игрока, pid - игровое подайди
-	bool life = true; //жизнь
-	int xp, max_Xp;
-	int Width, Height; //ширина высота модельки
+	float speed; //С‚РµРєСѓС‰Р°СЏ СЃРєРѕСЂРѕСЃС‚СЊ (РґРІРёР¶РµРЅРёРµ)
+	float speedConst; //С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР° СЃРєРѕСЂРѕСЃС‚Рё (РёР»Рё РјР°РєСЃ СЃРєРѕСЂРѕСЃС‚СЊ)
+	float x, y; //РєРѕРѕСЂРґРёРЅР°С‚С‹ РїРµСЂСЃРѕРЅР°Р¶Р°
+	int dir; //РЅР°РїСЂР°РІР»РµРЅРёРµ РїРµСЂСЃРѕРЅР°Р¶Р°
+	int id, pid; //id - РїРµСЂСЃРѕРЅР°Р¶Р° РёРіСЂРѕРєР°, pid - РёРіСЂРѕРІРѕРµ РїРѕРґР°Р№РґРё
+	bool life = true; //Р¶РёР·РЅСЊ
+	int hp, max_hp;
+	int Width, Height; //С€РёСЂРёРЅР° РІС‹СЃРѕС‚Р° РјРѕРґРµР»СЊРєРё
 public:
-	Sprite gamer; //модель персонажа
-	HealthBarRpg hb; //полоска хп
+	Sprite gamer; //РјРѕРґРµР»СЊ РїРµСЂСЃРѕРЅР°Р¶Р°
+	HealthBarRpg hb; //РїРѕР»РѕСЃРєР° С…Рї
 };
 

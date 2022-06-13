@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "Textures.h"
 #include "StructureEngine.h"
 using namespace sf;
@@ -7,34 +7,34 @@ using namespace sf;
 class AnimationAttackModule
 {
 public:
-	/* Основа класса - структура AnimationAttack. 
-	Задача класса вывод анимации атак для каждого обьекта-Entity тоесть для каждого моба и игрока*/
+	/* РћСЃРЅРѕРІР° РєР»Р°СЃСЃР° - СЃС‚СЂСѓРєС‚СѓСЂР° AnimationAttack. 
+	Р—Р°РґР°С‡Р° РєР»Р°СЃСЃР° РІС‹РІРѕРґ Р°РЅРёРјР°С†РёРё Р°С‚Р°Рє РґР»СЏ РєР°Р¶РґРѕРіРѕ РѕР±СЊРµРєС‚Р°-Entity С‚РѕРµСЃС‚СЊ РґР»СЏ РєР°Р¶РґРѕРіРѕ РјРѕР±Р° Рё РёРіСЂРѕРєР°*/
 	AnimationAttackModule();
 	~AnimationAttackModule();
 	static void setWindow(RenderWindow& window);
-	AnimationAttack* newScructureAnimation(); //создает, возвращает и добавляет в список структуру
+	AnimationAttack* newScructureAnimation(); //СЃРѕР·РґР°РµС‚, РІРѕР·РІСЂР°С‰Р°РµС‚ Рё РґРѕР±Р°РІР»СЏРµС‚ РІ СЃРїРёСЃРѕРє СЃС‚СЂСѓРєС‚СѓСЂСѓ
 
 	//void update();
 	void draw(RenderWindow& window);
 	void DeleteAnimation(AnimationAttack*);
 private:
 	Texture changeT, change8;
-	Sprite change, change_8; //спрайты тайлов
+	Sprite change, change_8; //СЃРїСЂР°Р№С‚С‹ С‚Р°Р№Р»РѕРІ
 
 	static RenderWindow* window;
 	static TexturesFile* TFPack;
-	static vector<AnimationAttack*> list; //выделить каждому персонажу свою структуру для анимации атаки
+	static vector<AnimationAttack*> list; //РІС‹РґРµР»РёС‚СЊ РєР°Р¶РґРѕРјСѓ РїРµСЂСЃРѕРЅР°Р¶Сѓ СЃРІРѕСЋ СЃС‚СЂСѓРєС‚СѓСЂСѓ РґР»СЏ Р°РЅРёРјР°С†РёРё Р°С‚Р°РєРё
 };
 
 class AnimationMotionModule
 {
 	/*
-	Модуль класса Animation. Анимации движения
+	РњРѕРґСѓР»СЊ РєР»Р°СЃСЃР° Animation. РђРЅРёРјР°С†РёРё РґРІРёР¶РµРЅРёСЏ
 
-	Анимация движения. Кол во кадров в сек - 15. Метод определяет размеры Width и Height модели, а также
-	размеры всей анимации.
-	Для добавлении своей анимации можно добавлять кадры как угодно, главное соблюдать дистанцию между кадрами -
-	0 пикселей.
+	РђРЅРёРјР°С†РёСЏ РґРІРёР¶РµРЅРёСЏ. РљРѕР» РІРѕ РєР°РґСЂРѕРІ РІ СЃРµРє - 15. РњРµС‚РѕРґ РѕРїСЂРµРґРµР»СЏРµС‚ СЂР°Р·РјРµСЂС‹ Width Рё Height РјРѕРґРµР»Рё, Р° С‚Р°РєР¶Рµ
+	СЂР°Р·РјРµСЂС‹ РІСЃРµР№ Р°РЅРёРјР°С†РёРё.
+	Р”Р»СЏ РґРѕР±Р°РІР»РµРЅРёРё СЃРІРѕРµР№ Р°РЅРёРјР°С†РёРё РјРѕР¶РЅРѕ РґРѕР±Р°РІР»СЏС‚СЊ РєР°РґСЂС‹ РєР°Рє СѓРіРѕРґРЅРѕ, РіР»Р°РІРЅРѕРµ СЃРѕР±Р»СЋРґР°С‚СЊ РґРёСЃС‚Р°РЅС†РёСЋ РјРµР¶РґСѓ РєР°РґСЂР°РјРё -
+	0 РїРёРєСЃРµР»РµР№.
 	*/
 public:
 	AnimationMotionModule();
@@ -43,11 +43,11 @@ public:
 class Animation
 {
 public:
-	Animation(/*int width_, int height_*/);
+	Animation();
 
-	void animationContol(Sprite& model, Texture& model_); //анимация движения моба
+	void animationContol(Sprite& model, Texture& model_); //Р°РЅРёРјР°С†РёСЏ РґРІРёР¶РµРЅРёСЏ РјРѕР±Р°
 
-	void setAnimation(bool); //отключить/включить анимацию
+	void setAnimation(bool); //РѕС‚РєР»СЋС‡РёС‚СЊ/РІРєР»СЋС‡РёС‚СЊ Р°РЅРёРјР°С†РёСЋ
 private:
 	//AnimationMotion AM;
 	bool isAnimation;
@@ -60,4 +60,4 @@ private:
 };
 
 
-//можно разделить целый класс анимации на его модули - анимация движения, анимация атаки, анимация эффектов
+//РјРѕР¶РЅРѕ СЂР°Р·РґРµР»РёС‚СЊ С†РµР»С‹Р№ РєР»Р°СЃСЃ Р°РЅРёРјР°С†РёРё РЅР° РµРіРѕ РјРѕРґСѓР»Рё - Р°РЅРёРјР°С†РёСЏ РґРІРёР¶РµРЅРёСЏ, Р°РЅРёРјР°С†РёСЏ Р°С‚Р°РєРё, Р°РЅРёРјР°С†РёСЏ СЌС„С„РµРєС‚РѕРІ

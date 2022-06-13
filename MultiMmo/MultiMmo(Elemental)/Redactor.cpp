@@ -1,9 +1,9 @@
-#include "Redactor.h"
+п»ї#include "Redactor.h"
 #include "Windows.h"
 
 Redactor::Redactor()
 {
-	//Текстуры
+	//РўРµРєСЃС‚СѓСЂС‹
 	newtex[0].loadFromFile("Textures/Redactor/TestFon.png");
 	newtex[1].loadFromFile("Textures/Redactor/change.png");
 	newtex[2].loadFromFile("Textures/profile/button.png");
@@ -14,7 +14,7 @@ Redactor::Redactor()
 	Load.setTexture(newtex[2]);
 	player.setTexture(newtex[3]);
 
-	//Спрайты
+	//РЎРїСЂР°Р№С‚С‹
 	change = new Sprite[10000];
 
 	for (int j = 0; j < 10000; j++)
@@ -24,7 +24,7 @@ Redactor::Redactor()
 	width = 70; 
 	height = 150; 
 
-	int TileToWidth = (distance * 2 + width) / 32; //кол во тайлов по ширине всего 
+	int TileToWidth = (distance * 2 + width) / 32; //РєРѕР» РІРѕ С‚Р°Р№Р»РѕРІ РїРѕ С€РёСЂРёРЅРµ РІСЃРµРіРѕ 
 
 	for (int y = 0; y < (distance * 2 + height) / 32; y++)
 		for (int x = 0; x < (distance * 2 + width) / 32; x++) 
@@ -39,7 +39,7 @@ Redactor::Redactor()
 	player.setPosition(160, 160); 
 	player.setTextureRect(IntRect(0, 0, 55, 123));
 
-	//Текст
+	//РўРµРєСЃС‚
 	font.loadFromFile("ttf/CyrilicOld.ttf");
 	for (int j = 0; j < 35; j++) {
 		text[j].setFont(font);
@@ -50,30 +50,30 @@ Redactor::Redactor()
 		text[j].setString(" ");
 	}
 
-	text[0].setString("Клетка 32/32 - 500 О"); 
-	text[1].setString("Дистанция (по радиаусу от персонажа) - 1500 О на 1 клетку"); 
-	text[2].setString("Тип атаки:"); 
+	text[0].setString("РљР»РµС‚РєР° 32/32 - 500 Рћ"); 
+	text[1].setString("Р”РёСЃС‚Р°РЅС†РёСЏ (РїРѕ СЂР°РґРёР°СѓСЃСѓ РѕС‚ РїРµСЂСЃРѕРЅР°Р¶Р°) - 1500 Рћ РЅР° 1 РєР»РµС‚РєСѓ"); 
+	text[2].setString("РўРёРї Р°С‚Р°РєРё:"); 
 	text[3].setString("Do (damage once)"); 
 	text[4].setString("dpsa (Damage Per Second)"); 
-	text[5].setString("Урон/Сек");
-	text[6].setString("Урон/мгновенье (0.1с~)"); 
-	text[7].setString(OCH + "очков"); 
+	text[5].setString("РЈСЂРѕРЅ/РЎРµРє");
+	text[6].setString("РЈСЂРѕРЅ/РјРіРЅРѕРІРµРЅСЊРµ (0.1СЃ~)"); 
+	text[7].setString(OCH + "РѕС‡РєРѕРІ"); 
 	text[8].setString("[2000]"); 
 	text[9].setString("[5000]");
-	text[10].setString("Бесплатно"); 
-	text[11].setString("Количество тайлов: ");
-	text[12].setString("Задержка тайла:  \n\nПродолжительность тайла: ");
-	text[13].setString("Создать"); 
+	text[10].setString("Р‘РµСЃРїР»Р°С‚РЅРѕ"); 
+	text[11].setString("РљРѕР»РёС‡РµСЃС‚РІРѕ С‚Р°Р№Р»РѕРІ: ");
+	text[12].setString("Р—Р°РґРµСЂР¶РєР° С‚Р°Р№Р»Р°:  \n\nРџСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ С‚Р°Р№Р»Р°: ");
+	text[13].setString("РЎРѕР·РґР°С‚СЊ"); 
 	text[13].setFillColor(Color::White); 
-	text[14].setString("Загрузить"); 
+	text[14].setString("Р—Р°РіСЂСѓР·РёС‚СЊ"); 
 	text[14].setFillColor(Color::White); 
-	text[15].setString("Функция атаки: "); 
-	text[16].setString("Фиксированная"); 
-	text[17].setString("По месту клика"); 
-	text[18].setString("По направлению");
-	text[19].setString("Размер тайлов:    " + to_string(SizeTile));
+	text[15].setString("Р¤СѓРЅРєС†РёСЏ Р°С‚Р°РєРё: "); 
+	text[16].setString("Р¤РёРєСЃРёСЂРѕРІР°РЅРЅР°СЏ"); 
+	text[17].setString("РџРѕ РјРµСЃС‚Сѓ РєР»РёРєР°"); 
+	text[18].setString("РџРѕ РЅР°РїСЂР°РІР»РµРЅРёСЋ");
+	text[19].setString("Р Р°Р·РјРµСЂ С‚Р°Р№Р»РѕРІ:    " + to_string(SizeTile));
 
-	//позиция
+	//РїРѕР·РёС†РёСЏ
 	text[0].setPosition(20, 60);
 	text[1].setPosition(20, 90);
 	text[2].setPosition(20, 120);
@@ -104,7 +104,7 @@ Redactor::Redactor()
 	text[19].setCharacterSize(18);
 
 
-	//Arrows или стрелочки 
+	//Arrows РёР»Рё СЃС‚СЂРµР»РѕС‡РєРё 
 	for (int j = 0; j < 10; j++) {
 		arrows[j] = text[0];
 		if (j % 2 > 0) 
@@ -114,11 +114,11 @@ Redactor::Redactor()
 		arrows[j].setPosition(-500, -500);
 	}
 
-	arrows[1].setPosition(420, 230); arrows[2].setPosition(460, 230); //delay тайла
-	arrows[3].setPosition(447, 262); arrows[4].setPosition(487, 262); //duration тайла
-	arrows[5].setPosition(440, 200); arrows[6].setPosition(480, 200); //переключение размеров тайлов
+	arrows[1].setPosition(420, 230); arrows[2].setPosition(460, 230); //delay С‚Р°Р№Р»Р°
+	arrows[3].setPosition(447, 262); arrows[4].setPosition(487, 262); //duration С‚Р°Р№Р»Р°
+	arrows[5].setPosition(440, 200); arrows[6].setPosition(480, 200); //РїРµСЂРµРєР»СЋС‡РµРЅРёРµ СЂР°Р·РјРµСЂРѕРІ С‚Р°Р№Р»РѕРІ
 
-	//Инициализация прочих переменных
+	//РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РїСЂРѕС‡РёС… РїРµСЂРµРјРµРЅРЅС‹С…
 	for (int i = 0; i < 2; i++)
 		for (int j = 0; j < 100; j++)
 			coordinate[j][i] = 0;
@@ -132,7 +132,7 @@ Redactor::Redactor()
 	width = 80; height = 150;
 	OCH = 100000; //test 
 	QuanTile = 20;
-	distance = 160; //5 клеток
+	distance = 160; //5 РєР»РµС‚РѕРє
 	recharge = 1;
 	SizeTile = 32;
 	type_attack = "Do";
@@ -166,7 +166,7 @@ void Redactor::menu(RenderWindow& window)
 			if (events.type == sf::Event::LostFocus)
 				window.hasFocus();
 		}
-		//-------------------------------Окрашивание тайлов
+		//-------------------------------РћРєСЂР°С€РёРІР°РЅРёРµ С‚Р°Р№Р»РѕРІ
 		for (int j = 0; j < 35; j++)
 			text[j].setFillColor(Color::Black);
 		for (int j = 0; j < 10; j++)
@@ -180,69 +180,69 @@ void Redactor::menu(RenderWindow& window)
 		if (type_attack == "dpsa") text[5].setFillColor(Color::White);
 		if (type_attack == "ida") text[6].setFillColor(Color::White);
 		
-		text[13].setFillColor(Color::White); //кнопка создать
-		text[14].setFillColor(Color::White); //кнопка загрузить
+		text[13].setFillColor(Color::White); //РєРЅРѕРїРєР° СЃРѕР·РґР°С‚СЊ
+		text[14].setFillColor(Color::White); //РєРЅРѕРїРєР° Р·Р°РіСЂСѓР·РёС‚СЊ
 		//-------------------------------
 		
 		if (IntRect(20, 500, 100, 30).contains(Mouse::getPosition(window))) 
 			menunum = 1;
 		if (IntRect(20, 60, 200, 20).contains(Mouse::getPosition(window))) {
 			text[0].setFillColor(Color(200, 200, 200)); menunum = 2;
-		} //купить клетки
+		} //РєСѓРїРёС‚СЊ РєР»РµС‚РєРё
 		if (IntRect(20, 90, 500, 20).contains(Mouse::getPosition(window))) {
 			text[1].setFillColor(Color(200, 200, 200)); menunum = 3;
-		} //купить дистанцию
+		} //РєСѓРїРёС‚СЊ РґРёСЃС‚Р°РЅС†РёСЋ
 		if (IntRect(20, 140, 130, 20).contains(Mouse::getPosition(window))) {
 			text[3].setFillColor(Color(200, 200, 200)); menunum = 4;
-		} //установить тип атаки Do
+		} //СѓСЃС‚Р°РЅРѕРІРёС‚СЊ С‚РёРї Р°С‚Р°РєРё Do
 		if (IntRect(200, 160, 80, 20).contains(Mouse::getPosition(window))) {
 			text[5].setFillColor(Color(200, 200, 200)); menunum = 5;
-		} //тип атаки Ur/sec
+		} //С‚РёРї Р°С‚Р°РєРё Ur/sec
 		if (IntRect(310, 160, 200, 20).contains(Mouse::getPosition(window))) {
 			text[6].setFillColor(Color(200, 200, 200)); menunum = 6;
-		} //тип атаки Ur/mgn
+		} //С‚РёРї Р°С‚Р°РєРё Ur/mgn
 		if (IntRect(140, 485, 100, 20).contains(Mouse::getPosition(window))) {
 			text[12].setFillColor(Color(200, 200, 200)); menunum = 7;
-		} //уменьшить перезарядку
+		} //СѓРјРµРЅСЊС€РёС‚СЊ РїРµСЂРµР·Р°СЂСЏРґРєСѓ
 		if (IntRect(arrows[2].getPosition().x, arrows[2].getPosition().y, 20, 20).contains(Mouse::getPosition(window))) { 
-			arrows[2].setFillColor(Color(200, 200, 200)); menunum = 8; //при нажатии на стрелку delay вперед
+			arrows[2].setFillColor(Color(200, 200, 200)); menunum = 8; //РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° СЃС‚СЂРµР»РєСѓ delay РІРїРµСЂРµРґ
 		}
 		if (IntRect(arrows[1].getPosition().x, arrows[1].getPosition().y, 20, 20).contains(Mouse::getPosition(window))) { 
-			arrows[1].setFillColor(Color(200, 200, 200)); menunum = 9; //delay уменьшение
+			arrows[1].setFillColor(Color(200, 200, 200)); menunum = 9; //delay СѓРјРµРЅСЊС€РµРЅРёРµ
 		}
 		if (IntRect(arrows[4].getPosition().x, arrows[4].getPosition().y, 20, 20).contains(Mouse::getPosition(window))) { 
-			arrows[4].setFillColor(Color(200, 200, 200)); menunum = 10; //увеличение duration 
+			arrows[4].setFillColor(Color(200, 200, 200)); menunum = 10; //СѓРІРµР»РёС‡РµРЅРёРµ duration 
 		}
 		if (IntRect(arrows[3].getPosition().x, arrows[3].getPosition().y, 20, 20).contains(Mouse::getPosition(window))) { 
-			arrows[3].setFillColor(Color(200, 200, 200)); menunum = 11; //уменьшение duration 
+			arrows[3].setFillColor(Color(200, 200, 200)); menunum = 11; //СѓРјРµРЅСЊС€РµРЅРёРµ duration 
 		}
 		if (IntRect(60, 220, 140, 20).contains(Mouse::getPosition(window))) {
 			text[16].setFillColor(Color::White); menunum = 12;
-		} //фиксированная функция
+		} //С„РёРєСЃРёСЂРѕРІР°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ
 		if (IntRect(60, 240, 140, 20).contains(Mouse::getPosition(window))) {
 			text[17].setFillColor(Color::White); menunum = 13;
-		} //функция по месту клика
+		} //С„СѓРЅРєС†РёСЏ РїРѕ РјРµСЃС‚Сѓ РєР»РёРєР°
 		if (IntRect(60, 260, 140, 20).contains(Mouse::getPosition(window))) {
 			text[18].setFillColor(Color::White); menunum = 14;
-		} //функция по направлению
+		} //С„СѓРЅРєС†РёСЏ РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЋ
 		if (IntRect(arrows[5].getPosition().x, arrows[5].getPosition().y, 20, 20).contains(Mouse::getPosition(window))) { 
-			arrows[5].setFillColor(Color(200, 200, 200)); menunum = 15; //увеличить размер тайлов
+			arrows[5].setFillColor(Color(200, 200, 200)); menunum = 15; //СѓРІРµР»РёС‡РёС‚СЊ СЂР°Р·РјРµСЂ С‚Р°Р№Р»РѕРІ
 		}
 		if (IntRect(arrows[6].getPosition().x, arrows[6].getPosition().y, 20, 20).contains(Mouse::getPosition(window))) { 
-			arrows[6].setFillColor(Color(200, 200, 200)); menunum = 16; //уменьшить размер тайлов
+			arrows[6].setFillColor(Color(200, 200, 200)); menunum = 16; //СѓРјРµРЅСЊС€РёС‚СЊ СЂР°Р·РјРµСЂ С‚Р°Р№Р»РѕРІ
 		}
 		
 		if (IntRect(Create.getPosition().x, Create.getPosition().y, 140, 35).contains(Mouse::getPosition(window))) {
 			menunum = 17;
-		} //создать атаку
+		} //СЃРѕР·РґР°С‚СЊ Р°С‚Р°РєСѓ
 		if (IntRect(Load.getPosition().x, Load.getPosition().y, 140, 35).contains(Mouse::getPosition(window))) {
 			menunum = 18;
-		} //загрузить атаку
+		} //Р·Р°РіСЂСѓР·РёС‚СЊ Р°С‚Р°РєСѓ
 
 		if (Keyboard::isKeyPressed(Keyboard::Escape)) {
-			window.create(VideoMode(800, 600), "Redactor"); //возвращаем прежний экран
-			redactor.close(); //закрываем 2 форму
-			return; //выход
+			window.create(VideoMode(800, 600), "Redactor"); //РІРѕР·РІСЂР°С‰Р°РµРј РїСЂРµР¶РЅРёР№ СЌРєСЂР°РЅ
+			redactor.close(); //Р·Р°РєСЂС‹РІР°РµРј 2 С„РѕСЂРјСѓ
+			return; //РІС‹С…РѕРґ
 		}
 
 		if (Mouse::isButtonPressed(Mouse::Left))
@@ -265,8 +265,8 @@ void Redactor::menu(RenderWindow& window)
 						change[x + y * ((distance * 2 + width) / SizeTile)].setScale(SizeTile / 32.f, SizeTile / 32.f);
 					}
 
-				player.setPosition(160, 160); //сброс позиции 
-				player.move(distance - 160, distance - 160); //передвигаем игрока относительно добавленной дистанции
+				player.setPosition(160, 160); //СЃР±СЂРѕСЃ РїРѕР·РёС†РёРё 
+				player.move(distance - 160, distance - 160); //РїРµСЂРµРґРІРёРіР°РµРј РёРіСЂРѕРєР° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РґРѕР±Р°РІР»РµРЅРЅРѕР№ РґРёСЃС‚Р°РЅС†РёРё
 
 				Sleep(200);
 			}
@@ -274,7 +274,7 @@ void Redactor::menu(RenderWindow& window)
 				type_attack = "Do";
 				_PriceTypeAttack = 0;
 			}
-			if (menunum == 5 && OCH - _Price >= 2000 && type_attack != "dpsa") { //условия наведение && достаточно очков && тип атаки не такой же
+			if (menunum == 5 && OCH - _Price >= 2000 && type_attack != "dpsa") { //СѓСЃР»РѕРІРёСЏ РЅР°РІРµРґРµРЅРёРµ && РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РѕС‡РєРѕРІ && С‚РёРї Р°С‚Р°РєРё РЅРµ С‚Р°РєРѕР№ Р¶Рµ
 				_PriceTypeAttack = 2000;
 				type_attack = "dpsa"; //dpsa (Ur/sec)
 				Sleep(200);
@@ -290,17 +290,17 @@ void Redactor::menu(RenderWindow& window)
 				Sleep(200);
 			}
 			
-			//----------Покупка delay и duration секунд
+			//----------РџРѕРєСѓРїРєР° delay Рё duration СЃРµРєСѓРЅРґ
 			if (menunum == 8)
-					if (redCo[0] != 0 && redCo[1] != 0) { //условие выделения тайла
+					if (redCo[0] != 0 && redCo[1] != 0) { //СѓСЃР»РѕРІРёРµ РІС‹РґРµР»РµРЅРёСЏ С‚Р°Р№Р»Р°
 						delay_[numC] += 0.1;
 						_Price += 50;
 						Sleep(200);
 					}
 
 			if (menunum == 9)
-				if (delay_[numC] >= 0.1) //условие доступности ресурсов
-					if (redCo[0] != 0 && redCo[1] != 0) { //условие выделения тайла
+				if (delay_[numC] >= 0.1) //СѓСЃР»РѕРІРёРµ РґРѕСЃС‚СѓРїРЅРѕСЃС‚Рё СЂРµСЃСѓСЂСЃРѕРІ
+					if (redCo[0] != 0 && redCo[1] != 0) { //СѓСЃР»РѕРІРёРµ РІС‹РґРµР»РµРЅРёСЏ С‚Р°Р№Р»Р°
 						delay_[numC] -= 0.1;
 						_Price -= 50;
 						Sleep(200);
@@ -321,7 +321,7 @@ void Redactor::menu(RenderWindow& window)
 						Sleep(200);
 					}
 			//-------------------------
-			//Изменить размер тайлов
+			//РР·РјРµРЅРёС‚СЊ СЂР°Р·РјРµСЂ С‚Р°Р№Р»РѕРІ
 			if (menunum == 15)
 			{
 				if (SizeTile == 8) SizeTile = 4;
@@ -342,8 +342,8 @@ void Redactor::menu(RenderWindow& window)
 					}
 				
 				newX = 0;
-				newY = 0; //сброс изменений
-				player.setPosition(160 + distance-160, 160 + distance - 160); //сброс позиции
+				newY = 0; //СЃР±СЂРѕСЃ РёР·РјРµРЅРµРЅРёР№
+				player.setPosition(160 + distance-160, 160 + distance - 160); //СЃР±СЂРѕСЃ РїРѕР·РёС†РёРё
 				Sleep(200);
 			}
 
@@ -367,45 +367,45 @@ void Redactor::menu(RenderWindow& window)
 					}
 
 				newX = 0;
-				newY = 0; //сброс изменений
-				player.setPosition(160 + distance - 160, 160 + distance - 160); //сброс позиции
+				newY = 0; //СЃР±СЂРѕСЃ РёР·РјРµРЅРµРЅРёР№
+				player.setPosition(160 + distance - 160, 160 + distance - 160); //СЃР±СЂРѕСЃ РїРѕР·РёС†РёРё
 				Sleep(200);
 			}
 			//-----------------------
 
-			if (menunum == 12) FuncAttack = "Fixed"; //3 функции атаки
+			if (menunum == 12) FuncAttack = "Fixed"; //3 С„СѓРЅРєС†РёРё Р°С‚Р°РєРё
 			if (menunum == 13) FuncAttack = "ClickPlace";
 			if (menunum == 14) FuncAttack = "Direction";
 
 			if (menunum == 17) 
 				if (OCH - _Price - _PriceTypeAttack >= 0) 
 					CreateAttack();
-			//if (menunum == 18) loading(8, "Click"); //загрузить существующую атаку
+			//if (menunum == 18) loading(8, "Click"); //Р·Р°РіСЂСѓР·РёС‚СЊ СЃСѓС‰РµСЃС‚РІСѓСЋС‰СѓСЋ Р°С‚Р°РєСѓ
 
 		}
 
 		//----------------------------------------------------------------------
 		delayS.str(""); 
-		delayS << delay_[numC]; //задержка тайла
+		delayS << delay_[numC]; //Р·Р°РґРµСЂР¶РєР° С‚Р°Р№Р»Р°
 		durationS.str(""); 
-		durationS << duration_[numC]; //продолжительность тайла
+		durationS << duration_[numC]; //РїСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ С‚Р°Р№Р»Р°
 
-		text[7].setString(to_string(OCH - _Price - _PriceTypeAttack) + " очков");
-		text[11].setString("Количество тайлов: " + to_string(QuanTile));
-		text[12].setString("Delay тайла:     " + delayS.str() + "\n\nDuration тайла:     " + durationS.str());
-		text[19].setString("Размер тайлов:    " + to_string(SizeTile));
+		text[7].setString(to_string(OCH - _Price - _PriceTypeAttack) + " РѕС‡РєРѕРІ");
+		text[11].setString("РљРѕР»РёС‡РµСЃС‚РІРѕ С‚Р°Р№Р»РѕРІ: " + to_string(QuanTile));
+		text[12].setString("Delay С‚Р°Р№Р»Р°:     " + delayS.str() + "\n\nDuration С‚Р°Р№Р»Р°:     " + durationS.str());
+		text[19].setString("Р Р°Р·РјРµСЂ С‚Р°Р№Р»РѕРІ:    " + to_string(SizeTile));
 		//------------------------------------------------------------------------
 
 		window.clear();
 
 		world(redactor);
 		window.draw(interface_1);
-		window.draw(Create); //кнопка создать
-		window.draw(Load); //кнопка загрузить сохранение
+		window.draw(Create); //РєРЅРѕРїРєР° СЃРѕР·РґР°С‚СЊ
+		window.draw(Load); //РєРЅРѕРїРєР° Р·Р°РіСЂСѓР·РёС‚СЊ СЃРѕС…СЂР°РЅРµРЅРёРµ
 
-		for (int j = 0; j < 35; j++) //вывод текста
+		for (int j = 0; j < 35; j++) //РІС‹РІРѕРґ С‚РµРєСЃС‚Р°
 			window.draw(text[j]);
-		for (int j = 0; j < 10; j++) //вывод стрелочек
+		for (int j = 0; j < 10; j++) //РІС‹РІРѕРґ СЃС‚СЂРµР»РѕС‡РµРє
 			window.draw(arrows[j]);
 
 		window.display();
@@ -414,12 +414,12 @@ void Redactor::menu(RenderWindow& window)
 
 void Redactor::world(RenderWindow& redactor)
 {
-	int TileToWidth = ((distance * 2 + width) / SizeTile); //кол во тайлов по x и y всего
+	int TileToWidth = ((distance * 2 + width) / SizeTile); //РєРѕР» РІРѕ С‚Р°Р№Р»РѕРІ РїРѕ x Рё y РІСЃРµРіРѕ
 	
 	Vector2i pixelPos = Mouse::getPosition(redactor);
 	Vector2f pos = redactor.mapPixelToCoords(pixelPos);
 	pos.x -= newX;
-	pos.y -= newY; //регулирование позиции курсора под перемещение экрана
+	pos.y -= newY; //СЂРµРіСѓР»РёСЂРѕРІР°РЅРёРµ РїРѕР·РёС†РёРё РєСѓСЂСЃРѕСЂР° РїРѕРґ РїРµСЂРµРјРµС‰РµРЅРёРµ СЌРєСЂР°РЅР°
 	
 	Event events;
 	while (redactor.pollEvent(events))
@@ -432,7 +432,7 @@ void Redactor::world(RenderWindow& redactor)
 			redactor.hasFocus();
 	}
 	
-	//---------Окрашивание тайлов
+	//---------РћРєСЂР°С€РёРІР°РЅРёРµ С‚Р°Р№Р»РѕРІ
 	for (int j = 0; j < 10000; j++)
 		change[j].setColor(Color::White);
 
@@ -444,26 +444,26 @@ void Redactor::world(RenderWindow& redactor)
 
 	if (!IntRect(player.getPosition().x - distance, player.getPosition().y - distance,
 		2 * distance + width - 14, 2 * distance + height - 20).contains(Mouse::getPosition(redactor)))
-		wind = false; //запрещаем клик за границей допустимой дистанции
+		wind = false; //Р·Р°РїСЂРµС‰Р°РµРј РєР»РёРє Р·Р° РіСЂР°РЅРёС†РµР№ РґРѕРїСѓСЃС‚РёРјРѕР№ РґРёСЃС‚Р°РЅС†РёРё
 
 	if (Mouse::isButtonPressed(Mouse::Left) && wind)
 	{
-		for (int j = 0; j < QuanTile; j++) { //выделяем квадратик
+		for (int j = 0; j < QuanTile; j++) { //РІС‹РґРµР»СЏРµРј РєРІР°РґСЂР°С‚РёРє
 
-			if (coordinate[j][0] == (int)(pos.x / SizeTile) && //снимаем выделение (сброс)
+			if (coordinate[j][0] == (int)(pos.x / SizeTile) && //СЃРЅРёРјР°РµРј РІС‹РґРµР»РµРЅРёРµ (СЃР±СЂРѕСЃ)
 				coordinate[j][1] == (int)(pos.y / SizeTile)) {
 				
 				coordinate[j][0] = 0;
 				coordinate[j][1] = 0; 
 
-				for (int i = j; i < QuanTile; i++) { //сдвиг							
+				for (int i = j; i < QuanTile; i++) { //СЃРґРІРёРі							
 					coordinate[i][0] = coordinate[i + 1][0];
 					coordinate[i][1] = coordinate[i + 1][1];
 				}
 				break;
 			}
 			else
-				if (coordinate[j][0] == 0 && coordinate[j][1] == 0) { //выделяем
+				if (coordinate[j][0] == 0 && coordinate[j][1] == 0) { //РІС‹РґРµР»СЏРµРј
 					coordinate[j][0] = pos.x / SizeTile;
 					coordinate[j][1] = pos.y / SizeTile;
 					break;
@@ -472,12 +472,12 @@ void Redactor::world(RenderWindow& redactor)
 		Sleep(200);
 	}
 
-	//выделение и добавление выделенному кадру характеристик
+	//РІС‹РґРµР»РµРЅРёРµ Рё РґРѕР±Р°РІР»РµРЅРёРµ РІС‹РґРµР»РµРЅРЅРѕРјСѓ РєР°РґСЂСѓ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє
 	if (Mouse::isButtonPressed(Mouse::Right))
 	{
-		//создание красного выделения - для установки задержки и длительности
+		//СЃРѕР·РґР°РЅРёРµ РєСЂР°СЃРЅРѕРіРѕ РІС‹РґРµР»РµРЅРёСЏ - РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё Р·Р°РґРµСЂР¶РєРё Рё РґР»РёС‚РµР»СЊРЅРѕСЃС‚Рё
 		for (int j = 0; j < QuanTile; j++)
-			if (coordinate[j][0] == (int)(pos.x / SizeTile) && //здесь -12 это регулирование под setPosition
+			if (coordinate[j][0] == (int)(pos.x / SizeTile) && //Р·РґРµСЃСЊ -12 СЌС‚Рѕ СЂРµРіСѓР»РёСЂРѕРІР°РЅРёРµ РїРѕРґ setPosition
 				coordinate[j][1] == (int)(pos.y / SizeTile)) {
 				redCo[0] = coordinate[j][0];
 				redCo[1] = coordinate[j][1];
@@ -489,13 +489,13 @@ void Redactor::world(RenderWindow& redactor)
 	}
 
 	//------------------------------------------
-	//управление камерой тайлов
+	//СѓРїСЂР°РІР»РµРЅРёРµ РєР°РјРµСЂРѕР№ С‚Р°Р№Р»РѕРІ
 	if (Keyboard::isKeyPressed(Keyboard::Up)) { SpriteMove(0, 5); newY += 5; } //0 1
 	if (Keyboard::isKeyPressed(Keyboard::Left)) { SpriteMove(5, 0); newX += 5; }
 	if (Keyboard::isKeyPressed(Keyboard::Right)) { SpriteMove(-5, 0); newX += -5; }
 	if (Keyboard::isKeyPressed(Keyboard::Down)) { SpriteMove(0, -5); newY += -5; }
 
-	//---------------------------- //граница дистанции
+	//---------------------------- //РіСЂР°РЅРёС†Р° РґРёСЃС‚Р°РЅС†РёРё
 	RectangleShape Ysh(Vector2f(1.f, 2 * distance + height - 20));
 	RectangleShape Ysh2(Vector2f(2.f, 2 * distance + height - 20));
 	RectangleShape Xsh(Vector2f(2 * distance + width - 14, 2.f));
@@ -506,13 +506,13 @@ void Redactor::world(RenderWindow& redactor)
 	redactor.clear();
 	redactor.setView(view);
 
-	for (int j = 0; j < 10000; j++) //вывод тайлов (625)
+	for (int j = 0; j < 10000; j++) //РІС‹РІРѕРґ С‚Р°Р№Р»РѕРІ (625)
 		redactor.draw(change[j]);
 
-	redactor.draw(Ysh); redactor.draw(Xsh); //вывод границ дистанции
+	redactor.draw(Ysh); redactor.draw(Xsh); //РІС‹РІРѕРґ РіСЂР°РЅРёС† РґРёСЃС‚Р°РЅС†РёРё
 	redactor.draw(Ysh2); redactor.draw(Xsh2);
 
-	redactor.draw(player); //вывод персонажа
+	redactor.draw(player); //РІС‹РІРѕРґ РїРµСЂСЃРѕРЅР°Р¶Р°
 	redactor.display();
 
 }
@@ -540,16 +540,16 @@ void Redactor::CoorDistantion(RectangleShape& Ysh, RectangleShape& Ysh2, Rectang
 void Redactor::CreateAttack()
 {
 	int CurrentTile[100][2];
-	int TileToWidth = (distance * 2 + width) / SizeTile; //кол во тайлов по x и y всего
+	int TileToWidth = (distance * 2 + width) / SizeTile; //РєРѕР» РІРѕ С‚Р°Р№Р»РѕРІ РїРѕ x Рё y РІСЃРµРіРѕ
 
 	if (SizeTile == 64) 
-		player.setPosition(128, 128); //исправляющий баг с конкретикой тайлов
+		player.setPosition(128, 128); //РёСЃРїСЂР°РІР»СЏСЋС‰РёР№ Р±Р°Рі СЃ РєРѕРЅРєСЂРµС‚РёРєРѕР№ С‚Р°Р№Р»РѕРІ
 	
 	for (int j = 0; j < QuanTile; j++)
 		for (int c = 0; c < 2; c++)
 			CurrentTile[j][c] = coordinate[j][c];
 
-	for (int j = 0; j < QuanTile; j++) //переводим в координаты относительно центра
+	for (int j = 0; j < QuanTile; j++) //РїРµСЂРµРІРѕРґРёРј РІ РєРѕРѕСЂРґРёРЅР°С‚С‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С†РµРЅС‚СЂР°
 		if (!(CurrentTile[j][0] == 0 && CurrentTile[j][1] == 0)) {
 
 			int x1 = rint(change[CurrentTile[j][0] + CurrentTile[j][1] * TileToWidth].getPosition().x / SizeTile - player.getPosition().x / SizeTile);
@@ -570,24 +570,24 @@ void Redactor::CreateAttack()
 
 	TiXmlElement* sizeQ = object.FirstChildElement("account")->FirstChildElement("inventor");
 
-	//найдем последний SA элемент и его айди
+	//РЅР°Р№РґРµРј РїРѕСЃР»РµРґРЅРёР№ SA СЌР»РµРјРµРЅС‚ Рё РµРіРѕ Р°Р№РґРё
 	TiXmlElement* SAElement;
 	SAElement = sizeQ->FirstChildElement("SA");
-	int EndId = 0; //конечный айди (следующий номер атаки)
+	int EndId = 0; //РєРѕРЅРµС‡РЅС‹Р№ Р°Р№РґРё (СЃР»РµРґСѓСЋС‰РёР№ РЅРѕРјРµСЂ Р°С‚Р°РєРё)
 
 	for (int j = 0; j < 45; j++) {
 		string cp = SAElement->Attribute("id");
 		EndId = atoi(cp.c_str());
 		if (!(SAElement = SAElement->NextSiblingElement("SA")))
-			break; //если элементов больше нет выходим
+			break; //РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ РЅРµС‚ РІС‹С…РѕРґРёРј
 	}
-	//далее создаем новый SA
+	//РґР°Р»РµРµ СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ SA
 	auto* newSA = new TiXmlElement("SA");
 	sizeQ->LinkEndChild(newSA);
 	newSA->SetDoubleAttribute("id", EndId + 1);
 	newSA->SetAttribute("name", "Test");
 
-	//и добавляем характеристики
+	//Рё РґРѕР±Р°РІР»СЏРµРј С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё
 	auto* delayTix = new TiXmlElement("delay");
 	newSA->LinkEndChild(delayTix);
 

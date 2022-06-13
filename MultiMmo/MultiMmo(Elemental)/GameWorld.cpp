@@ -1,4 +1,4 @@
-#include "GameWorld.h"
+п»ї#include "GameWorld.h"
 #include "TinyXML/tinyxml.h"
 
 GameWorld::GameWorld()
@@ -39,8 +39,8 @@ void GameWorld::update(RenderWindow& window)
 		{ delete entity[j]; continue; }
 		
 		entity[j]->update();
-		window.draw(entity[j]->gamer); //вывод модели
-		entity[j]->hb.draw(window); //вывод полоски хп
+		window.draw(entity[j]->gamer); //РІС‹РІРѕРґ РјРѕРґРµР»Рё
+		entity[j]->hb.draw(window); //РІС‹РІРѕРґ РїРѕР»РѕСЃРєРё С…Рї
 	}
 }
 
@@ -48,15 +48,15 @@ void GameWorld::setAvatar(Avatar* avatar, int number)
 {
 	entity[number]->setPosX(avatar->x);
 	entity[number]->setPosY(avatar->y);
-	entity[number]->setXp(avatar->xp);
-	entity[number]->setMaxXp(avatar->maxXp);
+	entity[number]->setHp(avatar->hp);
+	entity[number]->setMaxHp(avatar->maxHp);
 	entity[number]->setLife(avatar->life);
 }
 
 void GameWorld::DownloadWorld(string nameMap)
 {
 	string way = "maps/" + nameMap + "/Life.xml";
-	TiXmlDocument object(way.c_str()); //выбираем карту 
+	TiXmlDocument object(way.c_str()); //РІС‹Р±РёСЂР°РµРј РєР°СЂС‚Сѓ 
 
 	if (!object.LoadFile()) { cout << "Error: loading life map failed\n"; return; } //test
 	object.FirstChildElement("World");
@@ -64,11 +64,11 @@ void GameWorld::DownloadWorld(string nameMap)
 	TiXmlElement* world = object.FirstChildElement("World");
 	TiXmlElement* Mob = world->FirstChildElement("character");
 	TiXmlElement* MyPerson = world->FirstChildElement("MyPerson");
-	if (!Mob) return; //выход если мобов нет
+	if (!Mob) return; //РІС‹С…РѕРґ РµСЃР»Рё РјРѕР±РѕРІ РЅРµС‚
 
-	Enemy* mob = NULL; //наше существо-обьект для добавления в мир
+	Enemy* mob = NULL; //РЅР°С€Рµ СЃСѓС‰РµСЃС‚РІРѕ-РѕР±СЊРµРєС‚ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РІ РјРёСЂ
 	
-	while(true) //добавление всех персонажей что есть на карте
+	while(true) //РґРѕР±Р°РІР»РµРЅРёРµ РІСЃРµС… РїРµСЂСЃРѕРЅР°Р¶РµР№ С‡С‚Рѕ РµСЃС‚СЊ РЅР° РєР°СЂС‚Рµ
 	{
 		string data = Mob->Attribute("type");
 		
@@ -85,21 +85,21 @@ void GameWorld::DownloadWorld(string nameMap)
 		else
 			mob = new Enemy(Mob->Attribute("name"), atoi(Mob->Attribute("id")), atoi(Mob->Attribute("IDO")));
 		
-		mob->setXp(atoi(Mob->Attribute("xp")));
-		mob->setMaxXp(atoi(Mob->Attribute("maxXp")));
+		mob->setHp(atoi(Mob->Attribute("hp")));
+		mob->setMaxHp(atoi(Mob->Attribute("maxHp")));
 		mob->setPosX(atoi(Mob->Attribute("x")));
 		mob->setPosY(atoi(Mob->Attribute("y")));
 		mob->setSpeed(atoi(Mob->Attribute("speed")));
 		mob->setDistantionForOpponent(atoi(Mob->Attribute("DistanceFromOpponent")));
 		mob->setVisibility(atoi(Mob->Attribute("visibility")));
-		if (Mob->Attribute("DistantionPoint") != (string)"null") //null - значит отсутствует точка привязки
+		if (Mob->Attribute("DistantionPoint") != (string)"null") //null - Р·РЅР°С‡РёС‚ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С‚РѕС‡РєР° РїСЂРёРІСЏР·РєРё
 			mob->setTether(atoi(Mob->Attribute("DistantionPoint")));
 
 		if (!(Mob = Mob->NextSiblingElement("character")))
-			break; //выход если персонажей больше нет
+			break; //РІС‹С…РѕРґ РµСЃР»Рё РїРµСЂСЃРѕРЅР°Р¶РµР№ Р±РѕР»СЊС€Рµ РЅРµС‚
 	} 
 
-	if (MyPerson) //установка позиции игрока
+	if (MyPerson) //СѓСЃС‚Р°РЅРѕРІРєР° РїРѕР·РёС†РёРё РёРіСЂРѕРєР°
 	for (int j = 0; j < this->entity.size(); j++)
 		if (typeid(*entity[j]).name() == static_cast<string>("class Player"))
 		{

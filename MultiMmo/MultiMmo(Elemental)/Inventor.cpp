@@ -1,4 +1,4 @@
-#include "Inventor.h"
+п»ї#include "Inventor.h"
 
 Inventor::Inventor()
 {
@@ -8,19 +8,19 @@ Inventor::Inventor()
 void Inventor::udpate()
 {
     for (int j = 0; j < element.size(); j++)
-        if (element[j]->quanityThings <= 0) //если колвичество ресурсов равно 0 удаляем этот элемент
+        if (element[j]->quanityThings <= 0) //РµСЃР»Рё РєРѕР»РІРёС‡РµСЃС‚РІРѕ СЂРµСЃСѓСЂСЃРѕРІ СЂР°РІРЅРѕ 0 СѓРґР°Р»СЏРµРј СЌС‚РѕС‚ СЌР»РµРјРµРЅС‚
             element.erase(element.begin() + j);
 }
 
 void Inventor::addThings(int id, int quanity)
 {
     for (int j = 0; j < element.size(); j++)
-        if (element[j]->thingsId == id) { //если ресурс с таким айди есть просто прибавляем кол во
+        if (element[j]->thingsId == id) { //РµСЃР»Рё СЂРµСЃСѓСЂСЃ СЃ С‚Р°РєРёРј Р°Р№РґРё РµСЃС‚СЊ РїСЂРѕСЃС‚Рѕ РїСЂРёР±Р°РІР»СЏРµРј РєРѕР» РІРѕ
             element[j]->quanityThings += quanity;
-            return; //и выходим из метода
+            return; //Рё РІС‹С…РѕРґРёРј РёР· РјРµС‚РѕРґР°
         }
 
-    element.push_back(new Element); //если такого элемента нет создаем его
+    element.push_back(new Element); //РµСЃР»Рё С‚Р°РєРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РЅРµС‚ СЃРѕР·РґР°РµРј РµРіРѕ
     element.back()->thingsId = id;
     element.back()->quanityThings = quanity;
 }
@@ -43,20 +43,20 @@ void Inventor::DownloadResources()
         character.push_back(atoi(CharacterElement->Attribute("id")));
 
         if (!(CharacterElement = CharacterElement->NextSiblingElement("character")))
-            break; //если элементов больше нет выходим
+            break; //РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ РЅРµС‚ РІС‹С…РѕРґРёРј
     }
 
-    //добавляем SA
+    //РґРѕР±Р°РІР»СЏРµРј SA
     sizeQ = object.FirstChildElement("account")->FirstChildElement("inventor");
 
-    TiXmlElement* SAElement; //читаем абилки
+    TiXmlElement* SAElement; //С‡РёС‚Р°РµРј Р°Р±РёР»РєРё
     SAElement = sizeQ->FirstChildElement("SA");
 
     for (int j = 0; j < 50; j++) {
         SA.push_back(atoi(SAElement->Attribute("id")));
         
         if (!(SAElement = SAElement->NextSiblingElement("SA")))
-            break; //если элементов больше нет выходим
+            break; //РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ РЅРµС‚ РІС‹С…РѕРґРёРј
     }
 
     ///---------------------

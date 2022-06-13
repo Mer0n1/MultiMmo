@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 #include "TinyXML/tinyxml.h"
 #include "JATS.h"
@@ -6,29 +6,29 @@ using namespace sf;
 
 
 class maps
-{ //редактор создания карты
+{ //СЂРµРґР°РєС‚РѕСЂ СЃРѕР·РґР°РЅРёСЏ РєР°СЂС‚С‹
 private:
 	Sprite menu; 
 	Texture menu0;
 	Sprite change; 
 	Texture change0;
 
-	Texture general[100]; //общая текстура
-	Sprite general_[100]; //спрайт - сборка 
+	Texture general[100]; //РѕР±С‰Р°СЏ С‚РµРєСЃС‚СѓСЂР°
+	Sprite general_[100]; //СЃРїСЂР°Р№С‚ - СЃР±РѕСЂРєР° 
 
-	int WIDTH_MAP; //размер карты ширина
-	int HEIGHT_MAP; //размер карты высота/длина
-	int SizeTileMap; //размер тайла относительно стандарта 32
+	int WIDTH_MAP; //СЂР°Р·РјРµСЂ РєР°СЂС‚С‹ С€РёСЂРёРЅР°
+	int HEIGHT_MAP; //СЂР°Р·РјРµСЂ РєР°СЂС‚С‹ РІС‹СЃРѕС‚Р°/РґР»РёРЅР°
+	int SizeTileMap; //СЂР°Р·РјРµСЂ С‚Р°Р№Р»Р° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СЃС‚Р°РЅРґР°СЂС‚Р° 32
 
-	int TileMap[100][100]; //основной слой
-	int TileFonMap[100][100]; //задний фон
+	int TileMap[100][100]; //РѕСЃРЅРѕРІРЅРѕР№ СЃР»РѕР№
+	int TileFonMap[100][100]; //Р·Р°РґРЅРёР№ С„РѕРЅ
 
 public:
 	maps();
 
-	bool interactionMap(int x, int y, int Height, int Width); //интерактив персонажа с картой
-	void limitMap(float& x, float& y, View &view); //интерактив с границами карты
+	bool interactionMap(int x, int y, int Height, int Width); //РёРЅС‚РµСЂР°РєС‚РёРІ РїРµСЂСЃРѕРЅР°Р¶Р° СЃ РєР°СЂС‚РѕР№
+	void limitMap(float& x, float& y, View &view); //РёРЅС‚РµСЂР°РєС‚РёРІ СЃ РіСЂР°РЅРёС†Р°РјРё РєР°СЂС‚С‹
 
-	void TileMapEdit(string fail); //загрузка карты
+	void TileMapEdit(string fail); //Р·Р°РіСЂСѓР·РєР° РєР°СЂС‚С‹
 	void draw_map(RenderWindow& window);
 };

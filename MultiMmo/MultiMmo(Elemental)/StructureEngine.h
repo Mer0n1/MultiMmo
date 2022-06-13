@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
 using namespace std;
 using namespace sf;
 
-enum type_at { Do, dpsa, ida, poisonous }; //тип атаки - перечисления
+enum type_at { Do, dpsa, ida, poisonous }; //С‚РёРї Р°С‚Р°РєРё - РїРµСЂРµС‡РёСЃР»РµРЅРёСЏ
 
-struct AnimationAttack //временная структура под анимацию
+struct AnimationAttack //РІСЂРµРјРµРЅРЅР°СЏ СЃС‚СЂСѓРєС‚СѓСЂР° РїРѕРґ Р°РЅРёРјР°С†РёСЋ
 {
 	RenderWindow* window;
 	Sprite inTile[100];
@@ -21,7 +21,7 @@ struct AnimationAttack //временная структура под анимацию
 		}
 	}
 };
-struct AAforASystem //структура системы анимаций для системы атак
+struct AAforASystem //СЃС‚СЂСѓРєС‚СѓСЂР° СЃРёСЃС‚РµРјС‹ Р°РЅРёРјР°С†РёР№ РґР»СЏ СЃРёСЃС‚РµРјС‹ Р°С‚Р°Рє
 {
 	AnimationAttack* at1;
 	AnimationAttack* at2;
@@ -29,7 +29,7 @@ struct AAforASystem //структура системы анимаций для системы атак
 	AnimationAttack* left;
 };
 
-struct CurrentAttack //структура атаки
+struct CurrentAttack //СЃС‚СЂСѓРєС‚СѓСЂР° Р°С‚Р°РєРё
 {
 	int id;
 	int numberSA;
@@ -49,15 +49,15 @@ struct CurrentAttack //структура атаки
 };
 
 class Group_Rpg;
-struct playerPr { //берем важные характеристики персонажа для класса attacks
+struct playerPr { //Р±РµСЂРµРј РІР°Р¶РЅС‹Рµ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё РїРµСЂСЃРѕРЅР°Р¶Р° РґР»СЏ РєР»Р°СЃСЃР° attacks
 	int id = 1;
 	int pid = 2;
-	float* x = 0, * y = 0; //позиция игрока
-	float* posX = 0, *posY = 0; //позиция курсора
+	float* x = 0, * y = 0; //РїРѕР·РёС†РёСЏ РёРіСЂРѕРєР°
+	float* posX = 0, *posY = 0; //РїРѕР·РёС†РёСЏ РєСѓСЂСЃРѕСЂР°
 	int Height = 0, Width = 0;
-	int* xp = 0, * maxXp = 0;
+	int* hp = 0, * maxHp = 0;
 
-	int* currentAt = 0; //текущая атака
+	int* currentAt = 0; //С‚РµРєСѓС‰Р°СЏ Р°С‚Р°РєР°
 	int* normAt;
 	int* at1 = 0;
 	int* at2 = 0;
@@ -65,10 +65,10 @@ struct playerPr { //берем важные характеристики персонажа для класса attacks
 	Group_Rpg* group = NULL;
 };
 
-struct AttackRatios //Структура характеристик атаки (или "Коэффициенты атаки")
+struct AttackRatios //РЎС‚СЂСѓРєС‚СѓСЂР° С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє Р°С‚Р°РєРё (РёР»Рё "РљРѕСЌС„С„РёС†РёРµРЅС‚С‹ Р°С‚Р°РєРё")
 {
-	int currentAt = 0; //урон текущей атаки
-	int normAt = 5; //урон обычной атакой
+	int currentAt = 0; //СѓСЂРѕРЅ С‚РµРєСѓС‰РµР№ Р°С‚Р°РєРё
+	int normAt = 5; //СѓСЂРѕРЅ РѕР±С‹С‡РЅРѕР№ Р°С‚Р°РєРѕР№
 	int at1 = 40;
 	int at2 = 200;
 	int at3 = 10;

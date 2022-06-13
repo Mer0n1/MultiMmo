@@ -1,16 +1,16 @@
-#include "SubEntity.h"
+п»ї#include "SubEntity.h"
 
 
 Mobs::Mobs(string name_, int id_, int pid_) : Enemy(name_, id_, pid_)
 {
 	model_ = *gamer.getTexture();
-	gamer.setTextureRect(IntRect(0, 0, Width, Height)); //текстура для анимации имеет другую IntRect
+	gamer.setTextureRect(IntRect(0, 0, Width, Height)); //С‚РµРєСЃС‚СѓСЂР° РґР»СЏ Р°РЅРёРјР°С†РёРё РёРјРµРµС‚ РґСЂСѓРіСѓСЋ IntRect
 	
 	time = 0;
 	saveTime = 0;
 	CurCadr = 1;
 
-	if (id == 102) animation_.setAnimation(0); //test у 102 нет анимации
+	if (id == 102) animation_.setAnimation(0); //test Сѓ 102 РЅРµС‚ Р°РЅРёРјР°С†РёРё
 }
 
 Mobs::~Mobs()
@@ -23,21 +23,21 @@ void Mobs::update()
 
 	gamer.setPosition(x, y);
 	hb.setPosition(x - 10, y - 10);
-	hb.setProgress((float)xp / (float)max_Xp);
-	hb.setXp(xp, max_Xp);
+	hb.setProgress((float)hp / (float)max_hp);
+	hb.setHp(hp, max_hp);
 	
 	if (id > 99) Control(); else controlEnemy();
 	interactionWithMap(); 
 	go_move(); 
 	ai();
 	
-	animation_.animationContol(gamer, model_); //анимация движения
-	if (xp <= 0) { life = false; gamer.setColor(Color::Black); }
+	animation_.animationContol(gamer, model_); //Р°РЅРёРјР°С†РёСЏ РґРІРёР¶РµРЅРёСЏ
+	if (hp <= 0) { life = false; gamer.setColor(Color::Black); }
 }
 
-void Mobs::updateXp(int atck)
+void Mobs::updateHp(int atck)
 {
-	xp -= atck;
+	hp -= atck;
 }
 
 void Mobs::Control()
@@ -45,7 +45,7 @@ void Mobs::Control()
 	if (time < controltime) return;
 	controltime = time + 0.01;
 
-	//движение
+	//РґРІРёР¶РµРЅРёРµ
 	if (forward) y -= speed;
 	if (right)   x += speed;
 	if (left)    x -= speed;

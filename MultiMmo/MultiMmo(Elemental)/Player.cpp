@@ -1,21 +1,21 @@
-#include "SubEntity.h"
+п»ї#include "SubEntity.h"
 #include "GameWorld.h"
 
 
 Player::Player()
 {
-	xp = 0, max_Xp = 0;
+	hp = 0, max_hp = 0;
 	speed = 0;
 	x = 0; y = 0;
 	pid = rand() % 10000 + 1;
 	time_save = 0;
 	speedConst = 0;
 
-	readyPerson(); //загрузка характеристик с соответствием с его айди
-	world->addEntity(this); //автоматически при создании добавляем его в список мира
+	readyPerson(); //Р·Р°РіСЂСѓР·РєР° С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє СЃ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµРј СЃ РµРіРѕ Р°Р№РґРё
+	world->addEntity(this); //Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїСЂРё СЃРѕР·РґР°РЅРёРё РґРѕР±Р°РІР»СЏРµРј РµРіРѕ РІ СЃРїРёСЃРѕРє РјРёСЂР°
 	
 	TFPack->ModelCharacter[id].setTextureRect(IntRect(0, 0, Width, Height));
-	gamer = TFPack->ModelCharacter[id]; //загрузка модели
+	gamer = TFPack->ModelCharacter[id]; //Р·Р°РіСЂСѓР·РєР° РјРѕРґРµР»Рё
 
 	rech = new RechargeAttack[3]; 
 	for (int j = 0; j < 3; j++)
@@ -26,8 +26,8 @@ Player::Player()
 	pr.y = &y;
 	pr.posX = &pixelPos->x;
 	pr.posY = &pixelPos->y;
-	pr.xp = &xp;
-	pr.maxXp = &max_Xp;
+	pr.hp = &hp;
+	pr.maxHp = &max_hp;
 	pr.Height = Height;
 	pr.Width = Width;
 	pr.id = id;
@@ -39,31 +39,31 @@ Player::Player()
 	pr.currentAt = &rations.at1;
 
 	AttackMode.setPr(&pr);
-	AttackMode.inisialization(); //инициализируем всю систему
+	AttackMode.inisialization(); //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІСЃСЋ СЃРёСЃС‚РµРјСѓ
 }
 
 Player::~Player()
 {
 	delete group;
-	//delete rech; //rech должен быть очищен еще в интерфейсе
+	//delete rech; //rech РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РѕС‡РёС‰РµРЅ РµС‰Рµ РІ РёРЅС‚РµСЂС„РµР№СЃРµ
 }
 
 void Player::update()
 {	
 	gamer.setPosition(x, y);
-	hb.setProgress((float)xp / (float)max_Xp);
-	hb.setXp(xp, max_Xp);
+	hb.setProgress((float)hp / (float)max_hp);
+	hb.setHp(hp, max_hp);
 
-	controlPlayer(); //управление персонажем
+	controlPlayer(); //СѓРїСЂР°РІР»РµРЅРёРµ РїРµСЂСЃРѕРЅР°Р¶РµРј
 	interactionWithMap();
 	AttackMode.go_attack();
 
-	if (xp <= 0) { life = false; exit(0); }
+	if (hp <= 0) { life = false; exit(0); }
 }
 
 void Player::interactionWithMap()
 {
-	if (!Map->interactionMap(x, y, Height, Width)) return; //если препятствия нет выходим
+	if (!Map->interactionMap(x, y, Height, Width)) return; //РµСЃР»Рё РїСЂРµРїСЏС‚СЃС‚РІРёСЏ РЅРµС‚ РІС‹С…РѕРґРёРј
 
 	if (dy > 0)
 		y -= speedConst;
@@ -78,56 +78,56 @@ void Player::interactionWithMap()
 void Player::controlPlayer()
 {
 
-	switch (dir) //направление движения
+	switch (dir) //РЅР°РїСЂР°РІР»РµРЅРёРµ РґРІРёР¶РµРЅРёСЏ
 	{
 	case 0: dx = speed; dy = 0; break;
 	case 1: dx = -speed; dy = 0; break;
 	case 2: dx = 0; dy = speed; break;
 	case 3: dx = 0; dy = -speed; break;
-	case 4: dx = speed; dy = speed; break; //боковые вверх-вправо
-	case 5: dx = -speed; dy = -speed; break; //вверх-влево
-	case 6: dx = -speed; dy = speed; break; //вниз - влево
-	case 7: dx = speed; dy = -speed; break; //вниз -вправо
+	case 4: dx = speed; dy = speed; break; //Р±РѕРєРѕРІС‹Рµ РІРІРµСЂС…-РІРїСЂР°РІРѕ
+	case 5: dx = -speed; dy = -speed; break; //РІРІРµСЂС…-РІР»РµРІРѕ
+	case 6: dx = -speed; dy = speed; break; //РІРЅРёР· - РІР»РµРІРѕ
+	case 7: dx = speed; dy = -speed; break; //РІРЅРёР· -РІРїСЂР°РІРѕ
 	}
 
 	x += dx;
 	y += dy;
 	speed = 0;
 	//-------------------------------------
-	if (Keyboard::isKeyPressed(Keyboard::Num1)) { AttackMode.setNum(1, true); rech[0].StartTimer(); }//включаем атаку
+	if (Keyboard::isKeyPressed(Keyboard::Num1)) { AttackMode.setNum(1, true); rech[0].StartTimer(); }//РІРєР»СЋС‡Р°РµРј Р°С‚Р°РєСѓ
 	if (Keyboard::isKeyPressed(Keyboard::Num2)) { AttackMode.setNum(2, true); rech[1].StartTimer(); }
 	if (Keyboard::isKeyPressed(Keyboard::Num3)) { AttackMode.setNum(3, true); rech[2].StartTimer();  }
 	if (Mouse::isButtonPressed(Mouse::Right))   { AttackMode.setNum(4, true); }
 	//-------------------------------------
 
-	if (!life) { return; } //если игрок мертв блокируем управление
+	if (!life) { return; } //РµСЃР»Рё РёРіСЂРѕРє РјРµСЂС‚РІ Р±Р»РѕРєРёСЂСѓРµРј СѓРїСЂР°РІР»РµРЅРёРµ
 	if (*time < sleeptime) { return; }
 	
-	if (Keyboard::isKeyPressed(Keyboard::W)) { //вверх
+	if (Keyboard::isKeyPressed(Keyboard::W)) { //РІРІРµСЂС…
 		gamer.setTextureRect(IntRect(Width * 6, 0, Width, Height));
 		speed = 5; dir = 3;
 		sleeptime = *time + 0.01; //Sleep(10);
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::D)) { //на право
+	if (Keyboard::isKeyPressed(Keyboard::D)) { //РЅР° РїСЂР°РІРѕ
 		gamer.setTextureRect(IntRect(0, 0, Width, Height)); 
 		speed = 5; dir = 0;
 		sleeptime = *time + 0.01; //Sleep(10);
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::A)) { //налево
+	if (Keyboard::isKeyPressed(Keyboard::A)) { //РЅР°Р»РµРІРѕ
 		gamer.setTextureRect(IntRect(Width * 4, 0, Width, Height)); 
 		speed = 5; dir = 1;
 		sleeptime = *time + 0.01; //Sleep(10);
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::S)) { //вниз
+	if (Keyboard::isKeyPressed(Keyboard::S)) { //РІРЅРёР·
 		gamer.setTextureRect(IntRect(Width * 2, 0, Width, Height)); 
 		speed = 5; dir = 2;
 		sleeptime = *time + 0.01; //Sleep(10);
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::S) && //боковая хотьба
+	if (Keyboard::isKeyPressed(Keyboard::S) && //Р±РѕРєРѕРІР°СЏ С…РѕС‚СЊР±Р°
 		Keyboard::isKeyPressed(Keyboard::D)) {
 		gamer.setTextureRect(IntRect(Width * 1, 0, Width, Height));
 		speed = 3; dir = 4;
@@ -148,16 +148,16 @@ void Player::controlPlayer()
 		speed = 3; dir = 7;
 	}
 
-	view->setCenter(x + (Width / 2), y + (Height / 2)); //балансируем экран
+	view->setCenter(x + (Width / 2), y + (Height / 2)); //Р±Р°Р»Р°РЅСЃРёСЂСѓРµРј СЌРєСЂР°РЅ
 	Map->limitMap(x, y, *view);
 }
 
-void Player::updateXp(int atck)
+void Player::updateHp(int atck)
 {
-	xp -= atck; 
+	hp -= atck; 
 }
 
-RechargeAttack* Player::getModuleRA() //возвращаем модуль интерфейса 
+RechargeAttack* Player::getModuleRA() //РІРѕР·РІСЂР°С‰Р°РµРј РјРѕРґСѓР»СЊ РёРЅС‚РµСЂС„РµР№СЃР° 
 {
 	return rech;
 }
@@ -165,11 +165,11 @@ RechargeAttack* Player::getModuleRA() //возвращаем модуль интерфейса
 void Player::readyPerson()
 {
 
-	//вытаскиваем информацию каждой атаки
+	//РІС‹С‚Р°СЃРєРёРІР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ РєР°Р¶РґРѕР№ Р°С‚Р°РєРё
 	TiXmlDocument object("Save/account.xml");
 	object.LoadFile();
 
-	//загрузка данных о персонаже
+	//Р·Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С… Рѕ РїРµСЂСЃРѕРЅР°Р¶Рµ
 	TiXmlElement* infoCharacter;
 	infoCharacter = object.FirstChildElement("account")->FirstChildElement("saveCharacter");
 
@@ -178,18 +178,18 @@ void Player::readyPerson()
 
 	for (int j = 0; j < 50; j++)
 	{
-		if (idCh == infoCharacter->Attribute("id")) break; //если найдем наш айди то сохраняем путь
+		if (idCh == infoCharacter->Attribute("id")) break; //РµСЃР»Рё РЅР°Р№РґРµРј РЅР°С€ Р°Р№РґРё С‚Рѕ СЃРѕС…СЂР°РЅСЏРµРј РїСѓС‚СЊ
 
 		if (!(infoCharacter = infoCharacter->NextSiblingElement("character")))
-			break; //если элементов больше нет выходим
+			break; //РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ Р±РѕР»СЊС€Рµ РЅРµС‚ РІС‹С…РѕРґРёРј
 	}
-	//загрузка характеристик 
+	//Р·Р°РіСЂСѓР·РєР° С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє 
 	name = infoCharacter->Attribute("name");
-	Width = atoi(infoCharacter->Attribute("width")); //изменяем характеристики игрока
+	Width = atoi(infoCharacter->Attribute("width")); //РёР·РјРµРЅСЏРµРј С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё РёРіСЂРѕРєР°
 	Height = atoi(infoCharacter->Attribute("height"));
 	id = atoi(infoCharacter->Attribute("id"));
-	xp = atoi(infoCharacter->FirstChildElement("Xp")->Attribute("Value"));
-	max_Xp = atoi(infoCharacter->FirstChildElement("Xp")->Attribute("MaxXp"));
+	hp = atoi(infoCharacter->FirstChildElement("Hp")->Attribute("Value"));
+	max_hp = atoi(infoCharacter->FirstChildElement("Hp")->Attribute("MaxHp"));
 	speed = atoi(infoCharacter->FirstChildElement("Speed")->Attribute("Value"));
 	rations.at1 = atoi(infoCharacter->FirstChildElement("AttackDamage")->Attribute("At1"));
 	rations.at2 = atoi(infoCharacter->FirstChildElement("AttackDamage")->Attribute("At2"));
@@ -197,28 +197,28 @@ void Player::readyPerson()
 	rations.normAt = atoi(infoCharacter->FirstChildElement("AttackDamage")->Attribute("normAt"));
 	speedConst = speed;
 
-	//----------------------загрузка SA
-	//загружаем сохранения выбранных атак (которые уже стоят там)
+	//----------------------Р·Р°РіСЂСѓР·РєР° SA
+	//Р·Р°РіСЂСѓР¶Р°РµРј СЃРѕС…СЂР°РЅРµРЅРёСЏ РІС‹Р±СЂР°РЅРЅС‹С… Р°С‚Р°Рє (РєРѕС‚РѕСЂС‹Рµ СѓР¶Рµ СЃС‚РѕСЏС‚ С‚Р°Рј)
 	string Numb1, Numb2, Numb3, nool;
 	TiXmlElement* character = infoCharacter->FirstChildElement("saveSA");
 	Numb1 = character->Attribute("Numb1");
 	Numb2 = character->Attribute("Numb2");
 	Numb3 = character->Attribute("Numb3");
 	
-	if (Numb1 != nool) downloadSA(0, atoi(Numb1.c_str())); //загружаем информацию в ячейку
+	if (Numb1 != nool) downloadSA(0, atoi(Numb1.c_str())); //Р·Р°РіСЂСѓР¶Р°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ РІ СЏС‡РµР№РєСѓ
 	if (Numb2 != nool) downloadSA(1, atoi(Numb2.c_str()));
 	if (Numb3 != nool) downloadSA(2, atoi(Numb3.c_str()));
 }
 
 
-void Player::downloadSA(int numb, int id) //загрузка данных SA персонажа
+void Player::downloadSA(int numb, int id) //Р·Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С… SA РїРµСЂСЃРѕРЅР°Р¶Р°
 {
 	TiXmlDocument object("Save/account.xml");
 	object.LoadFile();
 
 	TiXmlElement* sizeQ = object.FirstChildElement("account")->FirstChildElement("inventor");
 
-	TiXmlElement* SAElement; //читаем абилки
+	TiXmlElement* SAElement; //С‡РёС‚Р°РµРј Р°Р±РёР»РєРё
 	SAElement = sizeQ->FirstChildElement("SA");
 
 	for (int j = 0; j < 50; j++) {
@@ -228,7 +228,7 @@ void Player::downloadSA(int numb, int id) //загрузка данных SA персонажа
 			break;
 	}
 	
-	//переводим сперва в string и после во float
+	//РїРµСЂРµРІРѕРґРёРј СЃРїРµСЂРІР° РІ string Рё РїРѕСЃР»Рµ РІРѕ float
 	TiXmlElement* DelayTix = SAElement->FirstChildElement("delay");
 	TiXmlElement* durationTix = SAElement->FirstChildElement("duration");
 	TiXmlElement* TileTix = SAElement->FirstChildElement("Tile");
@@ -241,7 +241,7 @@ void Player::downloadSA(int numb, int id) //загрузка данных SA персонажа
 	
 	CurrentAttack SAAttack;
 	//---------------------------------------------------
-	//Переведем string в массив и сохраним в систему атаки
+	//РџРµСЂРµРІРµРґРµРј string РІ РјР°СЃСЃРёРІ Рё СЃРѕС…СЂР°РЅРёРј РІ СЃРёСЃС‚РµРјСѓ Р°С‚Р°РєРё
 	interpretation inter;
 	int Size = atoi(Description->Attribute("QuanityTile"));
 	int iSize = Size * sizeof(int);
@@ -253,7 +253,7 @@ void Player::downloadSA(int numb, int id) //загрузка данных SA персонажа
 	inter = durationStr;
 	inter.toFloatMassv(&SAAttack.duration[0], fSize);
 
-	int uk[100]; //если есть двумерный массив разделяем его на два
+	int uk[100]; //РµСЃР»Рё РµСЃС‚СЊ РґРІСѓРјРµСЂРЅС‹Р№ РјР°СЃСЃРёРІ СЂР°Р·РґРµР»СЏРµРј РµРіРѕ РЅР° РґРІР°
 
 	inter = TileX;
 	inter.toIntMassv(&uk[0], iSize);
@@ -267,7 +267,7 @@ void Player::downloadSA(int numb, int id) //загрузка данных SA персонажа
 	for (int j = 0; j < Size; j++)
 		SAAttack.Tile[j][1] = uk[j];
 	//------------------------------------------------------------------
-	//Сохраняем характеристики описания
+	//РЎРѕС…СЂР°РЅСЏРµРј С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё РѕРїРёСЃР°РЅРёСЏ
 	
 	string TypeAttack = Description->Attribute("TypeAttack");
 	
@@ -285,9 +285,9 @@ void Player::downloadSA(int numb, int id) //загрузка данных SA персонажа
 	SAAttack.recharge = atoi(Description->Attribute("Recharge"));
 	SAAttack.QuanityTile = atoi(Description->Attribute("QuanityTile"));
 	if (Description->Attribute("Size"))
-		SAAttack.SizeTile = atoi(Description->Attribute("Size")); //тест
+		SAAttack.SizeTile = atoi(Description->Attribute("Size")); //С‚РµСЃС‚
 
-	//вводим VidE (если есть)
+	//РІРІРѕРґРёРј VidE (РµСЃР»Рё РµСЃС‚СЊ)
 	if (SAElement->FirstChildElement("mobs")) {
 		TiXmlElement* VidE = SAElement->FirstChildElement("mobs");
 

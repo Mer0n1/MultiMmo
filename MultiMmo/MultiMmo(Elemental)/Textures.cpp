@@ -1,4 +1,4 @@
-#include "Textures.h"
+п»ї#include "Textures.h"
 
 
 TexturesFile::TexturesFile()
@@ -17,9 +17,9 @@ TexturesFile::TexturesFile()
 	textureModelCharacter[97].loadFromFile("Textures/models/Papyrus.png");
 	textureModelCharacter[98].loadFromFile("Textures/models/Sans.png");
 	textureModelCharacter[99].loadFromFile("Textures/models/Developer.png");
-	//персонажи до 100 - игровые персонажи
+	//РїРµСЂСЃРѕРЅР°Р¶Рё РґРѕ 100 - РёРіСЂРѕРІС‹Рµ РїРµСЂСЃРѕРЅР°Р¶Рё
 
-	//мобы
+	//РјРѕР±С‹
 	textureModelCharacter[101].loadFromFile("Textures/models/mobs/redis1.png");
 	textureModelCharacter[102].loadFromFile("Textures/models/mobs/ananas.png");
 

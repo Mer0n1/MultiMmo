@@ -1,15 +1,15 @@
-#pragma once
+п»ї#pragma once
 #include "Client.h"
 
-//BridgeClient дает доступ к основному классу Client и тем методам которым мы можем пользоваться за пределами класса Client
+//BridgeClient РґР°РµС‚ РґРѕСЃС‚СѓРї Рє РѕСЃРЅРѕРІРЅРѕРјСѓ РєР»Р°СЃСЃСѓ Client Рё С‚РµРј РјРµС‚РѕРґР°Рј РєРѕС‚РѕСЂС‹Рј РјС‹ РјРѕР¶РµРј РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ Р·Р° РїСЂРµРґРµР»Р°РјРё РєР»Р°СЃСЃР° Client
 
 class BridgeClient
 {
 public:
 	BridgeClient();
-	static void inisialization(Client* client); //иницилизируем 1 раз
+	static void inisialization(Client* client); //РёРЅРёС†РёР»РёР·РёСЂСѓРµРј 1 СЂР°Р·
 
-	void MakeDamage(int p_id, int damage); //нанести урон
+	void MakeDamage(int p_id, int damage); //РЅР°РЅРµСЃС‚Рё СѓСЂРѕРЅ
 private:
 	static Client* client;
 };

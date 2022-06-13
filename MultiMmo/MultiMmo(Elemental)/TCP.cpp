@@ -1,7 +1,7 @@
-#include "Tcp.h"
+ï»¿#include "Tcp.h"
 #include <iostream>
 
-int read(SOCKET s, char* buf, size_t len) //à âîò ýòî ìîÿ
+int read(SOCKET s, char* buf, size_t len) //Ð° Ð²Ð¾Ñ‚ ÑÑ‚Ð¾ Ð¼Ð¾Ñ
 {
 	int rc = 1;
 
@@ -10,15 +10,15 @@ int read(SOCKET s, char* buf, size_t len) //à âîò ýòî ìîÿ
 		rc = recv(s, buf, len, 0);
 
 		if (rc > 0)
-			break; //åñëè ôàéë öåë çàêðûòü öèêë
+			break; //ÐµÑÐ»Ð¸ Ñ„Ð°Ð¹Ð» Ñ†ÐµÐ» Ð·Ð°ÐºÑ€Ñ‹Ñ‚ÑŒ Ñ†Ð¸ÐºÐ»
 
-		if (rc == 0) exit(0); //åñëè ñîåäèíåíèÿ íåò âûéòè èç èãðû
+		if (rc == 0) exit(0); //ÐµÑÐ»Ð¸ ÑÐ¾ÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ñ Ð½ÐµÑ‚ Ð²Ñ‹Ð¹Ñ‚Ð¸ Ð¸Ð· Ð¸Ð³Ñ€Ñ‹
 	}
 	return len;
 }
 
 
-int readn(SOCKET s, char* buf, size_t len) //äëÿ ãëîáàëüíîé ñåòè (âîçâðàùåíèå ÷àñòåé ôàéëîâ) (ôóíêöèÿ âçÿòà èç êíèãè)
+int readn(SOCKET s, char* buf, size_t len) //Ð´Ð»Ñ Ð³Ð»Ð¾Ð±Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÑÐµÑ‚Ð¸ (Ð²Ð¾Ð·Ð²Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ðµ Ñ‡Ð°ÑÑ‚ÐµÐ¹ Ñ„Ð°Ð¹Ð»Ð¾Ð²) (Ñ„ÑƒÐ½ÐºÑ†Ð¸Ñ Ð²Ð·ÑÑ‚Ð° Ð¸Ð· ÐºÐ½Ð¸Ð³Ð¸)
 { 
 	int cnt;
 	int rc;
@@ -27,14 +27,14 @@ int readn(SOCKET s, char* buf, size_t len) //äëÿ ãëîáàëüíîé ñåòè (âîçâðàùåíèå ÷à
 	while (cnt > 0)
 	{
 		rc = recv(s, buf, cnt, 0);
-		if (rc < 0) // Îøèáêà ÷òåíèÿ? 
+		if (rc < 0) // ÐžÑˆÐ¸Ð±ÐºÐ° Ñ‡Ñ‚ÐµÐ½Ð¸Ñ? 
 		{
-			if (errno == EINTR) // Âûçîâ ïðåðâàí? 
-				continue; // Ïîâòîðèòü ÷òåíèå. 
-			return -1; // Âåðíóòü êîä îøèáêè. 
+			if (errno == EINTR) // Ð’Ñ‹Ð·Ð¾Ð² Ð¿Ñ€ÐµÑ€Ð²Ð°Ð½? 
+				continue; // ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚ÑŒ Ñ‡Ñ‚ÐµÐ½Ð¸Ðµ. 
+			return -1; // Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒ ÐºÐ¾Ð´ Ð¾ÑˆÐ¸Ð±ÐºÐ¸. 
 		}
-		if (rc == 0) // Êîíåö ôàéëà? 
-			return len - cnt; // Âåðíóòü íåïîëíûé ñ÷åò÷èê. 
+		if (rc == 0) // ÐšÐ¾Ð½ÐµÑ† Ñ„Ð°Ð¹Ð»Ð°? 
+			return len - cnt; // Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒ Ð½ÐµÐ¿Ð¾Ð»Ð½Ñ‹Ð¹ ÑÑ‡ÐµÑ‚Ñ‡Ð¸Ðº. 
 		buf += rc;
 		cnt -= rc;
 

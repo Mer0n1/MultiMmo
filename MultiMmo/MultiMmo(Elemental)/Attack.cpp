@@ -1,8 +1,8 @@
-#include "Attack.h"
+п»ї#include "Attack.h"
 #include "GameWorld.h"
 #include "windows.h"
 //-----------------------------attacks
-attack::attack() //иницилазиация через 2 аргмента обязательна во избежании ошибок
+attack::attack() //РёРЅРёС†РёР»Р°Р·РёР°С†РёСЏ С‡РµСЂРµР· 2 Р°СЂРіРјРµРЅС‚Р° РѕР±СЏР·Р°С‚РµР»СЊРЅР° РІРѕ РёР·Р±РµР¶Р°РЅРёРё РѕС€РёР±РѕРє
 {
 	time = 0; 
 	accounting = 0;
@@ -46,24 +46,24 @@ void attack::go_attack()
 {
 	time = clock.getElapsedTime().asSeconds();
 	
-	//проверка перезарядки и активности
+	//РїСЂРѕРІРµСЂРєР° РїРµСЂРµР·Р°СЂСЏРґРєРё Рё Р°РєС‚РёРІРЅРѕСЃС‚Рё
 	if (time > time_attack && !life_attack) {
-		clock.restart(); //сброс счетчика (атака прекращается на момент когда life_attack не активна и перезарядка прошла)
+		clock.restart(); //СЃР±СЂРѕСЃ СЃС‡РµС‚С‡РёРєР° (Р°С‚Р°РєР° РїСЂРµРєСЂР°С‰Р°РµС‚СЃСЏ РЅР° РјРѕРјРµРЅС‚ РєРѕРіРґР° life_attack РЅРµ Р°РєС‚РёРІРЅР° Рё РїРµСЂРµР·Р°СЂСЏРґРєР° РїСЂРѕС€Р»Р°)
 		time = 0;
-		time_attack = time + SAAttack->recharge; //перезарядка
+		time_attack = time + SAAttack->recharge; //РїРµСЂРµР·Р°СЂСЏРґРєР°
 		life_attack = true;
 
-		if (FuncAttack != "ClickPlace") //если не ClickPlace то фиксируем относительно игрока
+		if (FuncAttack != "ClickPlace") //РµСЃР»Рё РЅРµ ClickPlace С‚Рѕ С„РёРєСЃРёСЂСѓРµРј РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РёРіСЂРѕРєР°
 			for (int j = 0; j < QuanTile; j++) {
 				if (SAAttack->Tile[j][0] == 0 & SAAttack->Tile[j][1] == 0) continue;
 				x_attack[j] = (SAAttack->Tile[j][0]  + *pr->x / SAAttack->SizeTile) * SAAttack->SizeTile;
 				y_attack[j] = (SAAttack->Tile[j][1]  + *pr->y / SAAttack->SizeTile) * SAAttack->SizeTile;
 			}
 		if (type_attack == Do)
-			if (VidE == 0) duration_attack[QuanTile - 2] = 0.2; //чтоб мгновенная атака хотябы была видна
+			if (VidE == 0) duration_attack[QuanTile - 2] = 0.2; //С‡С‚РѕР± РјРіРЅРѕРІРµРЅРЅР°СЏ Р°С‚Р°РєР° С…РѕС‚СЏР±С‹ Р±С‹Р»Р° РІРёРґРЅР°
 	}
 	
-	//запуск атаки
+	//Р·Р°РїСѓСЃРє Р°С‚Р°РєРё
 	if (life_attack) attack_start();
 }
 
@@ -74,14 +74,14 @@ void attack::attack_start()
 	if (life_attack)
 	{
 	    for (int j = 0; j < 20; j++) 
-			id_opponents[j] = 1; //фиксирование всех айди по которым нанесется урон
+			id_opponents[j] = 1; //С„РёРєСЃРёСЂРѕРІР°РЅРёРµ РІСЃРµС… Р°Р№РґРё РїРѕ РєРѕС‚РѕСЂС‹Рј РЅР°РЅРµСЃРµС‚СЃСЏ СѓСЂРѕРЅ
 
-		int CurrentAtt = *pr->currentAt; //текущий урон атаки
+		int CurrentAtt = *pr->currentAt; //С‚РµРєСѓС‰РёР№ СѓСЂРѕРЅ Р°С‚Р°РєРё
 		active = true;
 
 		for (int j = 0; j < QuanTile; j++) {
 
-			if (j == QuanTile - 1) { //сброс
+			if (j == QuanTile - 1) { //СЃР±СЂРѕСЃ
 				animation->Reset();
 				saveX_VidE = 0; posX_VidE = 0;
 				saveY_VidE = 0; posY_VidE = 0;
@@ -98,18 +98,18 @@ void attack::attack_start()
 			}
 			//---------------------------------------- Duration - delay
 			
-			if (save_j != -1 && !delayBlock) //делаем тайлы прозрачными когда действуте delay - задержка
+			if (save_j != -1 && !delayBlock) //РґРµР»Р°РµРј С‚Р°Р№Р»С‹ РїСЂРѕР·СЂР°С‡РЅС‹РјРё РєРѕРіРґР° РґРµР№СЃС‚РІСѓС‚Рµ delay - Р·Р°РґРµСЂР¶РєР°
 				for (int c = 0; c < QuanTile; c++) {
 					animation->intTile_8[c].setScale(SAAttack->SizeTile / 8.f, SAAttack->SizeTile / 8.f); //8
-					animation->intTile_8[c].setColor(Color(255, 255, 255, 50)); //делаем полупрозрачным
-					animation->intTile_8[c].setPosition(x_attack[c], y_attack[c]); //изменение размера клеток в соотвествии с атакой
+					animation->intTile_8[c].setColor(Color(255, 255, 255, 50)); //РґРµР»Р°РµРј РїРѕР»СѓРїСЂРѕР·СЂР°С‡РЅС‹Рј
+					animation->intTile_8[c].setPosition(x_attack[c], y_attack[c]); //РёР·РјРµРЅРµРЅРёРµ СЂР°Р·РјРµСЂР° РєР»РµС‚РѕРє РІ СЃРѕРѕС‚РІРµСЃС‚РІРёРё СЃ Р°С‚Р°РєРѕР№
 				}
 
-			if (!delayBlock) { //если есть задержка
+			if (!delayBlock) { //РµСЃР»Рё РµСЃС‚СЊ Р·Р°РґРµСЂР¶РєР°
 				if (delay_attack[j] != 0 & save_j < j) {
 					newtimer = delay_attack[j] + time; 
 					save_j = j;
-				} //фиксируем задержку		
+				} //С„РёРєСЃРёСЂСѓРµРј Р·Р°РґРµСЂР¶РєСѓ		
 				
 				if (newtimer < time) {
 					if (newtimer != 0) {
@@ -124,39 +124,39 @@ void attack::attack_start()
 				newtimer = duration_attack[j] + time; 
 				save_j = j; 
 				delayBlock = true; 
-			} //фиксируем продолжительность	
+			} //С„РёРєСЃРёСЂСѓРµРј РїСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ	
 			
-			if (newtimer > time) { //продолжаем
+			if (newtimer > time) { //РїСЂРѕРґРѕР»Р¶Р°РµРј
 				if (save_j2 == save_j)
 					save_j2 = 1;
 			}
-			else if (save_j > -1) { //когда заканчивается продолжительность сбрасываем
-				j = save_j; //возвращаем значение
+			else if (save_j > -1) { //РєРѕРіРґР° Р·Р°РєР°РЅС‡РёРІР°РµС‚СЃСЏ РїСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚СЊ СЃР±СЂР°СЃС‹РІР°РµРј
+				j = save_j; //РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ
 				save_j = -1;
 				newtimer = 0;
 				delayBlock = false;
 			}
 			
-			//---------------------------------------- //проверка интерактивности 
+			//---------------------------------------- //РїСЂРѕРІРµСЂРєР° РёРЅС‚РµСЂР°РєС‚РёРІРЅРѕСЃС‚Рё 
 			
 			for (int c = 0; c < world->getSize(); c++)
 			{
 				int newJ = j;
-				if (save_j != -1) newJ = save_j; //проходимся по всем тайлам который запоминает duration
+				if (save_j != -1) newJ = save_j; //РїСЂРѕС…РѕРґРёРјСЃСЏ РїРѕ РІСЃРµРј С‚Р°Р№Р»Р°Рј РєРѕС‚РѕСЂС‹Р№ Р·Р°РїРѕРјРёРЅР°РµС‚ duration
 				
 				for (int jj = 0; jj < newJ; jj++) 
-					if (world->getEntity(c)->getPid() != pr->pid && /*gro(pr, world->getEntity(c)->getId()) &&*/ //по себе урон не наносим
+					if (world->getEntity(c)->getPid() != pr->pid && /*gro(pr, world->getEntity(c)->getId()) &&*/ //РїРѕ СЃРµР±Рµ СѓСЂРѕРЅ РЅРµ РЅР°РЅРѕСЃРёРј
 						x_attack[jj] + SAAttack->SizeTile >= world->getEntity(c)->getPos().x &&
 						x_attack[jj] <= world->getEntity(c)->getPos().x + world->getEntity(c)->getWidth() &&
-						//проверяем попадает ли квадрат координат атаки по персонажу
+						//РїСЂРѕРІРµСЂСЏРµРј РїРѕРїР°РґР°РµС‚ Р»Рё РєРІР°РґСЂР°С‚ РєРѕРѕСЂРґРёРЅР°С‚ Р°С‚Р°РєРё РїРѕ РїРµСЂСЃРѕРЅР°Р¶Сѓ
 						y_attack[jj] <= world->getEntity(c)->getPos().y + world->getEntity(c)->getHeight() &&
 						y_attack[jj] + SAAttack->SizeTile >= world->getEntity(c)->getPos().y)
 					{
 						if (!CheckGroup(pr, world->getEntity(c)->getId())) continue;
 						for (int i = 0; i < 20; i++) {
-							if (id_opponents[i] == world->getEntity(c)->getPid()) break; //если такой есть не добавляем
+							if (id_opponents[i] == world->getEntity(c)->getPid()) break; //РµСЃР»Рё С‚Р°РєРѕР№ РµСЃС‚СЊ РЅРµ РґРѕР±Р°РІР»СЏРµРј
 
-							if (id_opponents[i] == 1) { //фиксируем всех противников под атакой
+							if (id_opponents[i] == 1) { //С„РёРєСЃРёСЂСѓРµРј РІСЃРµС… РїСЂРѕС‚РёРІРЅРёРєРѕРІ РїРѕРґ Р°С‚Р°РєРѕР№
 								id_opponents[i] = world->getEntity(c)->getPid(); break;
 							}
 						}
@@ -164,10 +164,10 @@ void attack::attack_start()
 					}
 			} 
 			
-			//---------------------------------------- Тип атаки
-			if (type_attack != Do) accounting = 0; //если это не Do то продолжим циклом наносить урон
+			//---------------------------------------- РўРёРї Р°С‚Р°РєРё
+			if (type_attack != Do) accounting = 0; //РµСЃР»Рё СЌС‚Рѕ РЅРµ Do С‚Рѕ РїСЂРѕРґРѕР»Р¶РёРј С†РёРєР»РѕРј РЅР°РЅРѕСЃРёС‚СЊ СѓСЂРѕРЅ
 			
-			if (type_attack == dpsa) //урон в секунду 
+			if (type_attack == dpsa) //СѓСЂРѕРЅ РІ СЃРµРєСѓРЅРґСѓ 
 			{
 				if (newtimer != 0) {
 					active = false;
@@ -175,14 +175,14 @@ void attack::attack_start()
 						saveS = time + 1;
 						if (VidE == 0) CurrentAtt = (*pr->currentAt) / duration_attack[save_j];
 						if (VidE != 0) CurrentAtt = (*pr->currentAt) / SAAttack->tVide;
-						if (*pr->currentAt < 1) *pr->currentAt = 1; //не меньше 1
+						if (*pr->currentAt < 1) *pr->currentAt = 1; //РЅРµ РјРµРЅСЊС€Рµ 1
 						active = true; 
 					}
 				}
 				else active = false;
 			}
 			
-			if (type_attack == ida) //урон в мгновенье
+			if (type_attack == ida) //СѓСЂРѕРЅ РІ РјРіРЅРѕРІРµРЅСЊРµ
 			{
 				if (newtimer != 0) {
 					active = false; 
@@ -195,33 +195,33 @@ void attack::attack_start()
 				else active = false;
 			}
 
-			//вид атаки 
-			if (VidE != 0 && j == QuanTile - 2 && save_j == -1)  //если duration активно запрещаем
-				if (timeAttack_VidE > time) { //остановка атаки по истечения времени
-					j = 0; vide(); //каждый цикл - 1 кадр
+			//РІРёРґ Р°С‚Р°РєРё 
+			if (VidE != 0 && j == QuanTile - 2 && save_j == -1)  //РµСЃР»Рё duration Р°РєС‚РёРІРЅРѕ Р·Р°РїСЂРµС‰Р°РµРј
+				if (timeAttack_VidE > time) { //РѕСЃС‚Р°РЅРѕРІРєР° Р°С‚Р°РєРё РїРѕ РёСЃС‚РµС‡РµРЅРёСЏ РІСЂРµРјРµРЅРё
+					j = 0; vide(); //РєР°Р¶РґС‹Р№ С†РёРєР» - 1 РєР°РґСЂ
 					if (duration_attack[18] == 0)
 						duration_attack[18] = 0.01;
 				}
-			//--------------------------------------------------- Нанесение урона
+			//--------------------------------------------------- РќР°РЅРµСЃРµРЅРёРµ СѓСЂРѕРЅР°
 			
-			if (active) //для блокировки атаки
+			if (active) //РґР»СЏ Р±Р»РѕРєРёСЂРѕРІРєРё Р°С‚Р°РєРё
 				for (int c = 0; c < world->getSize(); c++) 
 					for (int i = accounting; i < 20; i++)
 						if (world->getEntity(c)->getPid() == id_opponents[i]) {
-							world->getEntity(c)->updateXp(CurrentAtt); //наносим урон
-							client_br->MakeDamage(id_opponents[i], CurrentAtt); //отправляем урон запросом на сервер
-							accounting = i+1; //для Do
+							world->getEntity(c)->updateHp(CurrentAtt); //РЅР°РЅРѕСЃРёРј СѓСЂРѕРЅ
+							client_br->MakeDamage(id_opponents[i], CurrentAtt); //РѕС‚РїСЂР°РІР»СЏРµРј СѓСЂРѕРЅ Р·Р°РїСЂРѕСЃРѕРј РЅР° СЃРµСЂРІРµСЂ
+							accounting = i+1; //РґР»СЏ Do
 						}
 					
 			
-			//анимация атаки
+			//Р°РЅРёРјР°С†РёСЏ Р°С‚Р°РєРё
 			if (x_attack[j] != 0 && y_attack[j] != 0) {
-				animation->intTile_8[j].setColor(Color(255, 255, 255, 255)); //убираем прозрачность
+				animation->intTile_8[j].setColor(Color(255, 255, 255, 255)); //СѓР±РёСЂР°РµРј РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚СЊ
 				animation->intTile_8[j].setScale(SAAttack->SizeTile / 8.f, SAAttack->SizeTile / 8.f); //8
-				animation->intTile_8[j].setPosition(x_attack[j], y_attack[j]); //изменение размера клеток в соотвествии с атакой
+				animation->intTile_8[j].setPosition(x_attack[j], y_attack[j]); //РёР·РјРµРЅРµРЅРёРµ СЂР°Р·РјРµСЂР° РєР»РµС‚РѕРє РІ СЃРѕРѕС‚РІРµСЃС‚РІРёРё СЃ Р°С‚Р°РєРѕР№
 			}
 			
-			if (newtimer > time) break; //выходим чтобы бесконечный цикл не создавать при продолжительности
+			if (newtimer > time) break; //РІС‹С…РѕРґРёРј С‡С‚РѕР±С‹ Р±РµСЃРєРѕРЅРµС‡РЅС‹Р№ С†РёРєР» РЅРµ СЃРѕР·РґР°РІР°С‚СЊ РїСЂРё РїСЂРѕРґРѕР»Р¶РёС‚РµР»СЊРЅРѕСЃС‚Рё
 		}
 
 	}
@@ -231,7 +231,7 @@ void attack::funcAttack()
 {
 	time = clock.getElapsedTime().asSeconds();
 	
-	if (Left || FuncAttack == "Left") //обычная атака
+	if (Left || FuncAttack == "Left") //РѕР±С‹С‡РЅР°СЏ Р°С‚Р°РєР°
 	{
 		if (time > time_save) {
 
@@ -241,7 +241,7 @@ void attack::funcAttack()
 				int y1 = *pr->y / 32,
 					x1 = *pr->x / 32;
 
-				//найдем направление атаки
+				//РЅР°Р№РґРµРј РЅР°РїСЂР°РІР»РµРЅРёРµ Р°С‚Р°РєРё
 				float rotation = (atan2(*pr->posX - view->getCenter().x, *pr->posY - view->getCenter().y)) * 180 / 3.14;
 				
 				int y2 = y1, x2 = x1;
@@ -262,9 +262,9 @@ void attack::funcAttack()
 				life_attack = true;
 			}
 
-			if (pr->id == 8) //киллуа
+			if (pr->id == 8) //РєРёР»Р»СѓР°
 			{
-				//2 тип обычной атаки это всего 2 направления вместо 8 (вправо и влево)
+				//2 С‚РёРї РѕР±С‹С‡РЅРѕР№ Р°С‚Р°РєРё СЌС‚Рѕ РІСЃРµРіРѕ 2 РЅР°РїСЂР°РІР»РµРЅРёСЏ РІРјРµСЃС‚Рѕ 8 (РІРїСЂР°РІРѕ Рё РІР»РµРІРѕ)
 				time_save = time + 3;
 				int y1 = *pr->y / 32,
 					x1 = *pr->x / 32;
@@ -298,32 +298,32 @@ void attack::funcAttack()
 		else Left = false;
 	}
 
-	if (FuncAttack == "line" && life_attack && !BlockOnce) //атака линией (тип - лазер)
+	if (FuncAttack == "line" && life_attack && !BlockOnce) //Р°С‚Р°РєР° Р»РёРЅРёРµР№ (С‚РёРї - Р»Р°Р·РµСЂ)
 	{
 		int y1 = (*pr->y + pr->Height / 2) / SAAttack->SizeTile,
-			x1 = (*pr->x + pr->Width / 2) / SAAttack->SizeTile; //центр нашей позиции
+			x1 = (*pr->x + pr->Width / 2) / SAAttack->SizeTile; //С†РµРЅС‚СЂ РЅР°С€РµР№ РїРѕР·РёС†РёРё
 		
-		//найдем направление
-		int nx = 0, ny = 0; //направления
-		if (*pr->posX > *pr->x) nx = 1; else nx = -1; //по графику
+		//РЅР°Р№РґРµРј РЅР°РїСЂР°РІР»РµРЅРёРµ
+		int nx = 0, ny = 0; //РЅР°РїСЂР°РІР»РµРЅРёСЏ
+		if (*pr->posX > *pr->x) nx = 1; else nx = -1; //РїРѕ РіСЂР°С„РёРєСѓ
 		if (*pr->posY > *pr->y) ny = 1; else ny = -1;
 
-		int posX = *pr->posX, posY = *pr->posY; //перевод в int
-		float poX = posX / SAAttack->SizeTile - x1; //сколько нужно тайлов пройти
-		float poY = posY / SAAttack->SizeTile - y1; //до нужной позиции
+		int posX = *pr->posX, posY = *pr->posY; //РїРµСЂРµРІРѕРґ РІ int
+		float poX = posX / SAAttack->SizeTile - x1; //СЃРєРѕР»СЊРєРѕ РЅСѓР¶РЅРѕ С‚Р°Р№Р»РѕРІ РїСЂРѕР№С‚Рё
+		float poY = posY / SAAttack->SizeTile - y1; //РґРѕ РЅСѓР¶РЅРѕР№ РїРѕР·РёС†РёРё
 
-		float itogX = 0, itogY = 0; //каждый тайловый итоговый ход
+		float itogX = 0, itogY = 0; //РєР°Р¶РґС‹Р№ С‚Р°Р№Р»РѕРІС‹Р№ РёС‚РѕРіРѕРІС‹Р№ С…РѕРґ
 
-		for (int j = 0; j < 20; j++) { //x и y не должны превышать 1
+		for (int j = 0; j < 20; j++) { //x Рё y РЅРµ РґРѕР»Р¶РЅС‹ РїСЂРµРІС‹С€Р°С‚СЊ 1
 
 			if (poY == 0) continue;
 
-			if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
+			if (poX / poY > 1 || poX / poY < -1) { //РµСЃР»Рё x РїСЂРµРІС‹С€Р°РµС‚ 1 С‚Рѕ x = 1 Р° y < 1
 
 				itogX += nx;
 				itogY += poY / poX * nx;
 			}
-			else { //наоборот
+			else { //РЅР°РѕР±РѕСЂРѕС‚
 				itogX += poX / poY * ny;
 				itogY += ny;
 			}
@@ -337,12 +337,12 @@ void attack::funcAttack()
 		}
 
 		//BlockOnce = true;
-		//работает по системе где высчитываются дистанция по x и y от клика, и достигается путем отношений 1 : x - неопределенное число
+		//СЂР°Р±РѕС‚Р°РµС‚ РїРѕ СЃРёСЃС‚РµРјРµ РіРґРµ РІС‹СЃС‡РёС‚С‹РІР°СЋС‚СЃСЏ РґРёСЃС‚Р°РЅС†РёСЏ РїРѕ x Рё y РѕС‚ РєР»РёРєР°, Рё РґРѕСЃС‚РёРіР°РµС‚СЃСЏ РїСѓС‚РµРј РѕС‚РЅРѕС€РµРЅРёР№ 1 : x - РЅРµРѕРїСЂРµРґРµР»РµРЅРЅРѕРµ С‡РёСЃР»Рѕ
 	}
 
-	if (FuncAttack == "ClickPlace" && life_attack && !BlockOnce) //функция атаки: по месту клика
+	if (FuncAttack == "ClickPlace" && life_attack && !BlockOnce) //С„СѓРЅРєС†РёСЏ Р°С‚Р°РєРё: РїРѕ РјРµСЃС‚Сѓ РєР»РёРєР°
 	{
-		//учитываем дистанцию
+		//СѓС‡РёС‚С‹РІР°РµРј РґРёСЃС‚Р°РЅС†РёСЋ
 		int x1 = *pr->x + pr->Width / 2;
 		int y1 = *pr->y + pr->Height / 2; 
 		int S = 32; 
@@ -352,45 +352,45 @@ void attack::funcAttack()
 		if (*pr->posY - y1 > distantion * S) *pr->posY = y1 + distantion * S + S;
 		if (*pr->posY - y1 < -distantion * S) *pr->posY = y1 + (-distantion) * S - S*2;
 
-		//Расчет значений позиции атаки
-		int xI = *pr->posX - x_attack[0]; //по клику
+		//Р Р°СЃС‡РµС‚ Р·РЅР°С‡РµРЅРёР№ РїРѕР·РёС†РёРё Р°С‚Р°РєРё
+		int xI = *pr->posX - x_attack[0]; //РїРѕ РєР»РёРєСѓ
 		int yI = *pr->posY - y_attack[0]; 
 		
 		for (int j = 0; j < QuanTile; j++) {
 
 			if (x_attack[j] == 0 && x_attack[j] == 0)
-				continue; //не учитываем отсутствие тайлов
+				continue; //РЅРµ СѓС‡РёС‚С‹РІР°РµРј РѕС‚СЃСѓС‚СЃС‚РІРёРµ С‚Р°Р№Р»РѕРІ
 
 			x_attack[j] += xI;
 			y_attack[j] += yI;
 		}
 	}
 
-	if (FuncAttack == "Direction" && life_attack && !BlockOnce) //функция атаки: по направлению
-	{ //система отзеркалирования и паралельности
+	if (FuncAttack == "Direction" && life_attack && !BlockOnce) //С„СѓРЅРєС†РёСЏ Р°С‚Р°РєРё: РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЋ
+	{ //СЃРёСЃС‚РµРјР° РѕС‚Р·РµСЂРєР°Р»РёСЂРѕРІР°РЅРёСЏ Рё РїР°СЂР°Р»РµР»СЊРЅРѕСЃС‚Рё
 		
-		float rotation = (atan2(*pr->posX - *pr->x, *pr->posY - *pr->y)) * 180 / 3.14; //опеределяем градусы направления
+		float rotation = (atan2(*pr->posX - *pr->x, *pr->posY - *pr->y)) * 180 / 3.14; //РѕРїРµСЂРµРґРµР»СЏРµРј РіСЂР°РґСѓСЃС‹ РЅР°РїСЂР°РІР»РµРЅРёСЏ
 
-		//изменяем координаты под направление
+		//РёР·РјРµРЅСЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РїРѕРґ РЅР°РїСЂР°РІР»РµРЅРёРµ
 		for (int j = 0; j < QuanTile; j++)
 		{
 			if (SAAttack->Tile[j][0] == 0 && SAAttack->Tile[j][1] == 0) {
 				x_attack[j] = 0; y_attack[j] = 0; continue;
 			}
 			
-			//берем за основу SAAttack умножаем на -1 и переводим координаты относительно текущей позиции игрока 
-			//по стандарту атака должна быть расположена слева
-			if (rotation > 40 && rotation < 150) //направо
+			//Р±РµСЂРµРј Р·Р° РѕСЃРЅРѕРІСѓ SAAttack СѓРјРЅРѕР¶Р°РµРј РЅР° -1 Рё РїРµСЂРµРІРѕРґРёРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ С‚РµРєСѓС‰РµР№ РїРѕР·РёС†РёРё РёРіСЂРѕРєР° 
+			//РїРѕ СЃС‚Р°РЅРґР°СЂС‚Сѓ Р°С‚Р°РєР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ СЂР°СЃРїРѕР»РѕР¶РµРЅР° СЃР»РµРІР°
+			if (rotation > 40 && rotation < 150) //РЅР°РїСЂР°РІРѕ
 				x_attack[j] = SAAttack->Tile[j][0] * -1 * SAAttack->SizeTile + *pr->x + pr->Width;
 			
-			if (rotation < -80) //стандарт (лево)
+			if (rotation < -80) //СЃС‚Р°РЅРґР°СЂС‚ (Р»РµРІРѕ)
 			{ } 
 			
-			if (!(rotation < 150 && rotation > -150)) { //наверх
+			if (!(rotation < 150 && rotation > -150)) { //РЅР°РІРµСЂС…
 				x_attack[j] = *pr->x - SAAttack->Tile[j][1] * SAAttack->SizeTile + pr->Width;
 				y_attack[j] = *pr->y - SAAttack->Tile[j][0] * -1 * SAAttack->SizeTile;
 			} 
-			if (rotation < 40 && rotation > -40) { //низ
+			if (rotation < 40 && rotation > -40) { //РЅРёР·
 				x_attack[j] = *pr->x - SAAttack->Tile[j][1] * SAAttack->SizeTile + pr->Width;
 				y_attack[j] = *pr->y - SAAttack->Tile[j][0] * SAAttack->SizeTile + pr->Height;
 			}
@@ -398,8 +398,8 @@ void attack::funcAttack()
 		}
 	}
 
-	//DistanceFromOpponent (учет макс. допустимой дистанции)
-	if (!BlockOnce && FuncAttack != "ClickPlace") //для ClickPlace свой учет дистанции
+	//DistanceFromOpponent (СѓС‡РµС‚ РјР°РєСЃ. РґРѕРїСѓСЃС‚РёРјРѕР№ РґРёСЃС‚Р°РЅС†РёРё)
+	if (!BlockOnce && FuncAttack != "ClickPlace") //РґР»СЏ ClickPlace СЃРІРѕР№ СѓС‡РµС‚ РґРёСЃС‚Р°РЅС†РёРё
 	for (int j = 0; j < QuanTile; j++) 
 	{
 		if (x_attack[j] > *pr->x + distantion * SAAttack->SizeTile + pr->Width || 
@@ -408,7 +408,7 @@ void attack::funcAttack()
 			y_attack[j] > *pr->y + distantion * SAAttack->SizeTile + pr->Height ||
 			y_attack[j] < *pr->y - distantion* SAAttack->SizeTile/* + pr->Height*/) {
 
-			x_attack[j] = 0; //элементы зашедшие за зону макс дистанции будут удалены
+			x_attack[j] = 0; //СЌР»РµРјРµРЅС‚С‹ Р·Р°С€РµРґС€РёРµ Р·Р° Р·РѕРЅСѓ РјР°РєСЃ РґРёСЃС‚Р°РЅС†РёРё Р±СѓРґСѓС‚ СѓРґР°Р»РµРЅС‹
 			y_attack[j] = 0; 
 		}
 	}
@@ -420,19 +420,19 @@ void attack::vide()
 {
 	float dx = 0, dy = 0;
 
-	//вид управления атакой (фиксированный путь до цели)
-	if (VidE == 1) //метание кинжалов
+	//РІРёРґ СѓРїСЂР°РІР»РµРЅРёСЏ Р°С‚Р°РєРѕР№ (С„РёРєСЃРёСЂРѕРІР°РЅРЅС‹Р№ РїСѓС‚СЊ РґРѕ С†РµР»Рё)
+	if (VidE == 1) //РјРµС‚Р°РЅРёРµ РєРёРЅР¶Р°Р»РѕРІ
 	{
-		//алгоритм построение отрезка/прямой
-		if (BlockVidE == 0) //инициализация точки один раз
+		//Р°Р»РіРѕСЂРёС‚Рј РїРѕСЃС‚СЂРѕРµРЅРёРµ РѕС‚СЂРµР·РєР°/РїСЂСЏРјРѕР№
+		if (BlockVidE == 0) //РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С‚РѕС‡РєРё РѕРґРёРЅ СЂР°Р·
 		{
-			saveX_VidE = *pr->x - pr->Width / 2 - *pr->posX; //дистанция от начала до конца
+			saveX_VidE = *pr->x - pr->Width / 2 - *pr->posX; //РґРёСЃС‚Р°РЅС†РёСЏ РѕС‚ РЅР°С‡Р°Р»Р° РґРѕ РєРѕРЅС†Р°
 			saveY_VidE = *pr->y - pr->Height / 2 - *pr->posY;
-			posX_VidE = *pr->posX; //конечные точки
+			posX_VidE = *pr->posX; //РєРѕРЅРµС‡РЅС‹Рµ С‚РѕС‡РєРё
 			posY_VidE = *pr->posY;
 
-			//изменяем координаты атаки на точку начала
-			int xI = *pr->x - pr->Width / 2 - x_attack[0]; //по клику
+			//РёР·РјРµРЅСЏРµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ Р°С‚Р°РєРё РЅР° С‚РѕС‡РєСѓ РЅР°С‡Р°Р»Р°
+			int xI = *pr->x - pr->Width / 2 - x_attack[0]; //РїРѕ РєР»РёРєСѓ
 			int yI = *pr->y - y_attack[0];
 
 			for (int j = 0; j < 20; j++) {
@@ -443,24 +443,24 @@ void attack::vide()
 			BlockVidE = 1;
 		}
 
-		float poX = saveX_VidE; //переведем во float
+		float poX = saveX_VidE; //РїРµСЂРµРІРµРґРµРј РІРѕ float
 		float poY = saveY_VidE;
 
 		int nx = 0, ny = 0;
-		if (saveX_VidE + posX_VidE < posX_VidE) nx = 1; else nx = -1; //по графику
+		if (saveX_VidE + posX_VidE < posX_VidE) nx = 1; else nx = -1; //РїРѕ РіСЂР°С„РёРєСѓ
 		if (saveY_VidE + posY_VidE < posY_VidE) ny = 1; else ny = -1;
 
-		if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
+		if (poX / poY > 1 || poX / poY < -1) { //РµСЃР»Рё x РїСЂРµРІС‹С€Р°РµС‚ 1 С‚Рѕ x = 1 Р° y < 1
 
-			dx = nx * 3; //высчитываем алгоритм прибавления для равномерной уменьшении дистанции
+			dx = nx * 3; //РІС‹СЃС‡РёС‚С‹РІР°РµРј Р°Р»РіРѕСЂРёС‚Рј РїСЂРёР±Р°РІР»РµРЅРёСЏ РґР»СЏ СЂР°РІРЅРѕРјРµСЂРЅРѕР№ СѓРјРµРЅСЊС€РµРЅРёРё РґРёСЃС‚Р°РЅС†РёРё
 			dy = poY / poX * nx * 3;
 		}
-		else { //наоборот
+		else { //РЅР°РѕР±РѕСЂРѕС‚
 			dx = poX / poY * ny * 3;
 			dy = ny * 3;
 		}
-		//алгоритм выравнивания
-		//необходимо чтобы число было не меньше 1
+		//Р°Р»РіРѕСЂРёС‚Рј РІС‹СЂР°РІРЅРёРІР°РЅРёСЏ
+		//РЅРµРѕР±С…РѕРґРёРјРѕ С‡С‚РѕР±С‹ С‡РёСЃР»Рѕ Р±С‹Р»Рѕ РЅРµ РјРµРЅСЊС€Рµ 1
 		if (dx <= 1)
 			for (int j = 0; j < 20; j++)
 				if (dx * j >= 1 || dx * j <= -1) {
@@ -476,7 +476,7 @@ void attack::vide()
 					break;
 				}
 
-		duration_attack[18] = 0.01 + dx / 500 + dy / 500; //регулирование скорости (требуется регулирование)
+		duration_attack[18] = 0.01 + dx / 500 + dy / 500; //СЂРµРіСѓР»РёСЂРѕРІР°РЅРёРµ СЃРєРѕСЂРѕСЃС‚Рё (С‚СЂРµР±СѓРµС‚СЃСЏ СЂРµРіСѓР»РёСЂРѕРІР°РЅРёРµ)
 		if (duration_attack[18] < 0.01) duration_attack[18] = 0.02 - duration_attack[18];
 
 		dx = rint(dx);
@@ -484,9 +484,9 @@ void attack::vide()
 	}
 
 
-	if (VidE == 2) //нож от точки до цели
+	if (VidE == 2) //РЅРѕР¶ РѕС‚ С‚РѕС‡РєРё РґРѕ С†РµР»Рё
 	{
-		//выясним айди противника (тест) это и будет точка конца атаки
+		//РІС‹СЏСЃРЅРёРј Р°Р№РґРё РїСЂРѕС‚РёРІРЅРёРєР° (С‚РµСЃС‚) СЌС‚Рѕ Рё Р±СѓРґРµС‚ С‚РѕС‡РєР° РєРѕРЅС†Р° Р°С‚Р°РєРё
 		int xx = 0, yy = 0;
 		
 		for (int j = 0; j < world->getSize(); j++)
@@ -496,9 +496,9 @@ void attack::vide()
 				break; 
 			} 
 
-		if (BlockVidE == 0) { //один раз
+		if (BlockVidE == 0) { //РѕРґРёРЅ СЂР°Р·
 			//DistanceFromOpponent - 420
-			//создаем рандомное место по кружности от цели
+			//СЃРѕР·РґР°РµРј СЂР°РЅРґРѕРјРЅРѕРµ РјРµСЃС‚Рѕ РїРѕ РєСЂСѓР¶РЅРѕСЃС‚Рё РѕС‚ С†РµР»Рё
 			int idx = 1;
 			saveX_VidE = rand() % 720 - 300;
 
@@ -509,7 +509,7 @@ void attack::vide()
 			if (rand() % 2 == 0) saveY_VidE *= -1;
 			//-----------------------
 
-			int xI = xx + saveX_VidE - x_attack[0]; //по клику
+			int xI = xx + saveX_VidE - x_attack[0]; //РїРѕ РєР»РёРєСѓ
 			int yI = yy + saveY_VidE - y_attack[0];
 
 			for (int j = 0; j < 20; j++) {
@@ -519,25 +519,25 @@ void attack::vide()
 			BlockVidE = 1;
 		}
 		
-		float poX = xx + saveX_VidE - xx; //дистанция до противника от начала атаки
-		float poY = yy + saveY_VidE - yy; //xx - 200 = начало атаки
+		float poX = xx + saveX_VidE - xx; //РґРёСЃС‚Р°РЅС†РёСЏ РґРѕ РїСЂРѕС‚РёРІРЅРёРєР° РѕС‚ РЅР°С‡Р°Р»Р° Р°С‚Р°РєРё
+		float poY = yy + saveY_VidE - yy; //xx - 200 = РЅР°С‡Р°Р»Рѕ Р°С‚Р°РєРё
 
-		int nx = 0, ny = 0; //доп направления
-		if (xx + saveX_VidE < xx) nx = 1; else nx = -1; //по графику
+		int nx = 0, ny = 0; //РґРѕРї РЅР°РїСЂР°РІР»РµРЅРёСЏ
+		if (xx + saveX_VidE < xx) nx = 1; else nx = -1; //РїРѕ РіСЂР°С„РёРєСѓ
 		if (yy + saveY_VidE < yy) ny = 1; else ny = -1;
 
-		if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
+		if (poX / poY > 1 || poX / poY < -1) { //РµСЃР»Рё x РїСЂРµРІС‹С€Р°РµС‚ 1 С‚Рѕ x = 1 Р° y < 1
 
 			dx = nx * 3;
 			dy = poY / poX * nx * 3;
 		}
-		else { //наоборот
+		else { //РЅР°РѕР±РѕСЂРѕС‚
 			dx = poX / poY * ny * 3;
 			dy = ny * 3;
 		}
 
-		//алгоритм выравнивания
-		//необходимо чтобы число было не меньше 1
+		//Р°Р»РіРѕСЂРёС‚Рј РІС‹СЂР°РІРЅРёРІР°РЅРёСЏ
+		//РЅРµРѕР±С…РѕРґРёРјРѕ С‡С‚РѕР±С‹ С‡РёСЃР»Рѕ Р±С‹Р»Рѕ РЅРµ РјРµРЅСЊС€Рµ 1
 		if (dx <= 1)
 			for (int j = 0; j < 20; j++)
 				if (dx * j >= 1 || dx * j <= -1) {
@@ -557,9 +557,9 @@ void attack::vide()
 		dy = rint(dy);
 	}
 
-	//вид правления атакой  (дистанционный путь до цели)
-	//в этом случае нужен один фактор выбора противника - целенаправленный
-	if (VidE == 3) //прикольно
+	//РІРёРґ РїСЂР°РІР»РµРЅРёСЏ Р°С‚Р°РєРѕР№  (РґРёСЃС‚Р°РЅС†РёРѕРЅРЅС‹Р№ РїСѓС‚СЊ РґРѕ С†РµР»Рё)
+	//РІ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ РЅСѓР¶РµРЅ РѕРґРёРЅ С„Р°РєС‚РѕСЂ РІС‹Р±РѕСЂР° РїСЂРѕС‚РёРІРЅРёРєР° - С†РµР»РµРЅР°РїСЂР°РІР»РµРЅРЅС‹Р№
+	if (VidE == 3) //РїСЂРёРєРѕР»СЊРЅРѕ
 	{
 		int xx = *pr->posX, yy = *pr->posY;
 		if (x_attack[0] < xx) dx = 1; else dx = -1;
@@ -568,16 +568,16 @@ void attack::vide()
 		dy *= 2;
 	}
 
-	//атака номер 2 для чары (можно использовать в update обьекта)
+	//Р°С‚Р°РєР° РЅРѕРјРµСЂ 2 РґР»СЏ С‡Р°СЂС‹ (РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІ update РѕР±СЊРµРєС‚Р°)
 	if (VidE == 4)
 	{ 
 		float rotation = 150 * time;
 		int radius = 2;
 
-		if (rotation >= 360) //не больше 360
+		if (rotation >= 360) //РЅРµ Р±РѕР»СЊС€Рµ 360
 			rotation = 360 * (rotation / 360 - int(rotation / 360));
 
-		//позиция
+		//РїРѕР·РёС†РёСЏ
 		if (rotation >= 180) dx = 1; else dx = -1;
 		if (rotation >= 0) dy = -1;
 		if (rotation >= 90) dy = 1;
@@ -585,7 +585,7 @@ void attack::vide()
 		dx *= 3; dy *= 3;
 	}
 
-	//движение атаки
+	//РґРІРёР¶РµРЅРёРµ Р°С‚Р°РєРё
 	for (int j = 0; j < 20; j++) {
 		x_attack[j] = x_attack[j] + dx;
 		y_attack[j] = y_attack[j] + dy;
@@ -600,7 +600,7 @@ void attack::setAttribute(GameWorld* world_, View* view_)
 
 void attack::inisialization()
 {
-	//загрузка атаки из CurrentAttack
+	//Р·Р°РіСЂСѓР·РєР° Р°С‚Р°РєРё РёР· CurrentAttack
 	for (int j = 0; j < 100; j++) {
 		
 		if (SAAttack->Tile[j][0] == 0 &
@@ -613,20 +613,20 @@ void attack::inisialization()
 		duration_attack[j] = SAAttack->duration[j];
 	}
 	
-	if (SAAttack->FuncAttack == "line") //секретная функция атаки (подслай)
+	if (SAAttack->FuncAttack == "line") //СЃРµРєСЂРµС‚РЅР°СЏ С„СѓРЅРєС†РёСЏ Р°С‚Р°РєРё (РїРѕРґСЃР»Р°Р№)
 		for (int j = 0; j < 100; j++) {
 			delay_attack[j] = SAAttack->delay[j];
 			duration_attack[j] = SAAttack->duration[j];
 		}
 
-	type_attack = SAAttack->type_attack; //урон в сек
+	type_attack = SAAttack->type_attack; //СѓСЂРѕРЅ РІ СЃРµРє
 	FuncAttack = SAAttack->FuncAttack;
 	distantion = SAAttack->distantion;
 	QuanTile = SAAttack->QuanityTile;
 	timeAttack_VidE = SAAttack->tVide + time;
 	VidE = SAAttack->VidE;
 
-	for (int j = 0; j < QuanTile; j++) { //переводим координаты в обычный размер (один раз за атаку)
+	for (int j = 0; j < QuanTile; j++) { //РїРµСЂРµРІРѕРґРёРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РІ РѕР±С‹С‡РЅС‹Р№ СЂР°Р·РјРµСЂ (РѕРґРёРЅ СЂР°Р· Р·Р° Р°С‚Р°РєСѓ)
 		x_attack[j] = x_attack[j] * SAAttack->SizeTile;
 		y_attack[j] = y_attack[j] * SAAttack->SizeTile; 
 	}
@@ -668,7 +668,7 @@ AttackSystem::AttackSystem()
 	animation->at2 = AnimationSystem->newScructureAnimation();
 	animation->at3 = AnimationSystem->newScructureAnimation();
 	animation->left = AnimationSystem->newScructureAnimation();
-	SAt1 = { &pr_, &SAAttack[0], animation->at1 }, //3 особых атаки (speciality attacks)
+	SAt1 = { &pr_, &SAAttack[0], animation->at1 }, //3 РѕСЃРѕР±С‹С… Р°С‚Р°РєРё (speciality attacks)
 	SAt2 = { &pr_, &SAAttack[1], animation->at2 },
 	SAt3 = { &pr_, &SAAttack[2], animation->at3 },
 	Left = { &pr_, &SAAttack[0], animation->left };
@@ -676,7 +676,7 @@ AttackSystem::AttackSystem()
 AttackSystem::AttackSystem(AAforASystem *structure)
 {
 	animation = structure;
-	SAt1 = { &pr_, &SAAttack[0], structure->at1 }, //3 особых атаки (speciality attacks)
+	SAt1 = { &pr_, &SAAttack[0], structure->at1 }, //3 РѕСЃРѕР±С‹С… Р°С‚Р°РєРё (speciality attacks)
 	SAt2 = { &pr_, &SAAttack[1], structure->at2 },
 	SAt3 = { &pr_, &SAAttack[2], structure->at3 },
 	Left = { &pr_, &SAAttack[0], structure->left };
@@ -691,21 +691,21 @@ AttackSystem::~AttackSystem()
 	delete animation;
 }
 
-void AttackSystem::go_attack() //настраивает обьекты Attack под систему 3 атак и обычной атаки
+void AttackSystem::go_attack() //РЅР°СЃС‚СЂР°РёРІР°РµС‚ РѕР±СЊРµРєС‚С‹ Attack РїРѕРґ СЃРёСЃС‚РµРјСѓ 3 Р°С‚Р°Рє Рё РѕР±С‹С‡РЅРѕР№ Р°С‚Р°РєРё
 {
-	//атака
+	//Р°С‚Р°РєР°
 	if (Left.getLife() || numLeft) { *Left.getLeft() = true; Left.attack_start(); }
 	
 	if (SAt1.getLife() || num1) SAt1.go_attack();
 	if (SAt2.getLife() || num2) SAt2.go_attack();
 	if (SAt3.getLife() || num3) SAt3.go_attack();
 	
-	//проверка на активность атаки
-	if (num1 && !SAt1.getLife()) num1 = false; //отключаем num если атаки не активны
+	//РїСЂРѕРІРµСЂРєР° РЅР° Р°РєС‚РёРІРЅРѕСЃС‚СЊ Р°С‚Р°РєРё
+	if (num1 && !SAt1.getLife()) num1 = false; //РѕС‚РєР»СЋС‡Р°РµРј num РµСЃР»Рё Р°С‚Р°РєРё РЅРµ Р°РєС‚РёРІРЅС‹
 	if (num2 && !SAt2.getLife()) num2 = false;
 	if (num3 && !SAt3.getLife()) num3 = false;
 	
-	if ((numLeft || Left.getLeft()) && !Left.getLife()) { //отключаем обычную атаку
+	if ((numLeft || Left.getLeft()) && !Left.getLife()) { //РѕС‚РєР»СЋС‡Р°РµРј РѕР±С‹С‡РЅСѓСЋ Р°С‚Р°РєСѓ
 		numLeft = false; 
 		*Left.getLeft() = false;
 	}
@@ -713,7 +713,7 @@ void AttackSystem::go_attack() //настраивает обьекты Attack под систему 3 атак и
 
 void AttackSystem::inisialization()
 {
-	SAt1 = { &pr_, &SAAttack[0], animation->at1 }; //переинициализируем
+	SAt1 = { &pr_, &SAAttack[0], animation->at1 }; //РїРµСЂРµРёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј
 	SAt2 = { &pr_, &SAAttack[1], animation->at2 };
 	SAt3 = { &pr_, &SAAttack[2], animation->at3 };
 	Left = { &pr_, &SAAttack[0], animation->left };
@@ -747,8 +747,8 @@ void AttackSystem::setPr(playerPr* a)
 	pr_.pid = a->pid;
 	pr_.Height = a->Height;
 	pr_.Width = a->Width;
-	pr_.xp = a->xp;
-	pr_.maxXp = a->maxXp;
+	pr_.hp = a->hp;
+	pr_.maxHp = a->maxHp;
 	pr_.currentAt = a->currentAt;
 	pr_.normAt = a->normAt;
 	pr_.at1 = a->at1;

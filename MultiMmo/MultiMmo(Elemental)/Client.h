@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Tcp.h"
@@ -7,7 +7,7 @@
 #include "JATS.h"
 #include <string>
 #include "Avatar.h"
-#include "Entity.h" //если убираем это включаем GameWorld
+#include "Entity.h" //РµСЃР»Рё СѓР±РёСЂР°РµРј СЌС‚Рѕ РІРєР»СЋС‡Р°РµРј GameWorld
 
 using std::string;
 using std::to_string;
@@ -21,28 +21,28 @@ class Client
 public:
 	Client();
 	~Client();
-	static void InisializationWorld(GameWorld* world); //иницилизируем 1 раз
+	static void InisializationWorld(GameWorld* world); //РёРЅРёС†РёР»РёР·РёСЂСѓРµРј 1 СЂР°Р·
 
-	void Damage(int p_id, int damage); //нанесение урона
-	void ClientMenu(RenderWindow& window); //меню идентефикации
-	int start(); //запуск подключения к серверу
+	void Damage(int p_id, int damage); //РЅР°РЅРµСЃРµРЅРёРµ СѓСЂРѕРЅР°
+	void ClientMenu(RenderWindow& window); //РјРµРЅСЋ РёРґРµРЅС‚РµС„РёРєР°С†РёРё
+	int start(); //Р·Р°РїСѓСЃРє РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє СЃРµСЂРІРµСЂСѓ
 private:
-	void sockReady(); //2 поток принятие запросов от сервера и отправка
-	void sockReadyWorld(); //принятие и отправка udp запросов мира
+	void sockReady(); //2 РїРѕС‚РѕРє РїСЂРёРЅСЏС‚РёРµ Р·Р°РїСЂРѕСЃРѕРІ РѕС‚ СЃРµСЂРІРµСЂР° Рё РѕС‚РїСЂР°РІРєР°
+	void sockReadyWorld(); //РїСЂРёРЅСЏС‚РёРµ Рё РѕС‚РїСЂР°РІРєР° udp Р·Р°РїСЂРѕСЃРѕРІ РјРёСЂР°
 
 	static GameWorld* world;
 	Avatar avatar;
-	Avatar gamer; //аватар противника для приема данных (от репликации)
+	Avatar *gamer; //Р°РІР°С‚Р°СЂ РїСЂРѕС‚РёРІРЅРёРєР° РґР»СЏ РїСЂРёРµРјР° РґР°РЅРЅС‹С… (РѕС‚ СЂРµРїР»РёРєР°С†РёРё)
 	Entity* MyPlayer;
 
 	//Tcp
 	WSAData wsaData_;
 	SOCKADDR_IN addr_;
-	SOCKET Connection_; //QTcpSocket - соединение с сервером
-	string Descriptor; //номер сокета на сервере
+	SOCKET Connection_; //QTcpSocket - СЃРѕРµРґРёРЅРµРЅРёРµ СЃ СЃРµСЂРІРµСЂРѕРј
+	string Descriptor; //РЅРѕРјРµСЂ СЃРѕРєРµС‚Р° РЅР° СЃРµСЂРІРµСЂРµ
 
 	//udp
-	SOCKET sock; //QUdp - сокет для пересылки структур данных
+	SOCKET sock; //QUdp - СЃРѕРєРµС‚ РґР»СЏ РїРµСЂРµСЃС‹Р»РєРё СЃС‚СЂСѓРєС‚СѓСЂ РґР°РЅРЅС‹С…
 	sockaddr_in server_addr, client_addr;
 	int server_len, client_len;
 
@@ -55,9 +55,9 @@ private:
 	string password_s, login_s, username_s;
 	string sockReady_;
 
-	//прочее
+	//РїСЂРѕС‡РµРµ
 	JsonDocument doc;
 	Clock clock;
-	float time; // таймер
+	float time; // С‚Р°Р№РјРµСЂ
 	float save_time;
 };

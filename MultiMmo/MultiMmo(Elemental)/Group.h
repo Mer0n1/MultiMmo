@@ -1,12 +1,12 @@
-#pragma once
+п»ї#pragma once
 #include "Entity.h"
 #include "Attack.h"
 
-struct Group_Rpg //тестовая структура группы
+struct Group_Rpg //С‚РµСЃС‚РѕРІР°СЏ СЃС‚СЂСѓРєС‚СѓСЂР° РіСЂСѓРїРїС‹
 {
-	//каждый состоящий в группе может пользоваться данными союзников
-	string name; //название группы
-	vector<Entity*> vec; //список группы
+	//РєР°Р¶РґС‹Р№ СЃРѕСЃС‚РѕСЏС‰РёР№ РІ РіСЂСѓРїРїРµ РјРѕР¶РµС‚ РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ РґР°РЅРЅС‹РјРё СЃРѕСЋР·РЅРёРєРѕРІ
+	string name; //РЅР°Р·РІР°РЅРёРµ РіСЂСѓРїРїС‹
+	vector<Entity*> vec; //СЃРїРёСЃРѕРє РіСЂСѓРїРїС‹
 	vector<AttackSystem*> vecAS;
 }; 
 
@@ -14,16 +14,16 @@ class GroupSystem
 {
 public:
 	/*
-	Система групп. Группы позволяют 
+	РЎРёСЃС‚РµРјР° РіСЂСѓРїРї. Р“СЂСѓРїРїС‹ РїРѕР·РІРѕР»СЏСЋС‚ 
 	*/
 	GroupSystem();
 
-	void newGroup(string name, Entity* entity); //добавить новую группу
-	void UploadToMap(GameWorld* world); //послать запросы всем кого нет в группе
-	void SendRequest(GameWorld* world, int pid); //отправить запрос на добавление в группу 
+	void newGroup(string name, Entity* entity); //РґРѕР±Р°РІРёС‚СЊ РЅРѕРІСѓСЋ РіСЂСѓРїРїСѓ
+	void UploadToMap(GameWorld* world); //РїРѕСЃР»Р°С‚СЊ Р·Р°РїСЂРѕСЃС‹ РІСЃРµРј РєРѕРіРѕ РЅРµС‚ РІ РіСЂСѓРїРїРµ
+	void SendRequest(GameWorld* world, int pid); //РѕС‚РїСЂР°РІРёС‚СЊ Р·Р°РїСЂРѕСЃ РЅР° РґРѕР±Р°РІР»РµРЅРёРµ РІ РіСЂСѓРїРїСѓ 
 
-	void LoadMap(GameWorld* world, string nameMap); //загрузить группы карты
+	void LoadMap(GameWorld* world, string nameMap); //Р·Р°РіСЂСѓР·РёС‚СЊ РіСЂСѓРїРїС‹ РєР°СЂС‚С‹
 
 private:
-	static vector<Group_Rpg*> groups; //список групп
+	static vector<Group_Rpg*> groups; //СЃРїРёСЃРѕРє РіСЂСѓРїРї
 }; 

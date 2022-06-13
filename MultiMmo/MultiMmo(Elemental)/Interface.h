@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <SFML/Graphics.hpp>
 using namespace sf;
 using std::to_string;
@@ -6,23 +6,23 @@ using std::to_string;
 
 class HealthBarRpg
 { 
-    /* полоска хп */
+    /* РїРѕР»РѕСЃРєР° С…Рї */
 private:
     const int maxWidth;
 
     Texture effect;
-    Sprite effectf; // это для бафов или эффектов для полоски
+    Sprite effectf; // СЌС‚Рѕ РґР»СЏ Р±Р°С„РѕРІ РёР»Рё СЌС„С„РµРєС‚РѕРІ РґР»СЏ РїРѕР»РѕСЃРєРё
     Texture b, b1, b_mana;
     Sprite q, q1, mana;
 
-    Text text; //показатель хп
+    Text text; //РїРѕРєР°Р·Р°С‚РµР»СЊ С…Рї
     Font font;
 public:
     HealthBarRpg();
-    void saveSetScale(float, float); //изменяет размер полоски хп
-    void setPosition(int x, int y); //задает координаты
-    void setProgress(float p); // p в диапазоне [0, 1] - обнеовить полоску
-    void setXp(int xp, int maxXp); //установка хп
+    void saveSetScale(float, float); //РёР·РјРµРЅСЏРµС‚ СЂР°Р·РјРµСЂ РїРѕР»РѕСЃРєРё С…Рї
+    void setPosition(int x, int y); //Р·Р°РґР°РµС‚ РєРѕРѕСЂРґРёРЅР°С‚С‹
+    void setProgress(float p); // p РІ РґРёР°РїР°Р·РѕРЅРµ [0, 1] - РѕР±РЅРµРѕРІРёС‚СЊ РїРѕР»РѕСЃРєСѓ
+    void setHp(int hp, int maxHp); //СѓСЃС‚Р°РЅРѕРІРєР° С…Рї
     void draw(RenderWindow& window);
 };
 
@@ -30,7 +30,7 @@ public:
 class RechargeAttack
 {
     /*
-    Класс отвечающий за интерфейс показа перезарядки навыка
+    РљР»Р°СЃСЃ РѕС‚РІРµС‡Р°СЋС‰РёР№ Р·Р° РёРЅС‚РµСЂС„РµР№СЃ РїРѕРєР°Р·Р° РїРµСЂРµР·Р°СЂСЏРґРєРё РЅР°РІС‹РєР°
     */
 public:
     RechargeAttack();
@@ -51,7 +51,7 @@ public:
 
 class Reference
 {
-    /* Справка-обучалка игре, показ клавиш (пока что вместо настроек)*/
+    /* РЎРїСЂР°РІРєР°-РѕР±СѓС‡Р°Р»РєР° РёРіСЂРµ, РїРѕРєР°Р· РєР»Р°РІРёС€ (РїРѕРєР° С‡С‚Рѕ РІРјРµСЃС‚Рѕ РЅР°СЃС‚СЂРѕРµРє)*/
     Texture referenceTab_, refMenu_;
     Sprite referenceTab, refMenu;
     bool saveTab;
@@ -64,14 +64,14 @@ public:
 class RpgInterface
 {
 private:
-    HealthBarRpg* hb; //полоска хп нашего аватара
-    RechargeAttack* rech[3]; //3 таймера перезарядки атак
+    HealthBarRpg* hb; //РїРѕР»РѕСЃРєР° С…Рї РЅР°С€РµРіРѕ Р°РІР°С‚Р°СЂР°
+    RechargeAttack* rech[3]; //3 С‚Р°Р№РјРµСЂР° РїРµСЂРµР·Р°СЂСЏРґРєРё Р°С‚Р°Рє
     Reference* ref; 
     View* view;
 
     Texture frame_;
-    Sprite frame; //основная рамка
-    Sprite f[3]; //3 рамки способностей
+    Sprite frame; //РѕСЃРЅРѕРІРЅР°СЏ СЂР°РјРєР°
+    Sprite f[3]; //3 СЂР°РјРєРё СЃРїРѕСЃРѕР±РЅРѕСЃС‚РµР№
 
     int sleeptime;
     int time;
@@ -79,6 +79,6 @@ private:
 
 public:
     RpgInterface(HealthBarRpg* hb_, RechargeAttack* rech, View* view_);
-    void setPosition(int posx, int posy); //задать позицию
-    void Interface(RenderWindow& window); //вывод и обработка интерфейса
+    void setPosition(int posx, int posy); //Р·Р°РґР°С‚СЊ РїРѕР·РёС†РёСЋ
+    void Interface(RenderWindow& window); //РІС‹РІРѕРґ Рё РѕР±СЂР°Р±РѕС‚РєР° РёРЅС‚РµСЂС„РµР№СЃР°
 };

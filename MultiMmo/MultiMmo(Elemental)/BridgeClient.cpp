@@ -1,4 +1,4 @@
-#include "BridgeClient.h"
+﻿#include "BridgeClient.h"
 
 BridgeClient::BridgeClient()
 {

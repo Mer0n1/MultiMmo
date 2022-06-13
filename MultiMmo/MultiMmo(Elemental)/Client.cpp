@@ -1,9 +1,9 @@
-#include "Client.h"
+п»ї#include "Client.h"
 #include "GameWorld.h"
 
 Client::Client()
 {
-	//Графика
+	//Р“СЂР°С„РёРєР°
 	font.loadFromFile("ttf/CyrilicOld.ttf");
 
 	password.setFont(font);
@@ -36,7 +36,7 @@ Client::Client()
 	time = 0;
 	save_time = 0;
 
-	//udp соединение
+	//udp СЃРѕРµРґРёРЅРµРЅРёРµ
 	WSAData data;
 	WORD ver = MAKEWORD(2, 2);
 	WSAStartup(MAKEWORD(2, 2), &data);
@@ -56,7 +56,7 @@ Client::Client()
 	client_len = sizeof(client_addr);
 	ZeroMemory(&client_addr, client_len);
 	client_addr.sin_family = AF_INET;
-	client_addr.sin_port = htons(0); //порт для отправки от сервера (было 0)
+	client_addr.sin_port = htons(0); //РїРѕСЂС‚ РґР»СЏ РѕС‚РїСЂР°РІРєРё РѕС‚ СЃРµСЂРІРµСЂР° (Р±С‹Р»Рѕ 0)
 	client_addr.sin_addr.S_un.S_addr = INADDR_ANY;
 
 	::bind(sock, (struct sockaddr*)&client_addr, client_len);
@@ -65,12 +65,13 @@ Client::Client()
 
 Client::~Client()
 {
-
+	delete gamer;
+	delete MyPlayer;
 }
 
 void Client::ClientMenu(RenderWindow& window)
 {
-	//-----Загрузка текстур
+	//-----Р—Р°РіСЂСѓР·РєР° С‚РµРєСЃС‚СѓСЂ
 	Texture interface_[3];
 	interface_[0].loadFromFile("Textures/identefication/MenuM.png");
 	interface_[1].loadFromFile("Textures/identefication/autorization.png");
@@ -87,9 +88,9 @@ void Client::ClientMenu(RenderWindow& window)
 	ofstream infile;
 
 	string pas1, log1; 
-	outfile >> log1 >> pas1; //сохраненные пароль и логин
+	outfile >> log1 >> pas1; //СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ РїР°СЂРѕР»СЊ Рё Р»РѕРіРёРЅ
 	if (log1 == "\x0" || pas1 == "\x0")
-		cout << "\nПустые данных сохраненных паролей\n";
+		cout << "\nРџСѓСЃС‚С‹Рµ РґР°РЅРЅС‹С… СЃРѕС…СЂР°РЅРµРЅРЅС‹С… РїР°СЂРѕР»РµР№\n";
 	else {
 		password_s = pas1;
 		login_s = log1;
@@ -99,8 +100,8 @@ void Client::ClientMenu(RenderWindow& window)
 	string* universal = &uk;
 	string nool;
 	
-	int cennum = 0; //фиксированный выбор
-	int ident = 1; //тип идентефикации (1 - авторизация, 0 - регистрация)
+	int cennum = 0; //С„РёРєСЃРёСЂРѕРІР°РЅРЅС‹Р№ РІС‹Р±РѕСЂ
+	int ident = 1; //С‚РёРї РёРґРµРЅС‚РµС„РёРєР°С†РёРё (1 - Р°РІС‚РѕСЂРёР·Р°С†РёСЏ, 0 - СЂРµРіРёСЃС‚СЂР°С†РёСЏ)
 	int true1 = true;
 
 	while (true1)
@@ -141,14 +142,14 @@ void Client::ClientMenu(RenderWindow& window)
 			if (menunum == 5) { cennum = 2; }
 			if (menunum == 3) { cennum = 3; }
 
-			if (menunum == 1) { //авторизация
+			if (menunum == 1) { //Р°РІС‚РѕСЂРёР·Р°С†РёСЏ
 				if (password_s[0] != '\x0' & login_s[0] != '\x0')
 				{
 					typeConnection = "aut";
 					true1 = start(); Sleep(300);
 				}
 			}
-			if (menunum == 7) { //регистрация
+			if (menunum == 7) { //СЂРµРіРёСЃС‚СЂР°С†РёСЏ
 				if (password_s[0] != '\x0' & username_s[0] != '\x0' & login_s[0] != '\x0')
 				{
 					typeConnection = "reg";
@@ -157,7 +158,7 @@ void Client::ClientMenu(RenderWindow& window)
 			}
 		}
 
-		if (ident == 1) { //окно авторизации
+		if (ident == 1) { //РѕРєРЅРѕ Р°РІС‚РѕСЂРёР·Р°С†РёРё
 			signIn.setPosition(365, 300);
 			signIn.setCharacterSize(18);
 			signIn.setFillColor(Color::White);
@@ -264,7 +265,7 @@ void Client::ClientMenu(RenderWindow& window)
 				}
 			}
 
-			//Comma - запятая
+			//Comma - Р·Р°РїСЏС‚Р°СЏ
 			Sleep(200);
 		}
 
@@ -295,7 +296,7 @@ int Client::start()
 
 	int sizeofaddr = sizeof(addr_);
 
-	addr_.sin_addr.s_addr = inet_addr("Метод поиск Ip создается..."); 
+	addr_.sin_addr.s_addr = inet_addr("176.196.135.47"); 
 	addr_.sin_port = htons(5555);
 	addr_.sin_family = AF_INET;
 
@@ -317,13 +318,13 @@ int Client::start()
 
 	for (int j = 34; j < 100; j++)
 		if (msg[j] != ' ')
-			Descriptor += msg[j]; //вытащим дескриптор
+			Descriptor += msg[j]; //РІС‹С‚Р°С‰РёРј РґРµСЃРєСЂРёРїС‚РѕСЂ
 
 	for (int j = 0; j < 256; j++)
-		msg[j] = ' ';  //очистить
+		msg[j] = ' ';  //РѕС‡РёСЃС‚РёС‚СЊ
 
-	//1 сегмент - запрос на авторизацию
-	//"{\"protocol\":\"identefication\",\"type\":\"aut\",\"gmail\":\"rd\",\"password\":\"123\"}" //пример запроса
+	//1 СЃРµРіРјРµРЅС‚ - Р·Р°РїСЂРѕСЃ РЅР° Р°РІС‚РѕСЂРёР·Р°С†РёСЋ
+	//"{\"protocol\":\"identefication\",\"type\":\"aut\",\"gmail\":\"rd\",\"password\":\"123\"}" //РїСЂРёРјРµСЂ Р·Р°РїСЂРѕСЃР°
 	string len;
 	if (typeConnection == "aut")
 		len = "{\"protocol\":\"identefication\",\"type\":\"aut\",\"gmail\":\"" + login_s +
@@ -336,14 +337,14 @@ int Client::start()
 	read(Connection_, msg, sizeof(msg));
 	Sleep(200);
 
-	len = "{\"protocol\":\"EnterTheWorld\"}"; //новый протокол входа в мир
-	send(Connection_, len.c_str(), len.length(), NULL); //отправка сегмента на вход в мир
+	len = "{\"protocol\":\"EnterTheWorld\"}"; //РЅРѕРІС‹Р№ РїСЂРѕС‚РѕРєРѕР» РІС…РѕРґР° РІ РјРёСЂ
+	send(Connection_, len.c_str(), len.length(), NULL); //РѕС‚РїСЂР°РІРєР° СЃРµРіРјРµРЅС‚Р° РЅР° РІС…РѕРґ РІ РјРёСЂ
 
 	thread th(&Client::sockReady, this);
-	th.detach(); //Запуск 2 потока принимающего запросы
+	th.detach(); //Р—Р°РїСѓСЃРє 2 РїРѕС‚РѕРєР° РїСЂРёРЅРёРјР°СЋС‰РµРіРѕ Р·Р°РїСЂРѕСЃС‹
 
 	string msg_ = msg;
-	doc = msg_; //расшифровка json формата
+	doc = msg_; //СЂР°СЃС€РёС„СЂРѕРІРєР° json С„РѕСЂРјР°С‚Р°
 	
 	if (doc.value("Write").toString() == "User auntification" ||
 		doc.value("Write").toString() == "Registation thinks!") {
@@ -355,37 +356,39 @@ int Client::start()
 
 void Client::sockReady()
 {
-	//Принять пакет данных емайл
-	int rc = 0; //проверка состояние запросов и сокетов
-	char packet[10000]; //массив для приема tcp запросов
+	//РџСЂРёРЅСЏС‚СЊ РїР°РєРµС‚ РґР°РЅРЅС‹С… РµРјР°Р№Р»
+	int rc = 0; //РїСЂРѕРІРµСЂРєР° СЃРѕСЃС‚РѕСЏРЅРёРµ Р·Р°РїСЂРѕСЃРѕРІ Рё СЃРѕРєРµС‚РѕРІ
+	char packet[10000]; //РјР°СЃСЃРёРІ РґР»СЏ РїСЂРёРµРјР° tcp Р·Р°РїСЂРѕСЃРѕРІ
 	string data;
 
-	//делаем сокеты неблокирующими
-	u_long mode = 1; //неблокирующий сокет (для цикла, чтобы не было приостановок) (0 - отключение)
+	//РґРµР»Р°РµРј СЃРѕРєРµС‚С‹ РЅРµР±Р»РѕРєРёСЂСѓСЋС‰РёРјРё
+	u_long mode = 1; //РЅРµР±Р»РѕРєРёСЂСѓСЋС‰РёР№ СЃРѕРєРµС‚ (РґР»СЏ С†РёРєР»Р°, С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ РїСЂРёРѕСЃС‚Р°РЅРѕРІРѕРє) (0 - РѕС‚РєР»СЋС‡РµРЅРёРµ)
 	ioctlsocket(Connection_, FIONBIO, &mode);
 
 	u_long mode_Udp = 1;
 	ioctlsocket(sock, FIONBIO, &mode_Udp);
 
 
-	while (true) //tcp и udp запросы ( udp постоянно отправляются)
+	while (true) //tcp Рё udp Р·Р°РїСЂРѕСЃС‹ ( udp РїРѕСЃС‚РѕСЏРЅРЅРѕ РѕС‚РїСЂР°РІР»СЏСЋС‚СЃСЏ)
 	{
-		sockReadyWorld(); //udp запросы мира
+		sockReadyWorld(); //udp Р·Р°РїСЂРѕСЃС‹ РјРёСЂР°
 		
-		//if (read(Connection_, packet, sizeof(packet)) < 0) continue; //принимаем запрос
-		if (recv(Connection_, packet, sizeof(packet), NULL) < 0) continue; //принимаем запрос
+		//if (read(Connection_, packet, sizeof(packet)) < 0) continue; //РїСЂРёРЅРёРјР°РµРј Р·Р°РїСЂРѕСЃ
+		if (recv(Connection_, packet, sizeof(packet), NULL) < 0) continue; //РїСЂРёРЅРёРјР°РµРј Р·Р°РїСЂРѕСЃ
 
 		data = packet;
-		doc = data; //установка на json
+		doc = data; //СѓСЃС‚Р°РЅРѕРІРєР° РЅР° json
 
-		///Далее запросы
+		///Р”Р°Р»РµРµ Р·Р°РїСЂРѕСЃС‹
 		if (doc.value("type").toString() == "Unconnect")
 			for (int j = 0; j < world->getSize(); j++)
 				if (world->getEntity(j)->getPid() == atoi(doc.value("p_id").toString().c_str()))
-					world->deleteEntity(world->getEntity(j)->getId(), world->getEntity(j)->getPid()); //удаляем обьект игрока который вышел
+					world->deleteEntity(world->getEntity(j)->getId(), world->getEntity(j)->getPid()); //СѓРґР°Р»СЏРµРј РѕР±СЊРµРєС‚ РёРіСЂРѕРєР° РєРѕС‚РѕСЂС‹Р№ РІС‹С€РµР»
 		
-		if (doc.value("type").toString() == "kick")
-			exit(0); //запрос кика
+		if (doc.value("type").toString() == "kick") {
+			cout << "\nРЎРµСЂРІРµСЂ РїРѕСЃС‡РёС‚Р°Р» РІР°СЃ Р±РѕС‚РѕРј Рё РєРёРєРЅСѓР»...\n\n";
+			exit(0); //Р·Р°РїСЂРѕСЃ РєРёРєР°
+		}
 	}
 }
 
@@ -393,43 +396,42 @@ void Client::sockReadyWorld()
 {
 	
 	time = clock.getElapsedTime().asSeconds();
-	MyPlayer = world->getEntity(0); //test
+	MyPlayer = world->getEntity(0);
 	
 	avatar.socketDescriptor = atoi(Descriptor.c_str());
 	avatar.id = MyPlayer->getId();
-	avatar.id_character = 0;
 	avatar.life = MyPlayer->getLife();
-	avatar.maxXp = MyPlayer->getMaxXp();
-	avatar.p_id = MyPlayer->getPid();
+	avatar.maxHp = MyPlayer->getMaxHp();
+	avatar.pid = MyPlayer->getPid();
+	avatar.hp = MyPlayer->getHp();
 	avatar.x = MyPlayer->getPos().x;
-	avatar.y = MyPlayer->getPos().y; //почему то остальные данные не передаются
-	avatar.xp = MyPlayer->getXp();
+	avatar.y = MyPlayer->getPos().y; 
 
-	if (time > save_time) { //отправка структуры раз в 0.05 сек, а проверка бесконечная
+	if (time > save_time) { //РѕС‚РїСЂР°РІРєР° СЃС‚СЂСѓРєС‚СѓСЂС‹ СЂР°Р· РІ 0.05 СЃРµРє, Р° РїСЂРѕРІРµСЂРєР° Р±РµСЃРєРѕРЅРµС‡РЅР°СЏ
 		sendto(sock, reinterpret_cast<char*>(&avatar), sizeof(avatar), 0, (sockaddr*)&server_addr, server_len);
 		save_time = time + 0.05; 
 	}
-
-	Sleep(10); //тест
 	
-	if (recvfrom(sock, reinterpret_cast<char*>(&avatar), 256, 0, (sockaddr*)&server_addr, &server_len) > 0) //принимаем
-	{ //с gamer что то не так - сокет выдает -1
-		//добавлении обьекта Entity и его характеристик
-		gamer = avatar;
+	Sleep(10); //С‚РµСЃС‚
+	
+	if (recvfrom(sock, reinterpret_cast<char*>(&avatar), 256, 0, (sockaddr*)&server_addr, &server_len) > 0) //РїСЂРёРЅРёРјР°РµРј
+	{ //СЃ gamer С‡С‚Рѕ С‚Рѕ РЅРµ С‚Р°Рє - СЃРѕРєРµС‚ РІС‹РґР°РµС‚ -1
+		//РґРѕР±Р°РІР»РµРЅРёРё РѕР±СЊРµРєС‚Р° Entity Рё РµРіРѕ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє
+		gamer = &avatar;
 
 		for (int j = 0; j != world->getSize(); j++)
-			if (world->getEntity(j)->getPid() == gamer.p_id)
+			if (world->getEntity(j)->getPid() == gamer->pid)
 			{
-				if (gamer.x < -1000 || gamer.x > 5000) gamer.x = 0;
-				if (gamer.y < -1000 || gamer.y > 5000) gamer.y = 0;
+				if (gamer->x < -1000 || gamer->x > 5000) gamer->x = 0;
+				if (gamer->y < -1000 || gamer->y > 5000) gamer->y = 0;
 				
-				world->setAvatar(&gamer, j); 
+				world->setAvatar(gamer, j); 
  				break;
 			}
 			else
-				if (j == world->getSize() - 1) { //если такого нет создаем обьект
-					world->addEntity(new SPlayer(gamer.id, gamer.p_id)); //добавляем сетевого игрока
-					world->setAvatar(&gamer, j); //можно же вместо сета описать данные в конструкторе
+				if (j == world->getSize() - 1) { //РµСЃР»Рё С‚Р°РєРѕРіРѕ РЅРµС‚ СЃРѕР·РґР°РµРј РѕР±СЊРµРєС‚
+					world->addEntity(new SPlayer(gamer->id, gamer->pid)); //РґРѕР±Р°РІР»СЏРµРј СЃРµС‚РµРІРѕРіРѕ РёРіСЂРѕРєР°
+					world->setAvatar(gamer, j); //РјРѕР¶РЅРѕ Р¶Рµ РІРјРµСЃС‚Рѕ СЃРµС‚Р° РѕРїРёСЃР°С‚СЊ РґР°РЅРЅС‹Рµ РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ
 				}
 	}
 	

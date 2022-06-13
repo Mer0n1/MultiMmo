@@ -1,28 +1,28 @@
-#pragma once
+п»ї#pragma once
 #include "Entity.h"
 #include "Attack.h"
 #include "Group.h"
 #include "Animation.h"
 
 class Player : public Entity
-{ //класс игрока/пользователя
+{ //РєР»Р°СЃСЃ РёРіСЂРѕРєР°/РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 public:
 	Player();
 	~Player();
 
-	void update(); //обновить игрока
-	void updateXp(int attack); //обновить хп
+	void update(); //РѕР±РЅРѕРІРёС‚СЊ РёРіСЂРѕРєР°
+	void updateHp(int attack); //РѕР±РЅРѕРІРёС‚СЊ С…Рї
 
 	RechargeAttack* getModuleRA(); //getModuleRechargeAttack - get rech 
-	void inisialization(); //переинициализация характеристик
+	void inisialization(); //РїРµСЂРµРёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє
 private:
-	void readyPerson(); //загрузить характеристики игрока
-	void downloadSA(int numb, int id); //загрузить SA игрока
-	void interactionWithMap(); //интерактив с картой
-	void controlPlayer(); //контроль аватара
+	void readyPerson(); //Р·Р°РіСЂСѓР·РёС‚СЊ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё РёРіСЂРѕРєР°
+	void downloadSA(int numb, int id); //Р·Р°РіСЂСѓР·РёС‚СЊ SA РёРіСЂРѕРєР°
+	void interactionWithMap(); //РёРЅС‚РµСЂР°РєС‚РёРІ СЃ РєР°СЂС‚РѕР№
+	void controlPlayer(); //РєРѕРЅС‚СЂРѕР»СЊ Р°РІР°С‚Р°СЂР°
 
-	AttackSystem AttackMode; //система атаки
-	Group_Rpg* group = NULL; //ссылка на группу в которой состоит игрок
+	AttackSystem AttackMode; //СЃРёСЃС‚РµРјР° Р°С‚Р°РєРё
+	Group_Rpg* group = NULL; //СЃСЃС‹Р»РєР° РЅР° РіСЂСѓРїРїСѓ РІ РєРѕС‚РѕСЂРѕР№ СЃРѕСЃС‚РѕРёС‚ РёРіСЂРѕРє
 	
 	AttackRatios rations; 
 	RechargeAttack* rech;
@@ -30,77 +30,77 @@ private:
 
 
 class Enemy : public Entity
-{ //класс врага/противника
+{ //РєР»Р°СЃСЃ РІСЂР°РіР°/РїСЂРѕС‚РёРІРЅРёРєР°
 public:
 	Enemy(string name1, int id_, int IDO);  
 	~Enemy();
 
-	void update(); //обновить противника
+	void update(); //РѕР±РЅРѕРІРёС‚СЊ РїСЂРѕС‚РёРІРЅРёРєР°
 
-	void updateXp(int attack); //обновить хп
-	void setGroup(Group_Rpg* group); //установка группы
-	void setTether(int DistantionPoint); //установки точки привязки
-	void setVisibility(int value); //установить дальность видимости противника
-	void setDistantionForOpponent(int value);  //установить фикс. расстояние от противника
+	void updateHp(int attack); //РѕР±РЅРѕРІРёС‚СЊ С…Рї
+	void setGroup(Group_Rpg* group); //СѓСЃС‚Р°РЅРѕРІРєР° РіСЂСѓРїРїС‹
+	void setTether(int DistantionPoint); //СѓСЃС‚Р°РЅРѕРІРєРё С‚РѕС‡РєРё РїСЂРёРІСЏР·РєРё
+	void setVisibility(int value); //СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РґР°Р»СЊРЅРѕСЃС‚СЊ РІРёРґРёРјРѕСЃС‚Рё РїСЂРѕС‚РёРІРЅРёРєР°
+	void setDistantionForOpponent(int value);  //СѓСЃС‚Р°РЅРѕРІРёС‚СЊ С„РёРєСЃ. СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ РїСЂРѕС‚РёРІРЅРёРєР°
 protected:
-	void DownloadInformation(); //загрузка информации из библоитеки (по id, pid)
+	void DownloadInformation(); //Р·Р°РіСЂСѓР·РєР° РёРЅС„РѕСЂРјР°С†РёРё РёР· Р±РёР±Р»РѕРёС‚РµРєРё (РїРѕ id, pid)
 
-	void go_move(); //начинает движение персонажа
-	void ai(); //ии персонажа
-	bool CheckGroup(int n); //проверить принадлежность к группе
-	void interactionWithMap(); //интерактив с картой
-	void controlEnemy(); //контроль персонажа
+	void go_move(); //РЅР°С‡РёРЅР°РµС‚ РґРІРёР¶РµРЅРёРµ РїРµСЂСЃРѕРЅР°Р¶Р°
+	void ai(); //РёРё РїРµСЂСЃРѕРЅР°Р¶Р°
+	bool CheckGroup(int n); //РїСЂРѕРІРµСЂРёС‚СЊ РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚СЊ Рє РіСЂСѓРїРїРµ
+	void interactionWithMap(); //РёРЅС‚РµСЂР°РєС‚РёРІ СЃ РєР°СЂС‚РѕР№
+	void controlEnemy(); //РєРѕРЅС‚СЂРѕР»СЊ РїРµСЂСЃРѕРЅР°Р¶Р°
 protected:
-	AttackSystem AttackMode; //система атаки (AttackMode и GroupSystem должны быть в Entity однако архитектура не позволяет)
-	Group_Rpg* group = NULL; //ссылка на группу в которой состоит бот
-	AttackRatios rations; //данные об уроне
+	AttackSystem AttackMode; //СЃРёСЃС‚РµРјР° Р°С‚Р°РєРё (AttackMode Рё GroupSystem РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РІ Entity РѕРґРЅР°РєРѕ Р°СЂС…РёС‚РµРєС‚СѓСЂР° РЅРµ РїРѕР·РІРѕР»СЏРµС‚)
+	Group_Rpg* group = NULL; //СЃСЃС‹Р»РєР° РЅР° РіСЂСѓРїРїСѓ РІ РєРѕС‚РѕСЂРѕР№ СЃРѕСЃС‚РѕРёС‚ Р±РѕС‚
+	AttackRatios rations; //РґР°РЅРЅС‹Рµ РѕР± СѓСЂРѕРЅРµ
 
-	//настройки ИИ бота
-	int visibility; //дальность видимости цели
-	int DistanceFromOpponent; //какого расстояния от игрока должен придерживаться бот 
-	int Point[2]; //точка спавна 
-	int DistantionPoint; //дистанция насколько можно отходить от точки спавна
-	bool BlockAi; //блочит движение с сохранением дистанцией
-	bool tether; //false - не имеет точки привязки 
+	//РЅР°СЃС‚СЂРѕР№РєРё РР Р±РѕС‚Р°
+	int visibility; //РґР°Р»СЊРЅРѕСЃС‚СЊ РІРёРґРёРјРѕСЃС‚Рё С†РµР»Рё
+	int DistanceFromOpponent; //РєР°РєРѕРіРѕ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РѕС‚ РёРіСЂРѕРєР° РґРѕР»Р¶РµРЅ РїСЂРёРґРµСЂР¶РёРІР°С‚СЊСЃСЏ Р±РѕС‚ 
+	int Point[2]; //С‚РѕС‡РєР° СЃРїР°РІРЅР° 
+	int DistantionPoint; //РґРёСЃС‚Р°РЅС†РёСЏ РЅР°СЃРєРѕР»СЊРєРѕ РјРѕР¶РЅРѕ РѕС‚С…РѕРґРёС‚СЊ РѕС‚ С‚РѕС‡РєРё СЃРїР°РІРЅР°
+	bool BlockAi; //Р±Р»РѕС‡РёС‚ РґРІРёР¶РµРЅРёРµ СЃ СЃРѕС…СЂР°РЅРµРЅРёРµРј РґРёСЃС‚Р°РЅС†РёРµР№
+	bool tether; //false - РЅРµ РёРјРµРµС‚ С‚РѕС‡РєРё РїСЂРёРІСЏР·РєРё 
 
-	//движение бота
-	int x_move[20], y_move[20]; //точки куда должно осуществляться перемещeние
-	bool moving = false; //активно ли движение?
+	//РґРІРёР¶РµРЅРёРµ Р±РѕС‚Р°
+	int x_move[20], y_move[20]; //С‚РѕС‡РєРё РєСѓРґР° РґРѕР»Р¶РЅРѕ РѕСЃСѓС‰РµСЃС‚РІР»СЏС‚СЊСЃСЏ РїРµСЂРµРјРµС‰eРЅРёРµ
+	bool moving = false; //Р°РєС‚РёРІРЅРѕ Р»Рё РґРІРёР¶РµРЅРёРµ?
 	bool forward = false, left = false,
-		right = false, back = false; //4 направления движения
+		right = false, back = false; //4 РЅР°РїСЂР°РІР»РµРЅРёСЏ РґРІРёР¶РµРЅРёСЏ
 
-	//инфа о противнике
-	int jOp; //номер противника в списке мира
-	int pidOp; //pid оппонента
+	//РёРЅС„Р° Рѕ РїСЂРѕС‚РёРІРЅРёРєРµ
+	int jOp; //РЅРѕРјРµСЂ РїСЂРѕС‚РёРІРЅРёРєР° РІ СЃРїРёСЃРєРµ РјРёСЂР°
+	int pidOp; //pid РѕРїРїРѕРЅРµРЅС‚Р°
 
-	//прочее
-	float controltime; //таймер для оптимизации (используется в controlEnemy (управлении) и ai )
-	int IDO; //ID option - номер варианта аватара в LibraryNPC
+	//РїСЂРѕС‡РµРµ
+	float controltime; //С‚Р°Р№РјРµСЂ РґР»СЏ РѕРїС‚РёРјРёР·Р°С†РёРё (РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ controlEnemy (СѓРїСЂР°РІР»РµРЅРёРё) Рё ai )
+	int IDO; //ID option - РЅРѕРјРµСЂ РІР°СЂРёР°РЅС‚Р° Р°РІР°С‚Р°СЂР° РІ LibraryNPC
 
 	/*
-	pidOp - подайди противника. Всегда когда нпс видит противника сохраняет его подайди, и с подайди включается его 
-	система атаки и ИИ атаки. Однако если посторонний нпс союзник, тоесть состоит в одной группе, pidOp не отмечается
-	IDO - в библиотеке существуют много разноуровневых нпс с одним и тем же айди, чтобы различать их допустим по сложности
-	использется IDO - от 0 до неограниченного. 0 - стандарт
+	pidOp - РїРѕРґР°Р№РґРё РїСЂРѕС‚РёРІРЅРёРєР°. Р’СЃРµРіРґР° РєРѕРіРґР° РЅРїСЃ РІРёРґРёС‚ РїСЂРѕС‚РёРІРЅРёРєР° СЃРѕС…СЂР°РЅСЏРµС‚ РµРіРѕ РїРѕРґР°Р№РґРё, Рё СЃ РїРѕРґР°Р№РґРё РІРєР»СЋС‡Р°РµС‚СЃСЏ РµРіРѕ 
+	СЃРёСЃС‚РµРјР° Р°С‚Р°РєРё Рё РР Р°С‚Р°РєРё. РћРґРЅР°РєРѕ РµСЃР»Рё РїРѕСЃС‚РѕСЂРѕРЅРЅРёР№ РЅРїСЃ СЃРѕСЋР·РЅРёРє, С‚РѕРµСЃС‚СЊ СЃРѕСЃС‚РѕРёС‚ РІ РѕРґРЅРѕР№ РіСЂСѓРїРїРµ, pidOp РЅРµ РѕС‚РјРµС‡Р°РµС‚СЃСЏ
+	IDO - РІ Р±РёР±Р»РёРѕС‚РµРєРµ СЃСѓС‰РµСЃС‚РІСѓСЋС‚ РјРЅРѕРіРѕ СЂР°Р·РЅРѕСѓСЂРѕРІРЅРµРІС‹С… РЅРїСЃ СЃ РѕРґРЅРёРј Рё С‚РµРј Р¶Рµ Р°Р№РґРё, С‡С‚РѕР±С‹ СЂР°Р·Р»РёС‡Р°С‚СЊ РёС… РґРѕРїСѓСЃС‚РёРј РїРѕ СЃР»РѕР¶РЅРѕСЃС‚Рё
+	РёСЃРїРѕР»СЊР·РµС‚СЃСЏ IDO - РѕС‚ 0 РґРѕ РЅРµРѕРіСЂР°РЅРёС‡РµРЅРЅРѕРіРѕ. 0 - СЃС‚Р°РЅРґР°СЂС‚
 	*/
 };
 
-class SPlayer : public Entity //ServerPlayer (игрок сервера)
+class SPlayer : public Entity //ServerPlayer (РёРіСЂРѕРє СЃРµСЂРІРµСЂР°)
 {
 public:
-	SPlayer(int id, int pid); //под сетевых игроков
+	SPlayer(int id, int pid); //РїРѕРґ СЃРµС‚РµРІС‹С… РёРіСЂРѕРєРѕРІ
 
-	void update(); //обновить игрока
-	void updateXp(int attack); //обновить хп
+	void update(); //РѕР±РЅРѕРІРёС‚СЊ РёРіСЂРѕРєР°
+	void updateHp(int attack); //РѕР±РЅРѕРІРёС‚СЊ С…Рї
 };
 
 class Mobs : public Enemy
-{ //класс моба
+{ //РєР»Р°СЃСЃ РјРѕР±Р°
 public:
 	Mobs(string name, int id, int pid);
 	~Mobs();
 	void Control();
-	void updateXp(int);
+	void updateHp(int);
 	void update();
 private:
 	Texture model_;

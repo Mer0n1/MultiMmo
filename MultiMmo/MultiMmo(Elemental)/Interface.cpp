@@ -1,4 +1,4 @@
-#include "Interface.h"
+п»ї#include "Interface.h"
 #include "Windows.h"
 #include <string>
 #include <iostream>
@@ -36,14 +36,14 @@ void HealthBarRpg::saveSetScale(float w, float h)
     mana.setScale(w, h); 
 }
 
-void HealthBarRpg::setPosition(int x, int y) //задает координаты
+void HealthBarRpg::setPosition(int x, int y) //Р·Р°РґР°РµС‚ РєРѕРѕСЂРґРёРЅР°С‚С‹
 {
     q.setPosition(x, y);
     q1.setPosition(x, y);
     mana.setPosition(x, y + 50);
 }
 
-void HealthBarRpg::setProgress(float p) // p в диапазоне [0, 1]
+void HealthBarRpg::setProgress(float p) // p РІ РґРёР°РїР°Р·РѕРЅРµ [0, 1]
 {
     int pr1 = static_cast<int>(p * maxWidth);
     if (pr1 < 0) pr1 = 0;
@@ -51,10 +51,10 @@ void HealthBarRpg::setProgress(float p) // p в диапазоне [0, 1]
     q1.setTextureRect(IntRect(0, 0, pr1, 9));
 }
 
-void HealthBarRpg::setXp(int xp, int maxXp)
+void HealthBarRpg::setHp(int hp, int maxHp)
 {
     text.setPosition(q.getPosition().x + 5, q.getPosition().y - 15);
-    text.setString(to_string(xp) + "/" + to_string(maxXp));
+    text.setString(to_string(hp) + "/" + to_string(maxHp));
 }
 
 void HealthBarRpg::draw(RenderWindow& window)
@@ -88,7 +88,7 @@ RechargeAttack::RechargeAttack(int nAt, int recharge_) : recharge(recharge_)
 
 void RechargeAttack::StartTimer()
 {
-    if (time >= recharge) { //начало таймера только если он уже был истек ранее 
+    if (time >= recharge) { //РЅР°С‡Р°Р»Рѕ С‚Р°Р№РјРµСЂР° С‚РѕР»СЊРєРѕ РµСЃР»Рё РѕРЅ СѓР¶Рµ Р±С‹Р» РёСЃС‚РµРє СЂР°РЅРµРµ 
         clock.restart();
         time = 0;
     }
@@ -103,7 +103,7 @@ void RechargeAttack::update(RenderWindow &window)
     float indx = 21.f / recharge;
     int numb = floor(indx * time);
     int x = 0, y = 0;
-    int os = 0; //остаток
+    int os = 0; //РѕСЃС‚Р°С‚РѕРє
 
     if (numb > 6) {
         os = floor(numb / 7);
@@ -206,20 +206,20 @@ void RpgInterface::setPosition(int posx, int posy)
     ref->setPositionView(view->getCenter().x, view->getCenter().y);
 }
 
-void RpgInterface::Interface(RenderWindow& window) //вывод основного интерфейса
+void RpgInterface::Interface(RenderWindow& window) //РІС‹РІРѕРґ РѕСЃРЅРѕРІРЅРѕРіРѕ РёРЅС‚РµСЂС„РµР№СЃР°
 {
-    Vector2i pixelPos = Mouse::getPosition(window); //забираем координаты мыши
-    Vector2f pos = window.mapPixelToCoords(pixelPos); //переводим их в игровые
+    Vector2i pixelPos = Mouse::getPosition(window); //Р·Р°Р±РёСЂР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РјС‹С€Рё
+    Vector2f pos = window.mapPixelToCoords(pixelPos); //РїРµСЂРµРІРѕРґРёРј РёС… РІ РёРіСЂРѕРІС‹Рµ
     time = clock.getElapsedTime().asSeconds();
    
     int menunum = 0;
 
     if (IntRect(20, 500, 60, 60).contains(Mouse::getPosition(window)))  
-        menunum = 1;  //меню профиля
+        menunum = 1;  //РјРµРЅСЋ РїСЂРѕС„РёР»СЏ
 
     if (Mouse::isButtonPressed(Mouse::Left) && time > sleeptime)
     {
-        if (menunum == 1) {} //меню профиля
+        if (menunum == 1) {} //РјРµРЅСЋ РїСЂРѕС„РёР»СЏ
 
         sleeptime = time + 0.2; 
         Sleep(200);
@@ -228,12 +228,12 @@ void RpgInterface::Interface(RenderWindow& window) //вывод основного интерфейса
     //------------------Draw
     
     for (int j = 0; j < 3; j++) {
-        window.draw(f[j]); //вывод рамок
-        rech[j]->update(window); //вывод таймеров
+        window.draw(f[j]); //РІС‹РІРѕРґ СЂР°РјРѕРє
+        rech[j]->update(window); //РІС‹РІРѕРґ С‚Р°Р№РјРµСЂРѕРІ
     }
 
     window.draw(frame);
-    //hb->draw(window); //вывод полоски хп (полоска хп выводится в GameWorld)
-    ref->draw(window); //вывод справки
+    //hb->draw(window); //РІС‹РІРѕРґ РїРѕР»РѕСЃРєРё С…Рї (РїРѕР»РѕСЃРєР° С…Рї РІС‹РІРѕРґРёС‚СЃСЏ РІ GameWorld)
+    ref->draw(window); //РІС‹РІРѕРґ СЃРїСЂР°РІРєРё
 }
 

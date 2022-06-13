@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <list>
 #include <vector>
@@ -14,12 +14,12 @@ public:
 	interpretation(string key_);
 	~interpretation();
 
-	void toIntMassv(int* massv, int lentgh); //massv - первый элемент массива
+	void toIntMassv(int* massv, int lentgh); //massv - РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР°
 	void toFloatMassv(float* massv, int lentgh);
 
-	string toString(); //вернем тип string
-	int toInt(); //вернем тип int
-	float toFloat(); //вернем тип float
+	string toString(); //РІРµСЂРЅРµРј С‚РёРї string
+	int toInt(); //РІРµСЂРЅРµРј С‚РёРї int
+	float toFloat(); //РІРµСЂРЅРµРј С‚РёРї float
 };
 
 class JsonDocument 
@@ -44,15 +44,15 @@ string d = "{\"test\":\"154.5 2 3 5 6 7 9 0\"}";
 	string str = doc.value("test").toString();
 	float* fl = doc.value("test").toFloatMassv();
 
-	cout << "Выводим int массив:\n";
+	cout << "Р’С‹РІРѕРґРёРј int РјР°СЃСЃРёРІ:\n";
 	for (int j = 0; j < 10; j++)
 		cout << *(mk++) << " "; cout << endl;
 
-	cout << "Выводим string:\n";
+	cout << "Р’С‹РІРѕРґРёРј string:\n";
 	for (int j = 0; j < str.size(); j++)
 		cout << str[j]; cout << endl;
 
-	cout << "Выводим float массив:\n";
+	cout << "Р’С‹РІРѕРґРёРј float РјР°СЃСЃРёРІ:\n";
 	for (int j = 0; j < 10; j++)
 		cout << *(fl++) << " "; cout << endl;
 

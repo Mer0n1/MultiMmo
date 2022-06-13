@@ -1,24 +1,25 @@
-#include "SubEntity.h"
+Ôªø#include "SubEntity.h"
 #include "GameWorld.h"
 
 SPlayer::SPlayer(int id_, int pid_)
 {
 	id = id_;
 	pid = pid_;
-
-	TFPack->ModelCharacter[id].setTextureRect(IntRect(Width * 2 + 45, 0, Width, Height));
-	gamer = TFPack->ModelCharacter[95]; //Á‡„ÛÁÍ‡ ÏÓ‰ÂÎË
+	
+	Width = 56; Height = 124; //test –≤—Ä–µ–º–µ–Ω–Ω–æ
+	TFPack->ModelCharacter[id].setTextureRect(IntRect(0, 0, Width, Height));
+	gamer = TFPack->ModelCharacter[id]; //–∑–∞–≥—Ä—É–∑–∫–∞ –º–æ–¥–µ–ª–∏
 }
 
 void SPlayer::update()
 {
 	gamer.setPosition(x, y);
 	hb.setPosition(x - 20, y - 20);
-	hb.setProgress((float)xp / (float)max_Xp);
-	hb.setXp(xp, max_Xp);
+	hb.setProgress((float)hp / (float)max_hp);
+	hb.setHp(hp, max_hp);
 }
 
-void SPlayer::updateXp(int atck)
+void SPlayer::updateHp(int atck)
 {
 
 }

@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "TinyXML/tinyxml.h"
 #include <iostream>
 #include <string>
@@ -9,23 +9,23 @@ using namespace std;
 class Inventor
 {
     /*
-    Наработки класса инвентаря. 
+    РќР°СЂР°Р±РѕС‚РєРё РєР»Р°СЃСЃР° РёРЅРІРµРЅС‚Р°СЂСЏ. 
     */
 private:
     struct Element
     {
-        //*данные*
+        //*РґР°РЅРЅС‹Рµ*
         int thingsId;
         int quanityThings;
     }; 
-    vector<Element*> element; //предмет
-    vector<int> character; //персонаж
-    vector<int> SA; //спец способности
+    vector<Element*> element; //РїСЂРµРґРјРµС‚
+    vector<int> character; //РїРµСЂСЃРѕРЅР°Р¶
+    vector<int> SA; //СЃРїРµС† СЃРїРѕСЃРѕР±РЅРѕСЃС‚Рё
 public:
     Inventor();
-    void udpate(); //обновить предметы
-    void addThings(int id, int quanity); //добавить предмет
+    void udpate(); //РѕР±РЅРѕРІРёС‚СЊ РїСЂРµРґРјРµС‚С‹
+    void addThings(int id, int quanity); //РґРѕР±Р°РІРёС‚СЊ РїСЂРµРґРјРµС‚
 
-    void saveFile(); //сохранить в файл (файл хранящий информацию об аккаунте)
-    void DownloadResources(); //загружаем ресурсы нашего аккаунта в инвентарь
+    void saveFile(); //СЃРѕС…СЂР°РЅРёС‚СЊ РІ С„Р°Р№Р» (С„Р°Р№Р» С…СЂР°РЅСЏС‰РёР№ РёРЅС„РѕСЂРјР°С†РёСЋ РѕР± Р°РєРєР°СѓРЅС‚Рµ)
+    void DownloadResources(); //Р·Р°РіСЂСѓР¶Р°РµРј СЂРµСЃСѓСЂСЃС‹ РЅР°С€РµРіРѕ Р°РєРєР°СѓРЅС‚Р° РІ РёРЅРІРµРЅС‚Р°СЂСЊ
 };

@@ -1,4 +1,4 @@
-#include "SubEntity.h"
+п»ї#include "SubEntity.h"
 #include "GameWorld.h"
 
 
@@ -7,8 +7,8 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 	name = name1;
 	speedConst = 5;
 	speed = 1; 
-	xp = 100;
-	max_Xp = xp;
+	hp = 100;
+	max_hp = hp;
 	x = 300;
 	y = 300;
 	visibility = 400;
@@ -26,24 +26,24 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 	life = true;
 	memset(x_move, 0, 20 * 4);
 	memset(y_move, 0, 20 * 4);
-	hb.saveSetScale(1, 1); //настраиваем полоску жизней под бота
+	hb.saveSetScale(1, 1); //РЅР°СЃС‚СЂР°РёРІР°РµРј РїРѕР»РѕСЃРєСѓ Р¶РёР·РЅРµР№ РїРѕРґ Р±РѕС‚Р°
 
 	group = new Group_Rpg; 
-	group->vec.push_back(this); //добавим группу и себя в нее
+	group->vec.push_back(this); //РґРѕР±Р°РІРёРј РіСЂСѓРїРїСѓ Рё СЃРµР±СЏ РІ РЅРµРµ
 	
-	DownloadInformation(); //скачивание информации из библиотеки
-	world->addEntity(this); //автоматически при создании добавляем его в список мира
+	DownloadInformation(); //СЃРєР°С‡РёРІР°РЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё РёР· Р±РёР±Р»РёРѕС‚РµРєРё
+	world->addEntity(this); //Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєРё РїСЂРё СЃРѕР·РґР°РЅРёРё РґРѕР±Р°РІР»СЏРµРј РµРіРѕ РІ СЃРїРёСЃРѕРє РјРёСЂР°
 	
-	TFPack->ModelCharacter[id].setTextureRect(IntRect(Width * 2, 0, Width, Height)); //IntRect - соответствует типу сборки модели
-	gamer = TFPack->ModelCharacter[id]; //загружаем модель
+	TFPack->ModelCharacter[id].setTextureRect(IntRect(Width * 2, 0, Width, Height)); //IntRect - СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ С‚РёРїСѓ СЃР±РѕСЂРєРё РјРѕРґРµР»Рё
+	gamer = TFPack->ModelCharacter[id]; //Р·Р°РіСЂСѓР¶Р°РµРј РјРѕРґРµР»СЊ
 	
 	playerPr pr;
 	pr.x = &x;
 	pr.y = &y;
 	pr.posX = &pixelPos->x;
 	pr.posY = &pixelPos->y;
-	pr.xp = &xp;
-	pr.maxXp = &max_Xp;
+	pr.hp = &hp;
+	pr.maxHp = &max_hp;
 	pr.Height = Height;
 	pr.Width = Width;
 	pr.id = id;
@@ -56,7 +56,7 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 	pr.group = group;
 
 	AttackMode.setPr(&pr);
-	AttackMode.inisialization(); //инициализируем всю систему
+	AttackMode.inisialization(); //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РІСЃСЋ СЃРёСЃС‚РµРјСѓ
 }
 
 Enemy::~Enemy()
@@ -65,19 +65,19 @@ Enemy::~Enemy()
 
 void Enemy::update()
 {
-	if (name == "EasyEnemy") {//для персонажа с таким именем логика будет такой
+	if (name == "EasyEnemy") {//РґР»СЏ РїРµСЂСЃРѕРЅР°Р¶Р° СЃ С‚Р°РєРёРј РёРјРµРЅРµРј Р»РѕРіРёРєР° Р±СѓРґРµС‚ С‚Р°РєРѕР№
 		
 		gamer.setPosition(x, y);
 		hb.setPosition(x - 10, y - 10);
-		hb.setProgress((float)xp / (float)max_Xp);
-		hb.setXp(xp, max_Xp); 
+		hb.setProgress((float)hp / (float)max_hp);
+		hb.setHp(hp, max_hp); 
 
 		controlEnemy();
-		interactionWithMap(); //связь с картой
-		go_move(); //движение бота
-		ai(); //поведение к игроку
+		interactionWithMap(); //СЃРІСЏР·СЊ СЃ РєР°СЂС‚РѕР№
+		go_move(); //РґРІРёР¶РµРЅРёРµ Р±РѕС‚Р°
+		ai(); //РїРѕРІРµРґРµРЅРёРµ Рє РёРіСЂРѕРєСѓ
 		
-		if (xp <= 0) { life = false; gamer.setColor(Color::Black); }
+		if (hp <= 0) { life = false; gamer.setColor(Color::Black); }
 	}
 }
 
@@ -97,17 +97,17 @@ void Enemy::go_move()
 	left = 0, 
 	right = 0, 
 	forward = 0, 
-	back = 0; //сброс
+	back = 0; //СЃР±СЂРѕСЃ
 	
-	int nx = 0, ny = 0; //направления
-	if (x_move[0] > x) nx = 1; else nx = -1; //по графику
+	int nx = 0, ny = 0; //РЅР°РїСЂР°РІР»РµРЅРёСЏ
+	if (x_move[0] > x) nx = 1; else nx = -1; //РїРѕ РіСЂР°С„РёРєСѓ
 	if (y_move[0] > y) ny = 1; else ny = -1;
 
-	//если по системе булевых num то используем тайлы 32 на 32
+	//РµСЃР»Рё РїРѕ СЃРёСЃС‚РµРјРµ Р±СѓР»РµРІС‹С… num С‚Рѕ РёСЃРїРѕР»СЊР·СѓРµРј С‚Р°Р№Р»С‹ 32 РЅР° 32
 	if (nx == 1) right = true; else left = true;
 	if (ny == 1) back = true; else forward = true;
 
-	//признак отсутствия движения
+	//РїСЂРёР·РЅР°Рє РѕС‚СЃСѓС‚СЃС‚РІРёСЏ РґРІРёР¶РµРЅРёСЏ
 	if (x_move[0] + 1 == x) nx = 0;
 	if (y_move[0] + 1 == y) ny = 0;
 	if (nx == 0) { left = false; right = false; }
@@ -116,11 +116,11 @@ void Enemy::go_move()
 
 void Enemy::ai()
 {
-	bool sight = false; //видимость противника
-	int i1 = 0, j1 = 0; //дистанция до цели
-	int opX = 0, opY = 0; //координаты противника
+	bool sight = false; //РІРёРґРёРјРѕСЃС‚СЊ РїСЂРѕС‚РёРІРЅРёРєР°
+	int i1 = 0, j1 = 0; //РґРёСЃС‚Р°РЅС†РёСЏ РґРѕ С†РµР»Рё
+	int opX = 0, opY = 0; //РєРѕРѕСЂРґРёРЅР°С‚С‹ РїСЂРѕС‚РёРІРЅРёРєР°
 	
-	//-----------------------Перемещение
+	//-----------------------РџРµСЂРµРјРµС‰РµРЅРёРµ
 	for (int j = 0; j < world->getSize(); j++)
 		if (world->getEntity(j)->getPid() != pid && CheckGroup(j) &&
 			world->getEntity(j)->getPos().x > x - visibility && world->getEntity(j)->getPos().x < x + visibility &&
@@ -129,37 +129,37 @@ void Enemy::ai()
 			sight = true;
 			i1 = world->getEntity(j)->getPos().y;
 			j1 = world->getEntity(j)->getPos().x;
-			pidOp = world->getEntity(j)->getPid(); //сохраняем подайди выбранной ботом цели
+			pidOp = world->getEntity(j)->getPid(); //СЃРѕС…СЂР°РЅСЏРµРј РїРѕРґР°Р№РґРё РІС‹Р±СЂР°РЅРЅРѕР№ Р±РѕС‚РѕРј С†РµР»Рё
 			jOp = j;
 			break;
 		}
 
-	if (tether) //обработка привязки к местности
+	if (tether) //РѕР±СЂР°Р±РѕС‚РєР° РїСЂРёРІСЏР·РєРё Рє РјРµСЃС‚РЅРѕСЃС‚Рё
 		if (x < Point[0] - DistantionPoint || x > Point[0] + DistantionPoint ||
-			y < Point[1] - DistantionPoint || y > Point[1] + DistantionPoint) //не дальше DistantionPoint от точки
+			y < Point[1] - DistantionPoint || y > Point[1] + DistantionPoint) //РЅРµ РґР°Р»СЊС€Рµ DistantionPoint РѕС‚ С‚РѕС‡РєРё
 		{
 			x_move[0] = Point[0]; 
 			y_move[0] = Point[1]; 
-			//xp = max_Xp; //как вариант - восстановление хп если выходит за границу
+			//hp = max_hp; //РєР°Рє РІР°СЂРёР°РЅС‚ - РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ С…Рї РµСЃР»Рё РІС‹С…РѕРґРёС‚ Р·Р° РіСЂР°РЅРёС†Сѓ
 			moving = true;
 			sight = false;
 		}
 	
 	if (!sight) return; 
-	if (BlockAi) return; //выходим если движение типа saveDistantion заблочено
+	if (BlockAi) return; //РІС‹С…РѕРґРёРј РµСЃР»Рё РґРІРёР¶РµРЅРёРµ С‚РёРїР° saveDistantion Р·Р°Р±Р»РѕС‡РµРЅРѕ
 
 	opX = j1; 
-	opY = i1; //сохраняем изначальные координаты противника
+	opY = i1; //СЃРѕС…СЂР°РЅСЏРµРј РёР·РЅР°С‡Р°Р»СЊРЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РїСЂРѕС‚РёРІРЅРёРєР°
 
-	i1 = i1 - y;  //сохраняем отношение координат противника и себя
-	j1 = j1 - x + (Width / 2); //i - это y, j1 - х
+	i1 = i1 - y;  //СЃРѕС…СЂР°РЅСЏРµРј РѕС‚РЅРѕС€РµРЅРёРµ РєРѕРѕСЂРґРёРЅР°С‚ РїСЂРѕС‚РёРІРЅРёРєР° Рё СЃРµР±СЏ
+	j1 = j1 - x + (Width / 2); //i - СЌС‚Рѕ y, j1 - С…
 
-	//сколько нужно отнять/прибравить чтобы получилось DistanceFromOpponent? и какую координату?
+	//СЃРєРѕР»СЊРєРѕ РЅСѓР¶РЅРѕ РѕС‚РЅСЏС‚СЊ/РїСЂРёР±СЂР°РІРёС‚СЊ С‡С‚РѕР±С‹ РїРѕР»СѓС‡РёР»РѕСЃСЊ DistanceFromOpponent? Рё РєР°РєСѓСЋ РєРѕРѕСЂРґРёРЅР°С‚Сѓ?
 	int xx = 0, yy = 0; 
-	if (opX > x) xx = j1 - DistanceFromOpponent * 32; else xx = j1 + DistanceFromOpponent * 32; //чтобы он вообще не приближался 
-	if (opY > y) yy = i1 - DistanceFromOpponent * 32; else yy = i1 + DistanceFromOpponent * 32; //к игроку
+	if (opX > x) xx = j1 - DistanceFromOpponent * 32; else xx = j1 + DistanceFromOpponent * 32; //С‡С‚РѕР±С‹ РѕРЅ РІРѕРѕР±С‰Рµ РЅРµ РїСЂРёР±Р»РёР¶Р°Р»СЃСЏ 
+	if (opY > y) yy = i1 - DistanceFromOpponent * 32; else yy = i1 + DistanceFromOpponent * 32; //Рє РёРіСЂРѕРєСѓ
 
-	//прибавляем
+	//РїСЂРёР±Р°РІР»СЏРµРј
 	x_move[0] = x + xx;
 	y_move[0] = y + yy;
 	moving = true;  
@@ -170,7 +170,7 @@ void Enemy::controlEnemy()
 	if (*time < controltime) return;
 	controltime = *time + 0.01;
 	
-	//движение
+	//РґРІРёР¶РµРЅРёРµ
 	if (forward) {
 		y -= speed;
 		gamer.setTextureRect(IntRect(Width * 6, 0, Width, Height));
@@ -188,21 +188,21 @@ void Enemy::controlEnemy()
 		gamer.setTextureRect(IntRect(Width * 2, 0, Width, Height));
 	}
 	
-	//боковое движение
-	if (forward && left) //вверх-лево
+	//Р±РѕРєРѕРІРѕРµ РґРІРёР¶РµРЅРёРµ
+	if (forward && left) //РІРІРµСЂС…-Р»РµРІРѕ
 		gamer.setTextureRect(IntRect(Width * 5, 0, Width, Height));
-	if (forward && right) //вверх-право
+	if (forward && right) //РІРІРµСЂС…-РїСЂР°РІРѕ
 		gamer.setTextureRect(IntRect(0, Height, Width, Height));
-	if (back && left) //вниз-лево
+	if (back && left) //РІРЅРёР·-Р»РµРІРѕ
 		gamer.setTextureRect(IntRect(Width * 3, 0, Width, Height));
-	if (back && right) //вниз-право
+	if (back && right) //РІРЅРёР·-РїСЂР°РІРѕ
 		gamer.setTextureRect(IntRect(Width * 1, 0, Width, Height));
 
 }
 
 void Enemy::interactionWithMap()
 {
-	if (!Map->interactionMap(x, y, Height, Width)) return; //если препятствия нет выходим
+	if (!Map->interactionMap(x, y, Height, Width)) return; //РµСЃР»Рё РїСЂРµРїСЏС‚СЃС‚РІРёСЏ РЅРµС‚ РІС‹С…РѕРґРёРј
 	
 	if (back)
 		y -= speedConst;
@@ -214,14 +214,14 @@ void Enemy::interactionWithMap()
 		x += speedConst;
 }
 
-void Enemy::updateXp(int atck)
+void Enemy::updateHp(int atck)
 {
-	xp -= atck; 
+	hp -= atck; 
 }
 
 bool Enemy::CheckGroup(int n)
 {
-	if (group == NULL) return true; //если группы не сущ выходим
+	if (group == NULL) return true; //РµСЃР»Рё РіСЂСѓРїРїС‹ РЅРµ СЃСѓС‰ РІС‹С…РѕРґРёРј
 	
 	for (int j = 0; j < group->vec.size(); j++)
 		if (group->vec[j]->getPid() != pid &&
@@ -251,15 +251,15 @@ void Enemy::DownloadInformation()
 			return;
 	}
 	
-	Width = atoi(Person->Attribute("width")); //загруза характеристик
+	Width = atoi(Person->Attribute("width")); //Р·Р°РіСЂСѓР·Р° С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє
 	Height = atoi(Person->Attribute("height"));
-	xp = max_Xp = atoi(Person->Attribute("xp"));
+	hp = max_hp = atoi(Person->Attribute("hp"));
 	speed = atoi(Person->Attribute("speed"));
 	visibility = atoi(Person->Attribute("visibility"));
 	DistanceFromOpponent = atoi(Person->Attribute("DistanceFromOpponent"));
 	
-	//Загружаем информацию о уроне
-	if (Person->FirstChildElement("AttackDamage")) { //ничего страшного если персонаж не имеет этого параметра
+	//Р—Р°РіСЂСѓР¶Р°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ СѓСЂРѕРЅРµ
+	if (Person->FirstChildElement("AttackDamage")) { //РЅРёС‡РµРіРѕ СЃС‚СЂР°С€РЅРѕРіРѕ РµСЃР»Рё РїРµСЂСЃРѕРЅР°Р¶ РЅРµ РёРјРµРµС‚ СЌС‚РѕРіРѕ РїР°СЂР°РјРµС‚СЂР°
 		rations.at1 = atoi(Person->FirstChildElement("AttackDamage")->Attribute("At1"));
 		rations.at2 = atoi(Person->FirstChildElement("AttackDamage")->Attribute("At2"));
 		rations.at3 = atoi(Person->FirstChildElement("AttackDamage")->Attribute("At3"));
@@ -267,16 +267,16 @@ void Enemy::DownloadInformation()
 		rations.currentAt = rations.normAt;
 	}
 
-	//Загружаем SA
-	TiXmlElement* SAElement = Person->FirstChildElement("SA"); //загрузка характеристик атак
+	//Р—Р°РіСЂСѓР¶Р°РµРј SA
+	TiXmlElement* SAElement = Person->FirstChildElement("SA"); //Р·Р°РіСЂСѓР·РєР° С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє Р°С‚Р°Рє
 
 	for (int numb = 0; numb < 3; numb++) //3 SA
 	{
 		if (numb != 0)
-			if (!(SAElement = SAElement->NextSiblingElement("SA"))) //если SA нет больше выходим
+			if (!(SAElement = SAElement->NextSiblingElement("SA"))) //РµСЃР»Рё SA РЅРµС‚ Р±РѕР»СЊС€Рµ РІС‹С…РѕРґРёРј
 				return;
 
-		//переводим сперва в string и после во float
+		//РїРµСЂРµРІРѕРґРёРј СЃРїРµСЂРІР° РІ string Рё РїРѕСЃР»Рµ РІРѕ float
 		TiXmlElement* DelayTix = SAElement->FirstChildElement("delay");
 		TiXmlElement* durationTix = SAElement->FirstChildElement("duration");
 		TiXmlElement* TileTix = SAElement->FirstChildElement("Tile");
@@ -288,7 +288,7 @@ void Enemy::DownloadInformation()
 		string TileY = TileTix->Attribute("ValueY");
 
 		CurrentAttack SAAttack;
-		//------------------------------------Переводим string в массив
+		//------------------------------------РџРµСЂРµРІРѕРґРёРј string РІ РјР°СЃСЃРёРІ
 		interpretation inter;
 		int Size = atoi(Description->Attribute("QuanityTile"));
 		int iSize = Size * sizeof(int);
@@ -300,7 +300,7 @@ void Enemy::DownloadInformation()
 		inter = durationStr;
 		inter.toFloatMassv(&SAAttack.duration[0], fSize);
 
-		int uk[100]; //если есть двумерный массив разделяем его на два
+		int uk[100]; //РµСЃР»Рё РµСЃС‚СЊ РґРІСѓРјРµСЂРЅС‹Р№ РјР°СЃСЃРёРІ СЂР°Р·РґРµР»СЏРµРј РµРіРѕ РЅР° РґРІР°
 
 		inter = TileX;
 		inter.toIntMassv(&uk[0], iSize);
@@ -314,7 +314,7 @@ void Enemy::DownloadInformation()
 		for (int j = 0; j < Size; j++)
 			SAAttack.Tile[j][1] = uk[j];
 		//-----------------------------------------------------------
-		//Сохраняем характеристики описания
+		//РЎРѕС…СЂР°РЅСЏРµРј С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё РѕРїРёСЃР°РЅРёСЏ
 
 		string TypeAttack = Description->Attribute("TypeAttack");
 		
@@ -334,14 +334,14 @@ void Enemy::DownloadInformation()
 		if (Description->Attribute("Size"))
 			SAAttack.SizeTile = atoi(Description->Attribute("Size"));
 		
-		//вводим VidE (если есть)
+		//РІРІРѕРґРёРј VidE (РµСЃР»Рё РµСЃС‚СЊ)
 		if (SAElement->FirstChildElement("mobs")) {
 			TiXmlElement* VidE = SAElement->FirstChildElement("mobs");
 			SAAttack.VidE = atoi(VidE->Attribute("Vide"));
 			SAAttack.tVide = atoi(VidE->Attribute("tVide"));
 			int qVide = atoi(VidE->Attribute("qVide")); 
 
-			if (qVide != 0 && SAAttack.VidE != 0) //если атака многообьектная
+			if (qVide != 0 && SAAttack.VidE != 0) //РµСЃР»Рё Р°С‚Р°РєР° РјРЅРѕРіРѕРѕР±СЊРµРєС‚РЅР°СЏ
 				for (int j = 0; j < atoi(VidE->Attribute("qVide")); j++) 
 					AttackMode.addObj(AttackMode.getPr(), AttackMode.getSAAttack(numb));
 		}
@@ -352,7 +352,7 @@ void Enemy::DownloadInformation()
 void Enemy::setGroup(Group_Rpg* group_)
 {
 	group = group_;
-	group_->vecAS.push_back(&AttackMode); //добавляем недостающий AttackMode
+	group_->vecAS.push_back(&AttackMode); //РґРѕР±Р°РІР»СЏРµРј РЅРµРґРѕСЃС‚Р°СЋС‰РёР№ AttackMode
 
 	AttackMode.getPr()->group = group;
 	AttackMode.inisialization();
@@ -361,7 +361,7 @@ void Enemy::setGroup(Group_Rpg* group_)
 void Enemy::setTether(int DistantionPoint_)
 {
 	tether = true;
-	Point[0] = x; //точка привязки будет равна начальным координатам
+	Point[0] = x; //С‚РѕС‡РєР° РїСЂРёРІСЏР·РєРё Р±СѓРґРµС‚ СЂР°РІРЅР° РЅР°С‡Р°Р»СЊРЅС‹Рј РєРѕРѕСЂРґРёРЅР°С‚Р°Рј
 	Point[1] = y;
 	DistantionPoint = DistantionPoint_; 
 }

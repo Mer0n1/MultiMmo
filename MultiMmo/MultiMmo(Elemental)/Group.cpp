@@ -1,4 +1,4 @@
-#include "Group.h"
+п»ї#include "Group.h"
 #include "GameWorld.h"
 #include "Entity.h"
 
@@ -11,16 +11,16 @@ GroupSystem::GroupSystem()
 
 void GroupSystem::newGroup(string name, Entity* entity)
 {
-	for (int j = 0; j < groups.size(); j++) //проходимся по всем группам
-		if (groups[j]->name == name) { //чтобы понять существует ли такая группа
+	for (int j = 0; j < groups.size(); j++) //РїСЂРѕС…РѕРґРёРјСЃСЏ РїРѕ РІСЃРµРј РіСЂСѓРїРїР°Рј
+		if (groups[j]->name == name) { //С‡С‚РѕР±С‹ РїРѕРЅСЏС‚СЊ СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё С‚Р°РєР°СЏ РіСЂСѓРїРїР°
 
-			for (int c = 0; c < groups[j]->vec.size(); c++) //если такая группа существует и entity в ней то выходим
+			for (int c = 0; c < groups[j]->vec.size(); c++) //РµСЃР»Рё С‚Р°РєР°СЏ РіСЂСѓРїРїР° СЃСѓС‰РµСЃС‚РІСѓРµС‚ Рё entity РІ РЅРµР№ С‚Рѕ РІС‹С…РѕРґРёРј
 				if (groups[j]->vec[c]->getPid() == entity->getPid()) return; 
 
-			groups[j]->vec.push_back(entity); return; //если она существует но в ней нет entity добавляем его
+			groups[j]->vec.push_back(entity); return; //РµСЃР»Рё РѕРЅР° СЃСѓС‰РµСЃС‚РІСѓРµС‚ РЅРѕ РІ РЅРµР№ РЅРµС‚ entity РґРѕР±Р°РІР»СЏРµРј РµРіРѕ
 		}
 
-	//если группы нет - создаем
+	//РµСЃР»Рё РіСЂСѓРїРїС‹ РЅРµС‚ - СЃРѕР·РґР°РµРј
 	Group_Rpg* newGroup = new Group_Rpg;
 	newGroup->name = name;
 	newGroup->vec.push_back(entity);
@@ -38,7 +38,7 @@ void GroupSystem::SendRequest(GameWorld* world, int pid)
 
 void GroupSystem::UploadToMap(GameWorld* world)
 {
-	for (int j = 0; j < groups.size(); j++) //поиск по группам 
+	for (int j = 0; j < groups.size(); j++) //РїРѕРёСЃРє РїРѕ РіСЂСѓРїРїР°Рј 
 		for (int c = 0; c < groups[j]->vec.size(); c++) 
 			for (int i = 0; i < world->getSize(); i++)
 				if (world->getEntity(i)->getPid() == groups[j]->vec[c]->getPid())
@@ -49,14 +49,14 @@ void GroupSystem::UploadToMap(GameWorld* world)
 void GroupSystem::LoadMap(GameWorld* world, string nameMap)
 {
 	string way = "maps/" + nameMap + "/Life.xml";
-	TiXmlDocument object(way.c_str()); //выбираем какую карту загрузить
+	TiXmlDocument object(way.c_str()); //РІС‹Р±РёСЂР°РµРј РєР°РєСѓСЋ РєР°СЂС‚Сѓ Р·Р°РіСЂСѓР·РёС‚СЊ
 
 	if (!object.LoadFile()) { cout << "Error download map\n"; return; } //test
 	object.FirstChildElement("World");
 
 	TiXmlElement* group = object.FirstChildElement("World");
 	TiXmlElement* group_ = group->FirstChildElement("group");
-	if (group_ == NULL) return; //выход если отсутствуют группы
+	if (group_ == NULL) return; //РІС‹С…РѕРґ РµСЃР»Рё РѕС‚СЃСѓС‚СЃС‚РІСѓСЋС‚ РіСЂСѓРїРїС‹
 	
 	while (true)
 	{
@@ -70,11 +70,11 @@ void GroupSystem::LoadMap(GameWorld* world, string nameMap)
 					newGroup(name, world->getEntity(j));
 
 			if (!(pgroup = pgroup->NextSiblingElement("person")))
-				break; //выход если данных больше нет
+				break; //РІС‹С…РѕРґ РµСЃР»Рё РґР°РЅРЅС‹С… Р±РѕР»СЊС€Рµ РЅРµС‚
 		}
 
 		if (!(group_ = group_->NextSiblingElement("group")))
-			break; //выход если данных больше нет
+			break; //РІС‹С…РѕРґ РµСЃР»Рё РґР°РЅРЅС‹С… Р±РѕР»СЊС€Рµ РЅРµС‚
 	}
-	UploadToMap(world); //отправляем запросы на добавление в группу
+	UploadToMap(world); //РѕС‚РїСЂР°РІР»СЏРµРј Р·Р°РїСЂРѕСЃС‹ РЅР° РґРѕР±Р°РІР»РµРЅРёРµ РІ РіСЂСѓРїРїСѓ
 }

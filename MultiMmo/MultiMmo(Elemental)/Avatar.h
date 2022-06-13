@@ -1,8 +1,15 @@
-#pragma once
+п»ї#pragma once
 
 
-
-class Avatar
+struct Avatar
+{
+	int id, pid;
+	int socketDescriptor;
+	int hp, maxHp;
+	int x, y;
+	bool life;
+};
+/*class Avatar
 {
 public:
 	int id;
@@ -15,5 +22,5 @@ public:
 
 	int x, y;
 
-	bool life; //жизнь
-};
+	bool life; //Р¶РёР·РЅСЊ
+}; */

@@ -1,4 +1,4 @@
-#include "Engine.h"
+п»ї#include "Engine.h"
 #include "windows.h" 
 
 
@@ -10,7 +10,7 @@ Engine::Engine()
 	Entity::setTime(&Timer);
 	Entity::setGameWorld(&world); 
 	AttackSystem::setAnimationSystem(&animation);
-	attack::setAttribute(&world, &view); //инициализируем метод атаки
+	attack::setAttribute(&world, &view); //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РјРµС‚РѕРґ Р°С‚Р°РєРё
 	Client::InisializationWorld(&world);
 
 	pr = new Player;
@@ -28,13 +28,13 @@ Engine::~Engine()
 
 void Engine::start(RenderWindow& window)
 {
-	pr->inisialization(); //переинициализация характеристик 
+	pr->inisialization(); //РїРµСЂРµРёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє 
 	AnimationAttackModule::setWindow(window);
 
 	while (true)
 	{
-		pixelPos = Mouse::getPosition(window); //забираем координаты мыши
-		pos = window.mapPixelToCoords(pixelPos); //переводим их в игровые
+		pixelPos = Mouse::getPosition(window); //Р·Р°Р±РёСЂР°РµРј РєРѕРѕСЂРґРёРЅР°С‚С‹ РјС‹С€Рё
+		pos = window.mapPixelToCoords(pixelPos); //РїРµСЂРµРІРѕРґРёРј РёС… РІ РёРіСЂРѕРІС‹Рµ
 		Timer = clock.getElapsedTime().asSeconds();
 
 		Event events;
@@ -49,11 +49,11 @@ void Engine::start(RenderWindow& window)
 		changeview(); 
 		window.clear();
 		
-		Map.draw_map(window); //вывод карты
-		world.update(window); //обновление всех игроков
-		animation.draw(window); //вывод анимации
+		Map.draw_map(window); //РІС‹РІРѕРґ РєР°СЂС‚С‹
+		world.update(window); //РѕР±РЅРѕРІР»РµРЅРёРµ РІСЃРµС… РёРіСЂРѕРєРѕРІ
+		animation.draw(window); //РІС‹РІРѕРґ Р°РЅРёРјР°С†РёРё
 
-		Interface->setPosition(view.getCenter().x, view.getCenter().y); //вывод интерфейса управления
+		Interface->setPosition(view.getCenter().x, view.getCenter().y); //РІС‹РІРѕРґ РёРЅС‚РµСЂС„РµР№СЃР° СѓРїСЂР°РІР»РµРЅРёСЏ
 		Interface->Interface(window);
 
 		window.display();
@@ -62,23 +62,23 @@ void Engine::start(RenderWindow& window)
 
 void Engine::changeview()
 {
-	if (view.getSize().x < 3000 && view.getSize().y < 3000) //допустимые границы
+	if (view.getSize().x < 3000 && view.getSize().y < 3000) //РґРѕРїСѓСЃС‚РёРјС‹Рµ РіСЂР°РЅРёС†С‹
 		if (Keyboard::isKeyPressed(Keyboard::U))
-			view.zoom(1.0050f); //масштабируем, уменьшение
+			view.zoom(1.0050f); //РјР°СЃС€С‚Р°Р±РёСЂСѓРµРј, СѓРјРµРЅСЊС€РµРЅРёРµ
 
-	if (view.getSize().x > 800 && view.getSize().y > 600) //допустимые границы
+	if (view.getSize().x > 800 && view.getSize().y > 600) //РґРѕРїСѓСЃС‚РёРјС‹Рµ РіСЂР°РЅРёС†С‹
 		if (Keyboard::isKeyPressed(Keyboard::I))
-			view.zoom(0.9950f); //масштабируем, увеличение
+			view.zoom(0.9950f); //РјР°СЃС€С‚Р°Р±РёСЂСѓРµРј, СѓРІРµР»РёС‡РµРЅРёРµ
 }
 
 void Engine::LoadMap(string name)
 {
-	Map.TileMapEdit(name); //загружаем текстуру карты
-	world.DownloadWorld(name); //теперь загружаем информацию и персонажах карты
-	group.LoadMap(&world, name); //и информацию и группах
+	Map.TileMapEdit(name); //Р·Р°РіСЂСѓР¶Р°РµРј С‚РµРєСЃС‚СѓСЂСѓ РєР°СЂС‚С‹
+	world.DownloadWorld(name); //С‚РµРїРµСЂСЊ Р·Р°РіСЂСѓР¶Р°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рё РїРµСЂСЃРѕРЅР°Р¶Р°С… РєР°СЂС‚С‹
+	group.LoadMap(&world, name); //Рё РёРЅС„РѕСЂРјР°С†РёСЋ Рё РіСЂСѓРїРїР°С…
 }
 
-//отметить в readme что система не использует радиус-вектор, она использет квадратную систему где расстояние от центра имеет свои координаты x и y
-//исправить баг в limitmap
-//исправить баг в алгоритм
-//исправить баг с 2 Vide
+//РѕС‚РјРµС‚РёС‚СЊ РІ readme С‡С‚Рѕ СЃРёСЃС‚РµРјР° РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚ СЂР°РґРёСѓСЃ-РІРµРєС‚РѕСЂ, РѕРЅР° РёСЃРїРѕР»СЊР·РµС‚ РєРІР°РґСЂР°С‚РЅСѓСЋ СЃРёСЃС‚РµРјСѓ РіРґРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ С†РµРЅС‚СЂР° РёРјРµРµС‚ СЃРІРѕРё РєРѕРѕСЂРґРёРЅР°С‚С‹ x Рё y
+//РёСЃРїСЂР°РІРёС‚СЊ Р±Р°Рі РІ limitmap
+//РёСЃРїСЂР°РІРёС‚СЊ Р±Р°Рі РІ Р°Р»РіРѕСЂРёС‚Рј
+//РёСЃРїСЂР°РІРёС‚СЊ Р±Р°Рі СЃ 2 Vide
