@@ -13,13 +13,14 @@ int main()
 {
 	RenderWindow window(VideoMode(800, 600), "MultiMmo");       //создание окна
 	Client client;
+	ClientMenu menu(&client);
 	Profile profile;
 	
 	srand(time(0)); 
 	setlocale(LC_ALL, "Russian");
 	window.setFramerateLimit(120);
 
-	client.ClientMenu(window);
+	menu.MenuAut(window);
 	BridgeClient::inisialization(&client); //возможно можно было бы инициализировать этот класс в классе клиента
 	
 	profile.menu(window);

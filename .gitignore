@@ -10,3 +10,4 @@ MultiMmo(Elemental).vcxproj
 MultiMmo(Elemental).vcxproj.filters
 MultiMmo(Elemental).vcxproj.user
 packages.config
+*.vs

@@ -7,7 +7,7 @@
 #include "JATS.h"
 #include <string>
 #include "Avatar.h"
-#include "Entity.h" //если убираем это включаем GameWorld
+#include "Entity.h" 
 
 using std::string;
 using std::to_string;
@@ -15,6 +15,14 @@ using std::ifstream;
 using std::ofstream;
 using std::cout;
 using std::endl;
+
+struct siden //structure identefication
+{
+	string typeConnection;
+	string password;
+	string email;
+	string username;
+};
 
 class Client
 {
@@ -24,15 +32,13 @@ public:
 	static void InisializationWorld(GameWorld* world); //иницилизируем 1 раз
 
 	void Damage(int p_id, int damage); //нанесение урона
-	void ClientMenu(RenderWindow& window); //меню идентефикации
-	int start(); //запуск подключения к серверу
+	int start(siden ident); //запуск подключения к серверу
 private:
 	void sockReady(); //2 поток принятие запросов от сервера и отправка
 	void sockReadyWorld(); //принятие и отправка udp запросов мира
 
 	static GameWorld* world;
 	Avatar avatar;
-	Avatar *gamer; //аватар противника для приема данных (от репликации)
 	Entity* MyPlayer;
 
 	//Tcp
@@ -46,18 +52,29 @@ private:
 	sockaddr_in server_addr, client_addr;
 	int server_len, client_len;
 
-	//menu
-	Text password, login, email,
-		username, signIn, signUp;
-	Font font;
-
-	string typeConnection;
-	string password_s, login_s, username_s;
-	string sockReady_;
-
 	//прочее
 	JsonDocument doc;
 	Clock clock;
 	float time; // таймер
 	float save_time;
+};
+
+class ClientMenu
+{
+	//меню авторизации/регистрации
+	Texture interface_[3];
+	Sprite interface_s[3];
+
+	string password_s, login_s, username_s;
+
+	Text password, login, email,
+		username, signIn, signUp;
+	Font font;
+
+	Client* client;
+public:
+	ClientMenu(Client* client);
+	void MenuAut(RenderWindow& window); //меню авторизации
+	bool MenuReg(RenderWindow& window); //меню регистрации
+	void LoadSave(); //загрузить сохраненные данные о паролях
 };

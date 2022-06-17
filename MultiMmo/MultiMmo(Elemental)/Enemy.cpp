@@ -16,7 +16,8 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 	pidOp = 0;
 	jOp = 0;
 	id = id_;
-	pid = rand() % 5000 + 1; 
+	srand(::time(0));
+	pid = rand() % 10000 + 1; 
 	IDO = IDO_;
 	rations.at1 = 0;
 	rations.at2 = 0;

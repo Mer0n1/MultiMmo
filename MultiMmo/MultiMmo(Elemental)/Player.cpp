@@ -7,6 +7,7 @@ Player::Player()
 	hp = 0, max_hp = 0;
 	speed = 0;
 	x = 0; y = 0;
+	srand(::time(0));
 	pid = rand() % 10000 + 1;
 	time_save = 0;
 	speedConst = 0;
