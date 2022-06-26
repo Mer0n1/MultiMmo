@@ -104,16 +104,16 @@ void Chara::special_attack()
 {	
 	if (!life_attack) BlockVidE = 0;
 	if (attack::time_save > attack::time) return; //перезарядка навыка
-
-	x_attack[0] = *attack::pr->x - 32;
-	y_attack[0] = *attack::pr->y;
-	x_attack[1] = *attack::pr->x - 32;
-	y_attack[1] = *attack::pr->y + 32;
-	x_attack[2] = *attack::pr->x - 32;
-	y_attack[2] = *attack::pr->y + 64;
+	
+	tiles[0].coord.x = *attack::pr->x - 32;
+	tiles[0].coord.y = *attack::pr->y;
+	tiles[1].coord.x = *attack::pr->x - 32;
+	tiles[1].coord.y = *attack::pr->y + 32;
+	tiles[2].coord.x = *attack::pr->x - 32;
+	tiles[2].coord.y = *attack::pr->y + 64;
 
 	int save = SAAttack->SizeTile;
-	delay_attack[0] = 1;
+	tiles[0].delay = 1;
 	SAAttack->SizeTile = 32; 
 	type_attack = Do;
 	*pr->currentAt = rations.normAt; //задаем урон
@@ -141,6 +141,7 @@ Papyrus::Papyrus(int IDO) : Enemy("Papyrus", 97, IDO), attack(AttackMode.getPr()
 	specialAt = 0;
 	timerNum3 = 0;
 	timerSpecialAt = 0;
+	attack::inisialization();
 }
 Papyrus::Papyrus() : Enemy("Papyrus", 97, 0), attack(AttackMode.getPr(), AttackMode.getSAAttack(0), AttackMode.getAnimation()->left)
 {
@@ -148,6 +149,7 @@ Papyrus::Papyrus() : Enemy("Papyrus", 97, 0), attack(AttackMode.getPr(), AttackM
 	specialAt = 0;
 	timerNum3 = 0;
 	timerSpecialAt = 0;
+	attack::inisialization();
 }
 
 void Papyrus::update()
@@ -237,8 +239,8 @@ void Papyrus::attack3()
 		Vector2f end, begin;
 		distantion = 30;
 		
-		end.x = attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() / 2; //поиск и сохранение позиций противника
-		end.y = attack::world->getEntity(jOp)->getPos().y + attack::world->getEntity(jOp)->getHeight() / 2;
+		end.x = attack::world->getEntity(jOp)->getPos().x + attack::world->getEntity(jOp)->getWidth() /2; //поиск и сохранение позиций противника
+		end.y = attack::world->getEntity(jOp)->getPos().y + attack::world->getEntity(jOp)->getHeight() /2;
 		//---------------------------
 		int idx = 1;
 		begin.x = rand() % 820 - 300; //установка координат относительно зоны игрока end точки
@@ -252,27 +254,32 @@ void Papyrus::attack3()
 		begin.x = end.x + begin.x; //координаты begin переводим из относительных координат в мировые
 		begin.y = end.y + begin.y;
 		
-		end.x /= SAAttack->SizeTile;
-		end.y /= SAAttack->SizeTile;
+		end.x   /= SAAttack->SizeTile;
+		end.y   /= SAAttack->SizeTile;
 		begin.x /= SAAttack->SizeTile;
 		begin.y /= SAAttack->SizeTile;
 		//---------------------------
-		
-		Vector2f* ms = algorithmLine(begin, end);  //единственный минус - стандартный макс размер в 20
-		for (int j = 0; j < 20; j++) { //перевод в используемый формат
-			x_attack[j] = ms->x;
-			y_attack[j] = ms->y;
-			x_attack[j] *= SAAttack->SizeTile;
-			y_attack[j] *= SAAttack->SizeTile;
-			ms++;
-		}
 
-		delay_attack[0] = 1;
-		duration_attack[18] = 1;
+		Vector2i coord[20];
+		for (int j = 0; j < 20; j++)
+		{
+			coord[j].x = tiles[j].coord.x;
+			coord[j].y = tiles[j].coord.y;
+		}
+		algorithmLine(begin, end, &coord[0]);
+
+		for (int j = 0; j < 20; j++)
+		{
+			tiles[j].coord.x = coord[j].x * SAAttack->SizeTile;
+			tiles[j].coord.y = coord[j].y * SAAttack->SizeTile; 
+		}
+		
+		tiles[0].delay = 1;
+		tiles[18].duration = 1;
 		type_attack = Do;
 		SAAttack->SizeTile = 32; //может быть ошибка
 		life_attack = true;
-		BlockVidE = 1;
+		BlockVidE = 1; 
 	}
 	attack_start();
 }

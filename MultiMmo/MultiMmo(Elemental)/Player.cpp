@@ -7,9 +7,8 @@ Player::Player()
 	hp = 0, max_hp = 0;
 	speed = 0;
 	x = 0; y = 0;
-	srand(::time(0));
-	pid = rand() % 10000 + 1;
-	time_save = 0;
+	pid = world->GeneratePid();
+	time_save = 0; 
 	speedConst = 0;
 
 	readyPerson(); //загрузка характеристик с соответствием с его айди
@@ -58,7 +57,7 @@ void Player::update()
 	controlPlayer(); //управление персонажем
 	interactionWithMap();
 	AttackMode.go_attack();
-
+	
 	if (hp <= 0) { life = false; exit(0); }
 }
 
@@ -81,14 +80,14 @@ void Player::controlPlayer()
 
 	switch (dir) //направление движения
 	{
-	case 0: dx = speed; dy = 0; break;
+	case 0: dx = speed;  dy = 0; break;
 	case 1: dx = -speed; dy = 0; break;
-	case 2: dx = 0; dy = speed; break;
-	case 3: dx = 0; dy = -speed; break;
-	case 4: dx = speed; dy = speed; break; //боковые вверх-вправо
+	case 2: dx = 0;      dy = speed; break;
+	case 3: dx = 0;      dy = -speed; break;
+	case 4: dx = speed;  dy = speed; break; //боковые вверх-вправо
 	case 5: dx = -speed; dy = -speed; break; //вверх-влево
 	case 6: dx = -speed; dy = speed; break; //вниз - влево
-	case 7: dx = speed; dy = -speed; break; //вниз -вправо
+	case 7: dx = speed;  dy = -speed; break; //вниз -вправо
 	}
 
 	x += dx;
@@ -155,7 +154,7 @@ void Player::controlPlayer()
 
 void Player::updateHp(int atck)
 {
-	hp -= atck; 
+	hp -= atck;
 }
 
 RechargeAttack* Player::getModuleRA() //возвращаем модуль интерфейса 

@@ -14,23 +14,25 @@ Engine::Engine()
 	Client::InisializationWorld(&world);
 
 	pr = new Player;
-	Interface = new RpgInterface(&pr->hb, pr->getModuleRA(), &view);
+	Interface = new RpgInterface(pr->getHealthBar(), pr->getModuleRA(), &view);
+	group = &GroupSystem::getObject();
 
 	Timer = 0;
-	view.reset(FloatRect(0, 0, 800, 600)); 
+	view.reset(FloatRect(0, 0, 800, 600));
 }
 
 Engine::~Engine()
 {
 	delete pr;
-	delete Interface;
+	delete Interface; 
+	group->DeleteGroup(); //удаление одиночного класса
 }
 
 void Engine::start(RenderWindow& window)
 {
 	pr->inisialization(); //переинициализация характеристик 
 	AnimationAttackModule::setWindow(window);
-
+	
 	while (true)
 	{
 		pixelPos = Mouse::getPosition(window); //забираем координаты мыши
@@ -48,7 +50,7 @@ void Engine::start(RenderWindow& window)
 		window.setView(view);
 		changeview(); 
 		window.clear();
-		
+
 		Map.draw_map(window); //вывод карты
 		world.update(window); //обновление всех игроков
 		animation.draw(window); //вывод анимации
@@ -75,10 +77,5 @@ void Engine::LoadMap(string name)
 {
 	Map.TileMapEdit(name); //загружаем текстуру карты
 	world.DownloadWorld(name); //теперь загружаем информацию и персонажах карты
-	group.LoadMap(&world, name); //и информацию и группах
+	group->LoadMap(&world, name); //и информацию и группах
 }
-
-//отметить в readme что система не использует радиус-вектор, она использет квадратную систему где расстояние от центра имеет свои координаты x и y
-//исправить баг в limitmap
-//исправить баг в алгоритм
-//исправить баг с 2 Vide

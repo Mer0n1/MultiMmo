@@ -25,7 +25,7 @@ private:
 	maps Map; //загрузка и вывод текстуры карты а также взаимодействие
 	GameWorld world; //класс мира и находящихся в нем игроков
 	RpgInterface* Interface;
-	GroupSystem group; //класс групп
+	GroupSystem* group; //класс групп
 
 	Vector2i pixelPos; //забираем коорд курсора
 	Vector2f pos; 

@@ -39,8 +39,8 @@ void GameWorld::update(RenderWindow& window)
 		{ delete entity[j]; continue; }
 		
 		entity[j]->update();
-		window.draw(entity[j]->gamer); //вывод модели
-		entity[j]->hb.draw(window); //вывод полоски хп
+		window.draw(*entity[j]->getModel()); //вывод модели
+		entity[j]->getHealthBar()->draw(window); //вывод полоски хп
 	}
 }
 
@@ -51,6 +51,24 @@ void GameWorld::setAvatar(Avatar* avatar, int number)
 	entity[number]->setHp(avatar->hp);
 	entity[number]->setMaxHp(avatar->maxHp);
 	entity[number]->setLife(avatar->life);
+}
+
+int GameWorld::GeneratePid()
+{
+	srand(time(0));
+	bool true1 = true;
+	int pid = 0;
+
+	while (true1) {
+		pid = rand() % 100000 + 1; //рандомим пока не найдем незанятое pid
+
+		for (int j = 0; j < entity.size(); j++)
+			if (entity[j]->getPid() == pid) break;
+			else if (j == entity.size() - 1) true1 = false;
+
+		if (entity.size() == 0) break;
+	}
+	return pid;
 }
 
 void GameWorld::DownloadWorld(string nameMap)

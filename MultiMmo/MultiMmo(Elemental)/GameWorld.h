@@ -13,6 +13,7 @@ class GameWorld
 public:
 	GameWorld();
 
+	int GeneratePid(); //сгенерировать pid 
 	void addEntity(Entity* entity_); //добавить в вектор
 	void deleteEntity(int id, int pid); //удалить из вектора
 	void update(RenderWindow& window); //обновить персонажей в мире

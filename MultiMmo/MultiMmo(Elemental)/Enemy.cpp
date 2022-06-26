@@ -16,8 +16,7 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 	pidOp = 0;
 	jOp = 0;
 	id = id_;
-	srand(::time(0));
-	pid = rand() % 10000 + 1; 
+	pid = world->GeneratePid();
 	IDO = IDO_;
 	rations.at1 = 0;
 	rations.at2 = 0;
@@ -62,6 +61,9 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 
 Enemy::~Enemy()
 {
+	for (int j = 0; j < group->vec.size(); j++)
+		if (group->vec[j]->getPid() == pid) 
+			group->vec.erase(group->vec.begin() + j); //удаление из группы
 }
 
 void Enemy::update()
@@ -85,7 +87,7 @@ void Enemy::update()
 void Enemy::go_move()
 {
 	if (!moving) return;
-
+	
 	if (x <= (int)x_move[0] + 5 & x >= (int)x_move[0] - 5 &&
 		y <= (int)y_move[0] + 5 & y >= (int)y_move[0] - 5) { 
 		left = false; 
@@ -123,9 +125,10 @@ void Enemy::ai()
 	
 	//-----------------------Перемещение
 	for (int j = 0; j < world->getSize(); j++)
-		if (world->getEntity(j)->getPid() != pid && CheckGroup(j) &&
+		if (world->getEntity(j)->getPid() != pid &&
 			world->getEntity(j)->getPos().x > x - visibility && world->getEntity(j)->getPos().x < x + visibility &&
 			world->getEntity(j)->getPos().y > y - visibility && world->getEntity(j)->getPos().y < y + visibility)
+		if (CheckGroup(j)) //если это не кто то из группы
 		{ 
 			sight = true;
 			i1 = world->getEntity(j)->getPos().y;
@@ -148,7 +151,7 @@ void Enemy::ai()
 	
 	if (!sight) return; 
 	if (BlockAi) return; //выходим если движение типа saveDistantion заблочено
-
+	
 	opX = j1; 
 	opY = i1; //сохраняем изначальные координаты противника
 
@@ -228,7 +231,7 @@ bool Enemy::CheckGroup(int n)
 		if (group->vec[j]->getPid() != pid &&
 			world->getEntity(n)->getPid() == group->vec[j]->getPid())
 			return false;
-
+	
 	return true; 
 }
 

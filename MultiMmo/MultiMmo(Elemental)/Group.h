@@ -10,20 +10,22 @@ struct Group_Rpg //тестовая структура группы
 	vector<AttackSystem*> vecAS;
 }; 
 
-class GroupSystem
+class GroupSystem 
 {
 public:
-	/*
-	Система групп. Группы позволяют 
-	*/
-	GroupSystem();
-
+	//Система групп. Общий класс хранящий все группы 
+	
 	void newGroup(string name, Entity* entity); //добавить новую группу
 	void UploadToMap(GameWorld* world); //послать запросы всем кого нет в группе
 	void SendRequest(GameWorld* world, int pid); //отправить запрос на добавление в группу 
 
 	void LoadMap(GameWorld* world, string nameMap); //загрузить группы карты
 
+	static GroupSystem& getObject(); 
+	static void DeleteGroup();
 private:
 	static vector<Group_Rpg*> groups; //список групп
+	static GroupSystem* my_group; //Singleton
+
+	GroupSystem() = default;
 }; 

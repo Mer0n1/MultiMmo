@@ -49,7 +49,7 @@
 			<delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
 			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
 			<Tile ValueX="1 2 3 4 5 6 -1 -2 -3 -4 -5 -6 -1 -2 -3 -4 -5 -6 1 2 3 4 5 6 0" ValueY="0 -1 -2 -3 -4 -5 0 -1 -2 -3 -4 -5 2 3 4 5 6 7 2 3 4 5 6 7 0" />
-			<Description FuncAttack="ClickPlace" TypeAttack="Do" Distantion="7" Recharge="10" QuanityTile="27" Size="32" />
+			<Description FuncAttack="NULL" TypeAttack="Do" Distantion="7" Recharge="10" QuanityTile="27" Size="32" />
 			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
 		</SA>
 		<SA id="97" name="Papyrus2"> <!--не существует-->

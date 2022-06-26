@@ -20,7 +20,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 	window.setFramerateLimit(120);
 
-	menu.MenuAut(window);
+	//menu.MenuAut(window);
 	BridgeClient::inisialization(&client); //возможно можно было бы инициализировать этот класс в классе клиента
 	
 	profile.menu(window);

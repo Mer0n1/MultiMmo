@@ -2,11 +2,9 @@
 #include "GameWorld.h"
 #include "windows.h"
 //-----------------------------attacks
-attack::attack() //иницилазиация через 2 аргмента обязательна во избежании ошибок
+attack::attack() 
 {
-	time = 0; 
-	accounting = 0;
-	for (int j = 0; j < 20; j++) id_opponents[j] = 0;
+	
 }
 
 attack::attack(playerPr* pr_, CurrentAttack* SAAttack_, AnimationAttack* animation_)
@@ -16,12 +14,8 @@ attack::attack(playerPr* pr_, CurrentAttack* SAAttack_, AnimationAttack* animati
 	animation = animation_;
 	
 	for (int j = 0; j < 20; j++) id_opponents[j] = 0;
-	for (int j = 0; j < 100; j++) {
-		x_attack[j] = 0;
-		y_attack[j] = 0;
-		delay_attack[j] = 0;
-		duration_attack[j] = 0;
-	}
+	for (int j = 0; j < 20; j++) tiles.push_back(Tile());
+
 	clock.restart();
 	time = 0;
 	time_attack = 0;
@@ -50,17 +44,17 @@ void attack::go_attack()
 	if (time > time_attack && !life_attack) {
 		clock.restart(); //сброс счетчика (атака прекращается на момент когда life_attack не активна и перезарядка прошла)
 		time = 0;
-		time_attack = time + SAAttack->recharge; //перезарядка
+		time_attack = SAAttack->recharge; //перезарядка
 		life_attack = true;
-
+	
 		if (FuncAttack != "ClickPlace") //если не ClickPlace то фиксируем относительно игрока
 			for (int j = 0; j < QuanTile; j++) {
 				if (SAAttack->Tile[j][0] == 0 & SAAttack->Tile[j][1] == 0) continue;
-				x_attack[j] = (SAAttack->Tile[j][0]  + *pr->x / SAAttack->SizeTile) * SAAttack->SizeTile;
-				y_attack[j] = (SAAttack->Tile[j][1]  + *pr->y / SAAttack->SizeTile) * SAAttack->SizeTile;
+				tiles[j].coord.x = (SAAttack->Tile[j][0] + *pr->x / tiles[j].size) * tiles[j].size;
+				tiles[j].coord.y = (SAAttack->Tile[j][1] + *pr->y / tiles[j].size) * tiles[j].size;
 			}
 		if (type_attack == Do)
-			if (VidE == 0) duration_attack[QuanTile - 2] = 0.2; //чтоб мгновенная атака хотябы была видна
+			if (VidE == 0) tiles[QuanTile - 2].duration = 0.2; //чтоб мгновенная атака хотябы была видна
 	}
 	
 	//запуск атаки
@@ -69,162 +63,163 @@ void attack::go_attack()
 
 void attack::attack_start()
 {
-	funcAttack();
+	if (!life_attack) return;
+	funcAttack(); 
+	
+	for (int j = 0; j < 20; j++)
+		id_opponents[j] = 1; //фиксирование всех айди по которым нанесется урон
 
-	if (life_attack)
-	{
-	    for (int j = 0; j < 20; j++) 
-			id_opponents[j] = 1; //фиксирование всех айди по которым нанесется урон
+	int CurrentAtt = *pr->currentAt; //текущий урон атаки
+	active = true;
+	int newJ = 0;
 
-		int CurrentAtt = *pr->currentAt; //текущий урон атаки
-		active = true;
+	for (int j = 0; j < QuanTile; j++) {
 
-		for (int j = 0; j < QuanTile; j++) {
+		if (j == QuanTile - 1) { //сброс
+			animation->Reset();
+			saveX_VidE = 0; posX_VidE = 0;
+			saveY_VidE = 0; posY_VidE = 0;
+			BlockOnce = false;
+			BlockVidE = 0;
+			accounting = 0;
+			newtimer = 0;
+			save_j = -1;
+			saveS = 0;
+			//id_opponents[j] = 1;
+			delayBlock = false;
+			life_attack = false;
+			break;
+		}
+		//---------------------------------------- Duration - delay
 
-			if (j == QuanTile - 1) { //сброс
-				animation->Reset();
-				saveX_VidE = 0; posX_VidE = 0;
-				saveY_VidE = 0; posY_VidE = 0;
-				BlockOnce = false;
-				BlockVidE = 0;
-				accounting = 0; 
-				newtimer = 0;
-				save_j = -1; 
-				saveS = 0;
-				//id_opponents[j] = 1;
-				delayBlock = false; 
-				life_attack = false; 
-				break;
+		if (save_j != -1 && !delayBlock) //делаем тайлы прозрачными когда действуте delay - задержка
+			for (int c = 0; c < QuanTile; c++) {
+				animation->intTile_8[c].setScale(tiles[c].size / 8.f, tiles[c].size / 8.f); //8
+				animation->intTile_8[c].setColor(Color(255, 255, 255, 50)); //делаем полупрозрачным
+				animation->intTile_8[c].setPosition(tiles[c].coord.x, tiles[c].coord.y); //изменение размера клеток в соотвествии с атакой
 			}
-			//---------------------------------------- Duration - delay
-			
-			if (save_j != -1 && !delayBlock) //делаем тайлы прозрачными когда действуте delay - задержка
-				for (int c = 0; c < QuanTile; c++) {
-					animation->intTile_8[c].setScale(SAAttack->SizeTile / 8.f, SAAttack->SizeTile / 8.f); //8
-					animation->intTile_8[c].setColor(Color(255, 255, 255, 50)); //делаем полупрозрачным
-					animation->intTile_8[c].setPosition(x_attack[c], y_attack[c]); //изменение размера клеток в соотвествии с атакой
-				}
 
-			if (!delayBlock) { //если есть задержка
-				if (delay_attack[j] != 0 & save_j < j) {
-					newtimer = delay_attack[j] + time; 
-					save_j = j;
-				} //фиксируем задержку		
-				
-				if (newtimer < time) {
-					if (newtimer != 0) {
-						j = save_j; 
-						newtimer = 0; 
-						save_j = -1;
-					}
-				} else break;		
-			}
-			
-			if (duration_attack[j] != 0 & save_j < j & time > newtimer) {
-				newtimer = duration_attack[j] + time; 
-				save_j = j; 
-				delayBlock = true; 
-			} //фиксируем продолжительность	
-			
-			if (newtimer > time) { //продолжаем
-				if (save_j2 == save_j)
-					save_j2 = 1;
-			}
-			else if (save_j > -1) { //когда заканчивается продолжительность сбрасываем
-				j = save_j; //возвращаем значение
-				save_j = -1;
-				newtimer = 0;
-				delayBlock = false;
-			}
-			
-			//---------------------------------------- //проверка интерактивности 
-			
-			for (int c = 0; c < world->getSize(); c++)
-			{
-				int newJ = j;
-				if (save_j != -1) newJ = save_j; //проходимся по всем тайлам который запоминает duration
-				
-				for (int jj = 0; jj < newJ; jj++) 
-					if (world->getEntity(c)->getPid() != pr->pid && /*gro(pr, world->getEntity(c)->getId()) &&*/ //по себе урон не наносим
-						x_attack[jj] + SAAttack->SizeTile >= world->getEntity(c)->getPos().x &&
-						x_attack[jj] <= world->getEntity(c)->getPos().x + world->getEntity(c)->getWidth() &&
-						//проверяем попадает ли квадрат координат атаки по персонажу
-						y_attack[jj] <= world->getEntity(c)->getPos().y + world->getEntity(c)->getHeight() &&
-						y_attack[jj] + SAAttack->SizeTile >= world->getEntity(c)->getPos().y)
-					{
-						if (!CheckGroup(pr, world->getEntity(c)->getId())) continue;
-						for (int i = 0; i < 20; i++) {
-							if (id_opponents[i] == world->getEntity(c)->getPid()) break; //если такой есть не добавляем
+		if (!delayBlock) { //если есть задержка
+			if (tiles[j].delay != 0 & save_j < j) {
+				newtimer = tiles[j].delay + time;
+				save_j = j;
+			} //фиксируем задержку		
 
-							if (id_opponents[i] == 1) { //фиксируем всех противников под атакой
-								id_opponents[i] = world->getEntity(c)->getPid(); break;
-							}
-						}
-						break;
-					}
-			} 
-			
-			//---------------------------------------- Тип атаки
-			if (type_attack != Do) accounting = 0; //если это не Do то продолжим циклом наносить урон
-			
-			if (type_attack == dpsa) //урон в секунду 
-			{
+			if (newtimer < time) {
 				if (newtimer != 0) {
-					active = false;
-					if (time > saveS) {
-						saveS = time + 1;
-						if (VidE == 0) CurrentAtt = (*pr->currentAt) / duration_attack[save_j];
-						if (VidE != 0) CurrentAtt = (*pr->currentAt) / SAAttack->tVide;
-						if (*pr->currentAt < 1) *pr->currentAt = 1; //не меньше 1
-						active = true; 
-					}
+					j = save_j;
+					newtimer = 0;
+					save_j = -1;
 				}
-				else active = false;
 			}
-			
-			if (type_attack == ida) //урон в мгновенье
-			{
-				if (newtimer != 0) {
-					active = false; 
-					if (time > saveS) {
-						if (VidE == 0) saveS = time + 1.f / (*pr->currentAt / duration_attack[save_j]);
-						if (VidE != 0) saveS = time + 1.f / (*pr->currentAt / SAAttack->tVide);
-						CurrentAtt = 1; active = true;
-					}
-				}
-				else active = false;
-			}
-
-			//вид атаки 
-			if (VidE != 0 && j == QuanTile - 2 && save_j == -1)  //если duration активно запрещаем
-				if (timeAttack_VidE > time) { //остановка атаки по истечения времени
-					j = 0; vide(); //каждый цикл - 1 кадр
-					if (duration_attack[18] == 0)
-						duration_attack[18] = 0.01;
-				}
-			//--------------------------------------------------- Нанесение урона
-			
-			if (active) //для блокировки атаки
-				for (int c = 0; c < world->getSize(); c++) 
-					for (int i = accounting; i < 20; i++)
-						if (world->getEntity(c)->getPid() == id_opponents[i]) {
-							world->getEntity(c)->updateHp(CurrentAtt); //наносим урон
-							client_br->MakeDamage(id_opponents[i], CurrentAtt); //отправляем урон запросом на сервер
-							accounting = i+1; //для Do
-						}
-					
-			
-			//анимация атаки
-			if (x_attack[j] != 0 && y_attack[j] != 0) {
-				animation->intTile_8[j].setColor(Color(255, 255, 255, 255)); //убираем прозрачность
-				animation->intTile_8[j].setScale(SAAttack->SizeTile / 8.f, SAAttack->SizeTile / 8.f); //8
-				animation->intTile_8[j].setPosition(x_attack[j], y_attack[j]); //изменение размера клеток в соотвествии с атакой
-			}
-			
-			if (newtimer > time) break; //выходим чтобы бесконечный цикл не создавать при продолжительности
+			else break;
 		}
 
+		if (tiles[j].duration != 0 & save_j < j & time > newtimer) {
+			newtimer = tiles[j].duration + time;
+			save_j = j;
+			delayBlock = true;
+		} //фиксируем продолжительность	
+
+		if (newtimer > time) { //продолжаем
+			if (save_j2 == save_j)
+				save_j2 = 1;
+		}
+		else if (save_j > -1) { //когда заканчивается продолжительность сбрасываем
+			j = save_j; //возвращаем значение
+			save_j = -1;
+			newtimer = 0;
+			delayBlock = false;
+		}
+
+		//---------------------------------------- //проверка интерактивности 
+
+		for (int c = 0; c < world->getSize(); c++)
+		{
+			newJ = j;
+			if (save_j != -1) newJ = save_j; //проходимся по всем тайлам который запоминает duration
+
+			for (int jj = 0; jj < newJ; jj++)
+				if (world->getEntity(c)->getPid() != pr->pid && //по себе урон не наносим
+					tiles[jj].coord.x + tiles[jj].size >= world->getEntity(c)->getPos().x &&
+					tiles[jj].coord.x <= world->getEntity(c)->getPos().x + world->getEntity(c)->getWidth() &&
+					//проверяем попадает ли квадрат координат атаки по персонажу
+					tiles[jj].coord.y <= world->getEntity(c)->getPos().y + world->getEntity(c)->getHeight() &&
+					tiles[jj].coord.y + tiles[jj].size >= world->getEntity(c)->getPos().y)
+				{
+					if (!CheckGroup(pr, world->getEntity(c)->getId())) continue;
+					for (int i = 0; i < 20; i++) {
+						if (id_opponents[i] == world->getEntity(c)->getPid()) break; //если такой есть не добавляем
+
+						if (id_opponents[i] == 1) { //фиксируем всех противников под атакой
+							id_opponents[i] = world->getEntity(c)->getPid(); break;
+						}
+					}
+					break;
+				}
+		}
+
+		//---------------------------------------- Тип атаки
+		if (type_attack != Do) accounting = 0; //если это не Do то продолжим циклом наносить урон
+
+		if (type_attack == dpsa) //урон в секунду 
+		{
+			if (newtimer != 0) {
+				active = false;
+				if (time > saveS) {
+					saveS = time + 1;
+					if (VidE == 0) CurrentAtt = (*pr->currentAt) / tiles[save_j].duration;
+					if (VidE != 0) CurrentAtt = (*pr->currentAt) / SAAttack->tVide;
+					if (*pr->currentAt < 1) *pr->currentAt = 1; //не меньше 1
+					active = true;
+				}
+			}
+			else active = false;
+		}
+
+		if (type_attack == ida) //урон в мгновенье
+		{
+			if (newtimer != 0) {
+				active = false;
+				if (time > saveS) {
+					if (VidE == 0) saveS = time + 1.f / (*pr->currentAt / tiles[save_j].duration);
+					if (VidE != 0) saveS = time + 1.f / (*pr->currentAt / SAAttack->tVide);
+					CurrentAtt = 1; active = true;
+				}
+			}
+			else active = false;
+		}
+
+		//вид атаки 
+		if (VidE != 0 && j == QuanTile - 2 && save_j == -1)  //если duration активно запрещаем
+			if (timeAttack_VidE > time) { //остановка атаки по истечения времени
+				j = 0; vide(); //каждый цикл - 1 кадр
+				if (tiles[18].duration == 0)
+					tiles[18].duration = 0.01;
+			}
+		//--------------------------------------------------- Нанесение урона
+
+		if (active) //для блокировки атаки
+			for (int c = 0; c < world->getSize(); c++)
+				for (int i = accounting; i < 20; i++)
+					if (world->getEntity(c)->getPid() == id_opponents[i]) {
+						world->getEntity(c)->updateHp(CurrentAtt); //наносим урон
+						client_br->MakeDamage(id_opponents[i], CurrentAtt); //отправляем урон запросом на сервер
+						accounting = i + 1; //для Do
+					}
+
+
+		//анимация атаки
+		if (tiles[j].coord.x != 0 && tiles[j].coord.y != 0) {
+			animation->intTile_8[j].setColor(Color(255, 255, 255, 255)); //убираем прозрачность
+			animation->intTile_8[j].setScale(tiles[j].size / 8.f, tiles[j].size / 8.f); //8
+			animation->intTile_8[j].setPosition(tiles[j].coord.x, tiles[j].coord.y); //изменение размера клеток в соотвествии с атакой
+		}
+
+		if (newtimer > time) break; //выходим чтобы бесконечный цикл не создавать при продолжительности
 	}
+
+	
 }
 
 void attack::funcAttack()
@@ -257,41 +252,9 @@ void attack::funcAttack()
 				if (rotation > 0) { x2 = x1 - x2 + x1 + 3; }
 				
 				type_attack = Do;
-				y_attack[0] = y2 * 32; x_attack[0] = x2 * 32;
+				tiles[0].coord.y = y2 * 32;
+				tiles[0].coord.x = x2 * 32;
 				SAAttack->SizeTile = 32; 
-				life_attack = true;
-			}
-
-			if (pr->id == 8) //киллуа
-			{
-				//2 тип обычной атаки это всего 2 направления вместо 8 (вправо и влево)
-				time_save = time + 3;
-				int y1 = *pr->y / 32,
-					x1 = *pr->x / 32;
-
-				float rotation = (atan2(*pr->posX - view->getCenter().x, *pr->posY - view->getCenter().y)) * 180 / 3.14;
-
-				if (rotation < 0) {
-					x_attack[0] = x1; y_attack[0] = y1;
-					x_attack[1] = x1 - 1; y_attack[1] = y1;
-					x_attack[2] = x1 - 1; y_attack[2] = y1 + 1;
-					x_attack[3] = x1 - 1; y_attack[3] = y1 + 2;
-					x_attack[4] = x1 - 1; y_attack[4] = y1 + 3;
-					x_attack[5] = x1 - 1; y_attack[5] = y1 + 4;
-					x_attack[6] = x1; y_attack[6] = y1 + 4;
-				}
-				else {
-					x_attack[0] = x1 + 2; y_attack[0] = y1;
-					x_attack[1] = x1 + 3; y_attack[1] = y1;
-					x_attack[2] = x1 + 3; y_attack[2] = y1 + 1;
-					x_attack[3] = x1 + 3; y_attack[3] = y1 + 2;
-					x_attack[4] = x1 + 3; y_attack[4] = y1 + 3;
-					x_attack[5] = x1 + 3; y_attack[5] = y1 + 4;
-					x_attack[6] = x1 + 2; y_attack[6] = y1 + 4;
-				}
-				//numberNum = 0;
-				SAAttack->SizeTile = 32;
-				type_attack = Do;
 				life_attack = true;
 			}
 		}
@@ -327,15 +290,15 @@ void attack::funcAttack()
 				itogX += poX / poY * ny;
 				itogY += ny;
 			}
-			x_attack[j] = x1 + itogX;
-			y_attack[j] = y1 + itogY;
+			tiles[j].coord.x = x1 + itogX;
+			tiles[j].coord.y = y1 + itogY;
 		}
 
 		for (int j = 0; j < QuanTile; j++) {
-			x_attack[j] = x_attack[j] * SAAttack->SizeTile;
-			y_attack[j] = y_attack[j] * SAAttack->SizeTile;
+			tiles[j].coord.x *= tiles[j].size;
+			tiles[j].coord.y *= tiles[j].size;
 		}
-
+		
 		//BlockOnce = true;
 		//работает по системе где высчитываются дистанция по x и y от клика, и достигается путем отношений 1 : x - неопределенное число
 	}
@@ -353,19 +316,19 @@ void attack::funcAttack()
 		if (*pr->posY - y1 < -distantion * S) *pr->posY = y1 + (-distantion) * S - S*2;
 
 		//Расчет значений позиции атаки
-		int xI = *pr->posX - x_attack[0]; //по клику
-		int yI = *pr->posY - y_attack[0]; 
+		int xI = *pr->posX - tiles[0].coord.x; //по клику
+		int yI = *pr->posY - tiles[0].coord.y;
 		
 		for (int j = 0; j < QuanTile; j++) {
 
-			if (x_attack[j] == 0 && x_attack[j] == 0)
+			if (tiles[j].coord.x == 0 && tiles[j].coord.y == 0)
 				continue; //не учитываем отсутствие тайлов
 
-			x_attack[j] += xI;
-			y_attack[j] += yI;
+			tiles[j].coord.x += xI;
+			tiles[j].coord.y += yI;
 		}
 	}
-
+	
 	if (FuncAttack == "Direction" && life_attack && !BlockOnce) //функция атаки: по направлению
 	{ //система отзеркалирования и паралельности
 		
@@ -375,41 +338,44 @@ void attack::funcAttack()
 		for (int j = 0; j < QuanTile; j++)
 		{
 			if (SAAttack->Tile[j][0] == 0 && SAAttack->Tile[j][1] == 0) {
-				x_attack[j] = 0; y_attack[j] = 0; continue;
+				tiles[j].coord.x = 0; 
+				tiles[j].coord.y = 0; 
+				continue;
 			}
 			
 			//берем за основу SAAttack умножаем на -1 и переводим координаты относительно текущей позиции игрока 
 			//по стандарту атака должна быть расположена слева
 			if (rotation > 40 && rotation < 150) //направо
-				x_attack[j] = SAAttack->Tile[j][0] * -1 * SAAttack->SizeTile + *pr->x + pr->Width;
+				tiles[j].coord.x = SAAttack->Tile[j][0] * -1 * SAAttack->SizeTile + *pr->x + pr->Width;
 			
 			if (rotation < -80) //стандарт (лево)
 			{ } 
 			
 			if (!(rotation < 150 && rotation > -150)) { //наверх
-				x_attack[j] = *pr->x - SAAttack->Tile[j][1] * SAAttack->SizeTile + pr->Width;
-				y_attack[j] = *pr->y - SAAttack->Tile[j][0] * -1 * SAAttack->SizeTile;
+				tiles[j].coord.x = *pr->x - SAAttack->Tile[j][1] * tiles[j].size + pr->Width;
+				tiles[j].coord.y = *pr->y - SAAttack->Tile[j][0] * -1 * tiles[j].size;
 			} 
 			if (rotation < 40 && rotation > -40) { //низ
-				x_attack[j] = *pr->x - SAAttack->Tile[j][1] * SAAttack->SizeTile + pr->Width;
-				y_attack[j] = *pr->y - SAAttack->Tile[j][0] * SAAttack->SizeTile + pr->Height;
+				tiles[j].coord.x = *pr->x - SAAttack->Tile[j][1] * tiles[j].size + pr->Width;
+				tiles[j].coord.y = *pr->y - SAAttack->Tile[j][0] * tiles[j].size + pr->Height;
 			}
 
 		}
+		
 	}
 
 	//DistanceFromOpponent (учет макс. допустимой дистанции)
 	if (!BlockOnce && FuncAttack != "ClickPlace") //для ClickPlace свой учет дистанции
 	for (int j = 0; j < QuanTile; j++) 
 	{
-		if (x_attack[j] > *pr->x + distantion * SAAttack->SizeTile + pr->Width || 
-			x_attack[j] < *pr->x - distantion* SAAttack->SizeTile /*+ pr->Width*/ ||
+		if (tiles[j].coord.x > *pr->x + distantion * tiles[j].size + pr->Width ||
+			tiles[j].coord.x < *pr->x - distantion* tiles[j].size /*+ pr->Width*/ ||
 
-			y_attack[j] > *pr->y + distantion * SAAttack->SizeTile + pr->Height ||
-			y_attack[j] < *pr->y - distantion* SAAttack->SizeTile/* + pr->Height*/) {
+			tiles[j].coord.y > *pr->y + distantion * tiles[j].size + pr->Height ||
+			tiles[j].coord.y < *pr->y - distantion* tiles[j].size/* + pr->Height*/) {
 
-			x_attack[j] = 0; //элементы зашедшие за зону макс дистанции будут удалены
-			y_attack[j] = 0; 
+			tiles[j].coord.x = 0; //элементы зашедшие за зону макс дистанции будут удалены
+			tiles[j].coord.y = 0;
 		}
 	}
 	
@@ -432,12 +398,12 @@ void attack::vide()
 			posY_VidE = *pr->posY;
 
 			//изменяем координаты атаки на точку начала
-			int xI = *pr->x - pr->Width / 2 - x_attack[0]; //по клику
-			int yI = *pr->y - y_attack[0];
+			int xI = *pr->x - pr->Width / 2 - tiles[0].coord.x; //по клику
+			int yI = *pr->y - tiles[0].coord.y;
 
 			for (int j = 0; j < 20; j++) {
-				x_attack[j] += xI;
-				y_attack[j] += yI;
+				tiles[j].coord.x += xI;
+				tiles[j].coord.y += yI;
 			}
 
 			BlockVidE = 1;
@@ -476,8 +442,8 @@ void attack::vide()
 					break;
 				}
 
-		duration_attack[18] = 0.01 + dx / 500 + dy / 500; //регулирование скорости (требуется регулирование)
-		if (duration_attack[18] < 0.01) duration_attack[18] = 0.02 - duration_attack[18];
+		tiles[18].duration = 0.01 + dx / 500 + dy / 500; //регулирование скорости (требуется регулирование)
+		if (tiles[18].duration < 0.01) tiles[18].duration = 0.02 - tiles[18].duration;
 
 		dx = rint(dx);
 		dy = rint(dy);
@@ -509,12 +475,12 @@ void attack::vide()
 			if (rand() % 2 == 0) saveY_VidE *= -1;
 			//-----------------------
 
-			int xI = xx + saveX_VidE - x_attack[0]; //по клику
-			int yI = yy + saveY_VidE - y_attack[0];
+			int xI = xx + saveX_VidE - tiles[0].coord.x; //по клику
+			int yI = yy + saveY_VidE - tiles[0].coord.y;
 
 			for (int j = 0; j < 20; j++) {
-				x_attack[j] += xI;
-				y_attack[j] += yI;
+				tiles[j].coord.x += xI;
+				tiles[j].coord.y += yI;
 			}
 			BlockVidE = 1;
 		}
@@ -562,8 +528,8 @@ void attack::vide()
 	if (VidE == 3) //прикольно
 	{
 		int xx = *pr->posX, yy = *pr->posY;
-		if (x_attack[0] < xx) dx = 1; else dx = -1;
-		if (y_attack[0] < yy) dy = 1; else dy = -1; 
+		if (tiles[0].coord.x < xx) dx = 1; else dx = -1;
+		if (tiles[0].coord.y < yy) dy = 1; else dy = -1;
 		dx *= 2; //up speed
 		dy *= 2;
 	}
@@ -579,16 +545,16 @@ void attack::vide()
 
 		//позиция
 		if (rotation >= 180) dx = 1; else dx = -1;
-		if (rotation >= 0) dy = -1;
-		if (rotation >= 90) dy = 1;
+		if (rotation >= 0)   dy = -1;
+		if (rotation >= 90)  dy = 1;
 		if (rotation >= 270) dy = -1; 
 		dx *= 3; dy *= 3;
 	}
 
 	//движение атаки
 	for (int j = 0; j < 20; j++) {
-		x_attack[j] = x_attack[j] + dx;
-		y_attack[j] = y_attack[j] + dy;
+		tiles[j].coord.x += dx;
+		tiles[j].coord.y += dy;
 	}
 }
 
@@ -601,34 +567,28 @@ void attack::setAttribute(GameWorld* world_, View* view_)
 void attack::inisialization()
 {
 	//загрузка атаки из CurrentAttack
-	for (int j = 0; j < 100; j++) {
-		
-		if (SAAttack->Tile[j][0] == 0 &
-			SAAttack->Tile[j][1] == 0) continue;
-		
-		x_attack[j] = SAAttack->Tile[j][0]  + *pr->x / SAAttack->SizeTile;
-		y_attack[j] = SAAttack->Tile[j][1]  + *pr->y / SAAttack->SizeTile;
-		
-		delay_attack[j] = SAAttack->delay[j];
-		duration_attack[j] = SAAttack->duration[j];
-	}
-	
-	if (SAAttack->FuncAttack == "line") //секретная функция атаки (подслай)
-		for (int j = 0; j < 100; j++) {
-			delay_attack[j] = SAAttack->delay[j];
-			duration_attack[j] = SAAttack->duration[j];
-		}
-
-	type_attack = SAAttack->type_attack; //урон в сек
-	FuncAttack = SAAttack->FuncAttack;
-	distantion = SAAttack->distantion;
-	QuanTile = SAAttack->QuanityTile;
+	QuanTile        = SAAttack->QuanityTile;
+	type_attack     = SAAttack->type_attack; //урон в сек
+	FuncAttack      = SAAttack->FuncAttack;
+	distantion      = SAAttack->distantion;
 	timeAttack_VidE = SAAttack->tVide + time;
-	VidE = SAAttack->VidE;
+	VidE            = SAAttack->VidE;
+	tiles.clear();
 
-	for (int j = 0; j < QuanTile; j++) { //переводим координаты в обычный размер (один раз за атаку)
-		x_attack[j] = x_attack[j] * SAAttack->SizeTile;
-		y_attack[j] = y_attack[j] * SAAttack->SizeTile; 
+	for (int j = 0; j < QuanTile; j++)
+	{
+		tiles.push_back(Tile()); //tiles.coord являются измененными относительно аватара игрока
+		if (SAAttack->Tile[j][0] != 0) tiles[j].coord.x = SAAttack->Tile[j][0] + *pr->x / SAAttack->SizeTile;
+		if (SAAttack->Tile[j][1] != 0) tiles[j].coord.y = SAAttack->Tile[j][1] + *pr->y / SAAttack->SizeTile;
+
+		tiles[j].delay    = SAAttack->delay[j];
+		tiles[j].duration = SAAttack->duration[j];
+		tiles[j].size     = SAAttack->SizeTile;
+	}
+
+	for (int j = 0; j < QuanTile; j++) { //переводим координаты в обычный размер (1x1 pixel)
+		tiles[j].coord.x *= SAAttack->SizeTile;
+		tiles[j].coord.y *= SAAttack->SizeTile;
 	}
 }
 

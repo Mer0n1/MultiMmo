@@ -2,6 +2,7 @@
 #include "StructureEngine.h"
 #include "Entity.h"
 #include "BridgeClient.h"
+#include "Tile.h"
 
 using namespace std;
 using namespace sf;
@@ -31,21 +32,21 @@ protected:
 	static BridgeClient* client_br;
 	static View* view;
 
+	vector<Tile> tiles; //тайлы атаки
 	playerPr* pr; //информация об используемом атаке игроке
 	CurrentAttack* SAAttack; //информация о атаке (в не совсем структурированном виде)
 	type_at type_attack; 
 	AnimationAttack* animation;
 	Clock clock;
 
+	//Параметры атаки
 	float time, time_save; //time_save - перезарядка обычной атаки
 	float time_attack; //перезарядка для трех особых атак
-	int x_attack[100], y_attack[100]; //координаты атаки
-	float delay_attack[100]; //задержка атаки (индекс - номер атаки)
-	float duration_attack[100]; //продолжительность атаки 
 	int distantion; //дистанция атаки
 	int QuanTile; //количество тайлов атаки
-	string FuncAttack;
+	string FuncAttack; //функция атаки
 
+	//
 	bool BlockOnce = false; //блокирование функции Функция атаки должна срабатывать 1 раз за атаку
 	bool life_attack = false; //активна ли атака
 	bool Left = false; //активна ли обычная атака
@@ -73,7 +74,7 @@ protected:
 	Атака - это заранее подготовленная структура тайлов со своими координатами 
 	Тайлы записываются в массив типа [ 0, 1, 2, 3, 4, 5, 6] и расшифровываются на координаты относительно игрока
 	 
-	Атака делится на 2 типа
+	Атака делится на 3 типа
 	ida - урон в мгновенье 
 	do - мгновенный урон
 	dpsa - урон в секунду

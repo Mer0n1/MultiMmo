@@ -2,7 +2,6 @@
 
 AnimationAttackModule::AnimationAttackModule()
 {
-	changeT.loadFromFile("Textures/Redactor/change.png"); //version 1
 	change8.loadFromFile("Textures/Redactor/Tile_8.png"); //version 8
 
 	change.setTexture(changeT);
@@ -18,10 +17,9 @@ AnimationAttack* AnimationAttackModule::newScructureAnimation()
 {
 	AnimationAttack* nw = new AnimationAttack();
 	nw->window = window;
-	for (int j = 0; j < 100; j++) {
-		nw->inTile[j] = change;
+	for (int j = 0; j < 100; j++) 
 		nw->intTile_8[j] = change_8;
-	}
+	
 	list.push_back(nw);
 	return nw;
 }
@@ -39,7 +37,6 @@ void AnimationAttackModule::DeleteAnimation(AnimationAttack* animation_)
 
 void AnimationAttackModule::draw(RenderWindow& window)
 {
-	//cout << list.size() << endl;
 	for (int j = 0; j < list.size(); j++)
 		for (int c = 0; c < sizeof(list[j]->intTile_8) / sizeof(list[j]->intTile_8[0]); c++)
 		window.draw(list[j]->intTile_8[c]);
