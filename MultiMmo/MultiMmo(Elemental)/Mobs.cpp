@@ -20,7 +20,7 @@ Mobs::~Mobs()
 void Mobs::update()
 {
 	time = clock.getElapsedTime().asSeconds();
-
+	
 	gamer.setPosition(x, y);
 	hb.setPosition(x - 10, y - 10);
 	hb.setProgress((float)hp / (float)max_hp);
@@ -37,14 +37,14 @@ void Mobs::update()
 
 void Mobs::updateHp(int atck)
 {
-	hp -= atck;
+	hp -= atck; 
 }
 
 void Mobs::Control()
 {
 	if (time < controltime) return;
 	controltime = time + 0.01;
-
+	
 	//движение
 	if (forward) y -= speed;
 	if (right)   x += speed;

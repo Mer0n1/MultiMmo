@@ -27,7 +27,6 @@ public:
 	void setPosX(int x); //установка позиций координат
 	void setPosY(int y);
 	void addPos(int x_, int y_); //добавление позиции к уже существующей (+=)
-
 	void setSpeed(float);
 	void setHp(int);
 	void setMaxHp(int);
@@ -45,9 +44,12 @@ public:
 	bool getLife();
 
 	Sprite* getModel();
+	HealthBarRpg* getHealthBar();
 protected:
 	string name; //имя игрока
 	Texture gamer_texture;
+	Sprite gamer; //модель персонажа
+	HealthBarRpg hb; //полоска хп
 
 	float time_save, sleeptime; //time_save - перезарядка обычной атаки
 	float dx, dy; //координаты направления
@@ -67,8 +69,5 @@ protected:
 	bool life = true; //жизнь
 	int hp, max_hp;
 	int Width, Height; //ширина высота модельки
-public:
-	Sprite gamer; //модель персонажа
-	HealthBarRpg hb; //полоска хп
 };
 

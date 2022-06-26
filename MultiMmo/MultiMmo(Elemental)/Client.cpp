@@ -21,7 +21,7 @@ Client::Client()
 	ZeroMemory(&server_addr, server_len);
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_port = htons(5556);
-	inet_pton(AF_INET, "176.196.135.47", &server_addr.sin_addr); //176.196.135.47   127.0.0.1
+	inet_pton(AF_INET, "176.196.135.47", &server_addr.sin_addr); 
 
 	client_len = sizeof(client_addr);
 	ZeroMemory(&client_addr, client_len);
@@ -121,13 +121,13 @@ void Client::sockReady()
 	while (true) //tcp и udp запросы ( udp постоянно отправляются)
 	{
 		sockReadyWorld(); //udp запросы мира
-		
+
+		int rc = recv(Connection_, packet, sizeof(packet), NULL);
 		//if (read(Connection_, packet, sizeof(packet)) < 0) continue; //принимаем запрос
-		if (recv(Connection_, packet, sizeof(packet), NULL) < 0) continue; //принимаем запрос
+		if (rc < 0) continue; //принимаем запрос
+		if (rc == 0) exit(0); //выход при потере соединения с сервером
 
-		data = packet;
-		doc = data; //установка на json
-
+		doc = data = packet; //установка на json
 		//Далее запросы
 		if (doc.value("type").toString() == "Unconnect")
 			for (int j = 0; j < world->getSize(); j++)

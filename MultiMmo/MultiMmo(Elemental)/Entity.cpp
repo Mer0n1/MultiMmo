@@ -141,6 +141,11 @@ Sprite* Entity::getModel()
 	return &gamer;
 }
 
+HealthBarRpg* Entity::getHealthBar()
+{
+	return &hb;
+}
+
 void Entity::inisialize()
 {
 

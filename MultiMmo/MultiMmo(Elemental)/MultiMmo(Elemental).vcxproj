@@ -196,6 +196,7 @@
     <ClInclude Include="StructureEngine.h" />
     <ClInclude Include="Tcp.h" />
     <ClInclude Include="Textures.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="TinyXML\tinystr.h" />
     <ClInclude Include="TinyXML\tinyxml.h" />
     <ClInclude Include="UniqueCharacters.h" />

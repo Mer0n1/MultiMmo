@@ -6,7 +6,7 @@ using namespace sf;
 
 
 class maps
-{ //редактор создания карты
+{ //класс вывода карты
 private:
 	Sprite menu; 
 	Texture menu0;

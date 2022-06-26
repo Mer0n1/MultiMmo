@@ -3,10 +3,20 @@
 #include "Entity.h"
 
 vector<Group_Rpg*> GroupSystem::groups;
+GroupSystem* GroupSystem::my_group = new GroupSystem;
 
-GroupSystem::GroupSystem()
+GroupSystem& GroupSystem::getObject()
 {
+	return *my_group;
+}
 
+void GroupSystem::DeleteGroup()
+{
+	delete my_group;
+	my_group = NULL;
+
+	for (int j = 0; j < groups.size(); j++)
+		delete groups[j];
 }
 
 void GroupSystem::newGroup(string name, Entity* entity)

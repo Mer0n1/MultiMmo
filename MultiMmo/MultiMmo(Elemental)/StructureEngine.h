@@ -9,15 +9,12 @@ enum type_at { Do, dpsa, ida, poisonous }; //тип атаки - перечис�
 struct AnimationAttack //временная структура под анимацию
 {
 	RenderWindow* window;
-	Sprite inTile[100];
 	Sprite intTile_8[100];
 
 	void Reset() {
 		for (int j = 0; j < sizeof(intTile_8) / sizeof(intTile_8[0]); j++) {
-			intTile_8[j].setPosition(-10, -10);
+			intTile_8[j].setPosition(-100, -100);
 			intTile_8[j].setColor(Color::White);
-			inTile[j].setPosition(-10, -10);
-			inTile[j].setColor(Color::White);
 		}
 	}
 };
@@ -35,7 +32,7 @@ struct CurrentAttack //структура атаки
 	int numberSA;
 	float delay[100];
 	float duration[100];
-	int Tile[100][2];
+	int Tile[100][2]; //начальные тайлы
 	int recharge;
 	int distantion;
 	int QuanityTile;

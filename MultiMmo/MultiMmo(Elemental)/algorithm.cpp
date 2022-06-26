@@ -1,12 +1,11 @@
 ﻿#include "algorithm.h"
 #include <Windows.h>
 
-Vector2f* algorithmLine(Vector2f begin, Vector2f end)
+void algorithmLine(Vector2f begin, Vector2f end, Vector2i* coord)
 {
 	//найдем направление
-	Vector2f ItogMassv[20];
 	Vector2f itog; //каждый тайловый итоговый ход
-
+	
 	int nx = 0, ny = 0; //направления
 	if (begin.x < end.x) nx = 1; else nx = -1; //по графику
 	if (begin.y < end.y) ny = 1; else ny = -1;
@@ -23,11 +22,9 @@ Vector2f* algorithmLine(Vector2f begin, Vector2f end)
 			itog.x += poX / poY * ny;
 			itog.y += ny;
 		}
-		Sleep(0); //из за бага 
-		ItogMassv[j].x = begin.x + itog.x; //прорисовываем от конца до начала
-		ItogMassv[j].y = begin.y + itog.y;
+		coord[j].x = begin.x + itog.x;
+		coord[j].y = begin.y + itog.y;
 	}
-	return &ItogMassv[0];
 	//Отрезок как вектор, имеет направление (от begin до end)
 }
 
