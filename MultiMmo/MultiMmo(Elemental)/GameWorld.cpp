@@ -39,8 +39,8 @@ void GameWorld::update(RenderWindow& window)
 		{ delete entity[j]; continue; }
 		
 		entity[j]->update();
-		window.draw(*entity[j]->getModel()); //вывод модели
-		entity[j]->getHealthBar()->draw(window); //вывод полоски хп
+		window.draw(entity[j]->gamer); //вывод модели
+		entity[j]->hb.draw(window); 
 	}
 }
 

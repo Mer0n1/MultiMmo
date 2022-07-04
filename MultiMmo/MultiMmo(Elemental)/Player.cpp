@@ -7,9 +7,9 @@ Player::Player()
 	hp = 0, max_hp = 0;
 	speed = 0;
 	x = 0; y = 0;
-	pid = world->GeneratePid();
-	time_save = 0; 
 	speedConst = 0;
+	dir = -1;
+	pid = world->GeneratePid();
 
 	readyPerson(); //загрузка характеристик с соответствием с его айди
 	world->addEntity(this); //автоматически при создании добавляем его в список мира
@@ -50,6 +50,7 @@ Player::~Player()
 
 void Player::update()
 {	
+	
 	gamer.setPosition(x, y);
 	hb.setProgress((float)hp / (float)max_hp);
 	hb.setHp(hp, max_hp);
@@ -89,67 +90,61 @@ void Player::controlPlayer()
 	case 6: dx = -speed; dy = speed; break; //вниз - влево
 	case 7: dx = speed;  dy = -speed; break; //вниз -вправо
 	}
-
-	x += dx;
-	y += dy;
+	
+	x += dx * *TimeOptimization; 
+	y += dy * *TimeOptimization; 
 	speed = 0;
-	//-------------------------------------
-	if (Keyboard::isKeyPressed(Keyboard::Num1)) { AttackMode.setNum(1, true); rech[0].StartTimer(); }//включаем атаку
-	if (Keyboard::isKeyPressed(Keyboard::Num2)) { AttackMode.setNum(2, true); rech[1].StartTimer(); }
-	if (Keyboard::isKeyPressed(Keyboard::Num3)) { AttackMode.setNum(3, true); rech[2].StartTimer();  }
-	if (Mouse::isButtonPressed(Mouse::Right))   { AttackMode.setNum(4, true); }
-	//-------------------------------------
-
-	if (!life) { return; } //если игрок мертв блокируем управление
-	if (*time < sleeptime) { return; }
 	
 	if (Keyboard::isKeyPressed(Keyboard::W)) { //вверх
 		gamer.setTextureRect(IntRect(Width * 6, 0, Width, Height));
-		speed = 5; dir = 3;
-		sleeptime = *time + 0.01; //Sleep(10);
+		speed = speedConst; dir = 3;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::D)) { //на право
 		gamer.setTextureRect(IntRect(0, 0, Width, Height)); 
-		speed = 5; dir = 0;
-		sleeptime = *time + 0.01; //Sleep(10);
+		speed = speedConst; dir = 0;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::A)) { //налево
 		gamer.setTextureRect(IntRect(Width * 4, 0, Width, Height)); 
-		speed = 5; dir = 1;
-		sleeptime = *time + 0.01; //Sleep(10);
+		speed = speedConst; dir = 1;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::S)) { //вниз
 		gamer.setTextureRect(IntRect(Width * 2, 0, Width, Height)); 
-		speed = 5; dir = 2;
-		sleeptime = *time + 0.01; //Sleep(10);
+		speed = speedConst; dir = 2;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::S) && //боковая хотьба
 		Keyboard::isKeyPressed(Keyboard::D)) {
 		gamer.setTextureRect(IntRect(Width * 1, 0, Width, Height));
-		speed = 3; dir = 4;
+		speed = speedConst/2; dir = 4;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::W) &&
 		Keyboard::isKeyPressed(Keyboard::A)) {
 		gamer.setTextureRect(IntRect(Width * 5, 0, Width, Height)); 
-		speed = 3; dir = 5;
+		speed = speedConst/2; dir = 5;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::A) &&
 		Keyboard::isKeyPressed(Keyboard::S)) {
 		gamer.setTextureRect(IntRect(Width * 3, 0, Width, Height)); 
-		speed = 3; dir = 6;
+		speed = speedConst/2; dir = 6;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::W) &&
 		Keyboard::isKeyPressed(Keyboard::D)) {
 		gamer.setTextureRect(IntRect(0, Height, Width, Height)); 
-		speed = 3; dir = 7;
+		speed = speedConst/2; dir = 7;
 	}
 
 	view->setCenter(x + (Width / 2), y + (Height / 2)); //балансируем экран
 	Map->limitMap(x, y, *view);
+
+	//-------------------------------------Управление атакой
+	if (Keyboard::isKeyPressed(Keyboard::Num1)) { AttackMode.setNum(1, true); rech[0].StartTimer(); }//включаем атаку
+	if (Keyboard::isKeyPressed(Keyboard::Num2)) { AttackMode.setNum(2, true); rech[1].StartTimer(); }
+	if (Keyboard::isKeyPressed(Keyboard::Num3)) { AttackMode.setNum(3, true); rech[2].StartTimer(); }
+	if (Mouse::isButtonPressed(Mouse::Right)) { AttackMode.setNum(4, true); }
+	//-------------------------------------
 }
 
 void Player::updateHp(int atck)

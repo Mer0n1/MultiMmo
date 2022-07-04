@@ -32,7 +32,9 @@ private:
 	View view;
 
 	float Timer; //таймер
+	float TimeOptimization; //переменная под оптимизацию
 	float sleeptime;
 	Clock clock;
+	Clock OneFrame; //Clock для TimeOptimization
 }; 
 

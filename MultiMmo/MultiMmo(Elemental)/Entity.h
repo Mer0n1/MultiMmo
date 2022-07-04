@@ -18,7 +18,7 @@ public:
 
 	static void setMap(maps* Map);
 	static void setVector2i(Vector2f* pos_);
-	static void setTime(float* time_);
+	static void setTime(float* time_, float* TimeOptimization_);
 	static void setGameWorld(GameWorld* world_);
 	static void setView(View* view_);
 
@@ -32,7 +32,6 @@ public:
 	void setMaxHp(int);
 	void setLife(bool); 
 
-	Vector2f getPos();
 	float getSpeed();
 	float getSpeedConst();
 	int getId();
@@ -42,18 +41,16 @@ public:
 	int getHp();
 	int getMaxHp();
 	bool getLife();
-
 	Sprite* getModel();
 	HealthBarRpg* getHealthBar();
+	Vector2f getPos();
 protected:
 	string name; //имя игрока
 	Texture gamer_texture;
 	Sprite gamer; //модель персонажа
 	HealthBarRpg hb; //полоска хп
 
-	float time_save, sleeptime; //time_save - перезарядка обычной атаки
-	float dx, dy; //координаты направления
-
+	static float* TimeOptimization; //оптимизация через время
 	static float* time; //таймер мира
 	static TexturesFile* TFPack; //пак текстур
 	static maps* Map; //указатель на карту
@@ -61,6 +58,7 @@ protected:
 	static View* view;
 	static GameWorld* world; 
 
+	float dx, dy; //координаты направления
 	float speed; //текущая скорость (движение)
 	float speedConst; //характеристика скорости (или макс скорость)
 	float x, y; //координаты персонажа
@@ -69,5 +67,7 @@ protected:
 	bool life = true; //жизнь
 	int hp, max_hp;
 	int Width, Height; //ширина высота модельки
+
+	friend class GameWorld;
 };
 

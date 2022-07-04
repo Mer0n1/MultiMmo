@@ -46,6 +46,7 @@ void attack::go_attack()
 		time = 0;
 		time_attack = SAAttack->recharge; //перезарядка
 		life_attack = true;
+		animation->isActive = true;
 	
 		if (FuncAttack != "ClickPlace") //если не ClickPlace то фиксируем относительно игрока
 			for (int j = 0; j < QuanTile; j++) {
@@ -63,7 +64,8 @@ void attack::go_attack()
 
 void attack::attack_start()
 {
-	if (!life_attack) return;
+	if (!life_attack) return; 
+	else animation->isActive = true;
 	funcAttack(); 
 	
 	for (int j = 0; j < 20; j++)
@@ -77,6 +79,7 @@ void attack::attack_start()
 
 		if (j == QuanTile - 1) { //сброс
 			animation->Reset();
+			animation->isActive = false;
 			saveX_VidE = 0; posX_VidE = 0;
 			saveY_VidE = 0; posY_VidE = 0;
 			BlockOnce = false;
@@ -194,8 +197,8 @@ void attack::attack_start()
 		if (VidE != 0 && j == QuanTile - 2 && save_j == -1)  //если duration активно запрещаем
 			if (timeAttack_VidE > time) { //остановка атаки по истечения времени
 				j = 0; vide(); //каждый цикл - 1 кадр
-				if (tiles[18].duration == 0)
-					tiles[18].duration = 0.01;
+				if (tiles[QuanTile - 2].duration == 0)
+					tiles[QuanTile - 2].duration = 0.01;
 			}
 		//--------------------------------------------------- Нанесение урона
 
@@ -263,44 +266,15 @@ void attack::funcAttack()
 
 	if (FuncAttack == "line" && life_attack && !BlockOnce) //атака линией (тип - лазер)
 	{
-		int y1 = (*pr->y + pr->Height / 2) / SAAttack->SizeTile,
-			x1 = (*pr->x + pr->Width / 2) / SAAttack->SizeTile; //центр нашей позиции
-		
-		//найдем направление
-		int nx = 0, ny = 0; //направления
-		if (*pr->posX > *pr->x) nx = 1; else nx = -1; //по графику
-		if (*pr->posY > *pr->y) ny = 1; else ny = -1;
+		int y1 = (*pr->y + pr->Height / 2) / SAAttack->SizeTile, //наша позиция
+			x1 = (*pr->x + pr->Width / 2) / SAAttack->SizeTile;
+		Vector2i coord[20]; //используем coord вместо tiles[].coord чтобы не путалисть адреса памяти
 
-		int posX = *pr->posX, posY = *pr->posY; //перевод в int
-		float poX = posX / SAAttack->SizeTile - x1; //сколько нужно тайлов пройти
-		float poY = posY / SAAttack->SizeTile - y1; //до нужной позиции
-
-		float itogX = 0, itogY = 0; //каждый тайловый итоговый ход
-
-		for (int j = 0; j < 20; j++) { //x и y не должны превышать 1
-
-			if (poY == 0) continue;
-
-			if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
-
-				itogX += nx;
-				itogY += poY / poX * nx;
-			}
-			else { //наоборот
-				itogX += poX / poY * ny;
-				itogY += ny;
-			}
-			tiles[j].coord.x = x1 + itogX;
-			tiles[j].coord.y = y1 + itogY;
-		}
-
+		algorithmLine(Vector2f(x1, y1), Vector2f(*pr->posX / SAAttack->SizeTile, *pr->posY / SAAttack->SizeTile), &coord[0]);
 		for (int j = 0; j < QuanTile; j++) {
-			tiles[j].coord.x *= tiles[j].size;
-			tiles[j].coord.y *= tiles[j].size;
+			tiles[j].coord.x = coord[j].x * tiles[j].size;
+			tiles[j].coord.y = coord[j].y * tiles[j].size;
 		}
-		
-		//BlockOnce = true;
-		//работает по системе где высчитываются дистанция по x и y от клика, и достигается путем отношений 1 : x - неопределенное число
 	}
 
 	if (FuncAttack == "ClickPlace" && life_attack && !BlockOnce) //функция атаки: по месту клика
@@ -442,15 +416,14 @@ void attack::vide()
 					break;
 				}
 
-		tiles[18].duration = 0.01 + dx / 500 + dy / 500; //регулирование скорости (требуется регулирование)
-		if (tiles[18].duration < 0.01) tiles[18].duration = 0.02 - tiles[18].duration;
+		tiles[QuanTile - 2].duration = 0.01 + dx / 500 + dy / 500; //регулирование скорости (требуется регулирование)
+		if (tiles[QuanTile - 2].duration < 0.01) tiles[QuanTile - 2].duration = 0.02 - tiles[QuanTile - 2].duration;
 
 		dx = rint(dx);
 		dy = rint(dy);
 	}
 
-
-	/*if (VidE == 2) //нож от точки до цели
+	if (VidE == 2) //нож от точки до цели
 	{
 		//выясним айди противника (тест) это и будет точка конца атаки
 		int xx = 0, yy = 0;
@@ -521,7 +494,7 @@ void attack::vide()
 		
 		dx = rint(dx);
 		dy = rint(dy);
-	} */
+	} 
 
 	//вид правления атакой  (дистанционный путь до цели)
 	//в этом случае нужен один фактор выбора противника - целенаправленный
@@ -534,7 +507,7 @@ void attack::vide()
 		dy *= 2;
 	}
 
-	//атака номер 2 для чары (можно использовать в update обьекта)
+	//движение атаки по окружности
 	if (VidE == 4)
 	{ 
 		float rotation = 150 * time;
@@ -625,6 +598,7 @@ AttackSystem::AttackSystem()
 }
 AttackSystem::AttackSystem(AAforASystem *structure)
 {
+	if (structure == NULL) return;
 	animation = structure;
 	SAt1 = { &pr_, &SAAttack[0], structure->at1 }, //3 особых атаки (speciality attacks)
 	SAt2 = { &pr_, &SAAttack[1], structure->at2 },

@@ -46,7 +46,7 @@ void maps::limitMap(float& x, float& y, View &view)
 	float tempY = y;//считываем коорд игрока и проверяем их, чтобы убрать края
 
 	int xt = view.getSize().x / 2;
-	int yt = view.getSize().y / 2;
+	int yt = view.getSize().y / 2; //+height/2
 	
 	//Камера относительно границ мира
 	if (x < xt) tempX = xt; //убираем из вида левую сторону

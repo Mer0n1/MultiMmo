@@ -7,7 +7,7 @@ Engine::Engine()
 	Entity::setView(&view); 
 	Entity::setVector2i(&pos); 
 	Entity::setMap(&Map);
-	Entity::setTime(&Timer);
+	Entity::setTime(&Timer, &TimeOptimization);
 	Entity::setGameWorld(&world); 
 	AttackSystem::setAnimationSystem(&animation);
 	attack::setAttribute(&world, &view); //инициализируем метод атаки
@@ -39,6 +39,10 @@ void Engine::start(RenderWindow& window)
 		pos = window.mapPixelToCoords(pixelPos); //переводим их в игровые
 		Timer = clock.getElapsedTime().asSeconds();
 
+		TimeOptimization = OneFrame.getElapsedTime().asMicroseconds();
+		OneFrame.restart();
+		TimeOptimization /= 10000;
+		
 		Event events;
 		while (window.pollEvent(events))
 		{
@@ -50,7 +54,7 @@ void Engine::start(RenderWindow& window)
 		window.setView(view);
 		changeview(); 
 		window.clear();
-
+		
 		Map.draw_map(window); //вывод карты
 		world.update(window); //обновление всех игроков
 		animation.draw(window); //вывод анимации

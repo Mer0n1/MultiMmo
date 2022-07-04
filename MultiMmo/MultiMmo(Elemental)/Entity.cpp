@@ -42,9 +42,10 @@ void Entity::setView(View* view_)
 	view = view_;
 }
 
-void Entity::setTime(float* time_)
+void Entity::setTime(float* time_, float* TimeOptimization_)
 {
 	time = time_;
+	TimeOptimization = TimeOptimization_;
 }
 
 void Entity::setGameWorld(GameWorld* world_)
@@ -155,5 +156,6 @@ Vector2f* Entity::pixelPos = NULL;
 maps* Entity::Map = NULL;
 TexturesFile* Entity::TFPack = new TexturesFile;
 float* Entity::time = 0;
+float* Entity::TimeOptimization = 0;
 GameWorld* Entity::world = NULL;
 View* Entity::view = NULL;

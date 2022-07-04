@@ -5,12 +5,12 @@ Mobs::Mobs(string name_, int id_, int pid_) : Enemy(name_, id_, pid_)
 {
 	model_ = *gamer.getTexture();
 	gamer.setTextureRect(IntRect(0, 0, Width, Height)); //текстура для анимации имеет другую IntRect
-	
-	time = 0;
-	saveTime = 0;
-	CurCadr = 1;
 
 	if (id == 102) animation_.setAnimation(0); //test у 102 нет анимации
+
+	delete AttackMode; //мобы не используют атаку
+	AttackMode = NULL;
+	time = 0;
 }
 
 Mobs::~Mobs()
@@ -42,12 +42,9 @@ void Mobs::updateHp(int atck)
 
 void Mobs::Control()
 {
-	if (time < controltime) return;
-	controltime = time + 0.01;
-	
 	//движение
-	if (forward) y -= speed;
-	if (right)   x += speed;
-	if (left)    x -= speed;
-	if ( back)   y += speed;
+	if (forward) y -= speed * *TimeOptimization;
+	if (right)   x += speed * *TimeOptimization;
+	if (left)    x -= speed * *TimeOptimization;
+	if ( back)   y += speed * *TimeOptimization;
 }

@@ -51,7 +51,7 @@ protected:
 	void interactionWithMap(); //интерактив с картой
 	void controlEnemy(); //контроль персонажа
 protected:
-	AttackSystem AttackMode; //система атаки (AttackMode и GroupSystem должны быть в Entity однако архитектура не позволяет)
+	AttackSystem* AttackMode; //система атаки (AttackMode и GroupSystem должны быть в Entity однако архитектура не позволяет)
 	Group_Rpg* group = NULL; //ссылка на группу в которой состоит бот
 	AttackRatios rations; //данные об уроне
 
@@ -74,7 +74,6 @@ protected:
 	int pidOp; //pid оппонента
 
 	//прочее
-	float controltime; //таймер для оптимизации (используется в controlEnemy (управлении) и ai )
 	int IDO; //ID option - номер варианта аватара в LibraryNPC
 
 	/*
@@ -106,10 +105,7 @@ private:
 	Texture model_;
 	Animation animation_;
 	Clock clock;
-
 	float time;
-	float saveTime;
-	int CurCadr = 1;
 };
 
 

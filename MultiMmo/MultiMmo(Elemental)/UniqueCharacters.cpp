@@ -2,7 +2,7 @@
 
 //---------------Chara
 
-Chara::Chara() : Enemy("Chara", 96, 0), attack(AttackMode.getPr(), AttackMode.getSAAttack(0), AttackMode.getAnimation()->left)
+Chara::Chara() : Enemy("Chara", 96, 0), attack(AttackMode->getPr(), AttackMode->getSAAttack(0), AttackMode->getAnimation()->left)
 {
 	specialAt = false; 
 	sleeptime = 0;
@@ -10,7 +10,7 @@ Chara::Chara() : Enemy("Chara", 96, 0), attack(AttackMode.getPr(), AttackMode.ge
 	RechargeSpecialAt = 10;
 }
 
-Chara::Chara(int IDO_) : Enemy("Chara", 96, IDO_), attack(AttackMode.getPr(), AttackMode.getSAAttack(0), AttackMode.getAnimation()->left)
+Chara::Chara(int IDO_) : Enemy("Chara", 96, IDO_), attack(AttackMode->getPr(), AttackMode->getSAAttack(0), AttackMode->getAnimation()->left)
 {
 	specialAt = false;
 	sleeptime = 0;
@@ -34,7 +34,7 @@ void Chara::update()
 	if (pidOp != 0) //если противник не найден не активируем систему атаки
 		attacks();
 
-	AttackMode.go_attack();
+	AttackMode->go_attack();
 
 	if (hp <= 0) life = false;
 }
@@ -48,42 +48,42 @@ void Chara::attacks()
 	//----------------------------------------
 	
 	//1 способность
-	if (!AttackMode.getNum(3))
-		AttackMode.setNum(1, true);
+	if (!AttackMode->getNum(3))
+		AttackMode->setNum(1, true);
 
 	//2 способность
-	if (!AttackMode.getNum(1)) 
-		AttackMode.setNum(2, true);
+	if (!AttackMode->getNum(1))
+		AttackMode->setNum(2, true);
 
 	//3 способность
-	if (!AttackMode.getNum(2)) 
-		AttackMode.setNum(3, true);
+	if (!AttackMode->getNum(2))
+		AttackMode->setNum(3, true);
 	//sp attack
-	if (!AttackMode.getNum(3))
+	if (!AttackMode->getNum(3))
 		specialAt = true;
 
 	//------------------------------------
-	if (AttackMode.getNum(1)) //запускаем атаку множеством обьектов (1 атака чары)
-		for (int j = 0; j < AttackMode.getMany().size(); j++) {
+	if (AttackMode->getNum(1)) //запускаем атаку множеством обьектов (1 атака чары)
+		for (int j = 0; j < AttackMode->getMany().size(); j++) {
 			
-			if (AttackMode.getMany()[j].getVidE() != 0)
-				AttackMode.getMany()[j].go_attack(); //запуск рендера обьекта
+			if (AttackMode->getMany()[j].getVidE() != 0)
+				AttackMode->getMany()[j].go_attack(); //запуск рендера обьекта
 
 			if (sleeptime < attack::time) { //очередь нового обьекта
 				sleeptime = attack::time + 0.7;
 				arg++;
 			}
 
-			if (arg == AttackMode.getMany().size() + 2) {
-				AttackMode.setNum(1, false); arg = -1;
+			if (arg == AttackMode->getMany().size() + 2) {
+				AttackMode->setNum(1, false); arg = -1;
 			} //отключаем атаку как только обьекты заканчиваются
 
 			if (arg == j) break; //выходим чтобы соблюдать очередь обьектов 
 		}
 
 	//дело в скорости (слишком быстро) //дело еще в том, что атака не начинается пока другая идет //AttackMode
-	if (arg <= AttackMode.getMany().size() && !AttackMode.getNum(1))
-		AttackMode.setNum(1, true);
+	if (arg <= AttackMode->getMany().size() && !AttackMode->getNum(1))
+		AttackMode->setNum(1, true);
 	
 	//спец атака
 	if (specialAt || life_attack) { //может быть переместить ее в attacks?
@@ -135,7 +135,7 @@ void Chara::special_attack()
 ///////////////////////////////////////////////////////////////////////////
 
 
-Papyrus::Papyrus(int IDO) : Enemy("Papyrus", 97, IDO), attack(AttackMode.getPr(), AttackMode.getSAAttack(0), AttackMode.getAnimation()->left)
+Papyrus::Papyrus(int IDO) : Enemy("Papyrus", 97, IDO), attack(AttackMode->getPr(), AttackMode->getSAAttack(0), AttackMode->getAnimation()->left)
 {
 	num3_ = 0;
 	specialAt = 0;
@@ -143,7 +143,7 @@ Papyrus::Papyrus(int IDO) : Enemy("Papyrus", 97, IDO), attack(AttackMode.getPr()
 	timerSpecialAt = 0;
 	attack::inisialization();
 }
-Papyrus::Papyrus() : Enemy("Papyrus", 97, 0), attack(AttackMode.getPr(), AttackMode.getSAAttack(0), AttackMode.getAnimation()->left)
+Papyrus::Papyrus() : Enemy("Papyrus", 97, 0), attack(AttackMode->getPr(), AttackMode->getSAAttack(0), AttackMode->getAnimation()->left)
 {
 	num3_ = 0;
 	specialAt = 0;
@@ -201,7 +201,7 @@ void Papyrus::attacks()
 	//----------------------------------------------Условия запуса атак
 	//1 способность (признаки)
 	if (true) //условие - пока позволяет перезарядка
-		AttackMode.setNum(1, true);
+		AttackMode->setNum(1, true);
 
 	//2 способности нет, итак слишком жесткий
 
@@ -213,7 +213,7 @@ void Papyrus::attacks()
 	}
 	//----------
 
-	if (*AttackMode.getPr()->hp != *AttackMode.getPr()->maxHp) //наступает когда его ранят
+	if (*AttackMode->getPr()->hp != *AttackMode->getPr()->maxHp) //наступает когда его ранят
 		special_attack(); //замедление от папируса
 
 	// 3 атака (атака создает обьекты (множественная атака))
@@ -228,7 +228,7 @@ void Papyrus::attacks()
 			num3_ = false;
 	}
 
-	AttackMode.go_attack();
+	AttackMode->go_attack();
 }
 
 void Papyrus::attack3()
@@ -286,7 +286,7 @@ void Papyrus::attack3()
 
 //////////////////////////////////////////////////////////////
 
-Sans::Sans(int IDO) : Enemy("Sans", 98, IDO), attack(AttackMode.getPr(), AttackMode.getSAAttack(0), AttackMode.getAnimation()->left)
+Sans::Sans(int IDO) : Enemy("Sans", 98, IDO), attack(AttackMode->getPr(), AttackMode->getSAAttack(0), AttackMode->getAnimation()->left)
 {
 	teleport_ = false;
 	num4 = false;
@@ -294,7 +294,7 @@ Sans::Sans(int IDO) : Enemy("Sans", 98, IDO), attack(AttackMode.getPr(), AttackM
 	RechargeTeleport = 0;
 	DelaySpAt = 0;
 }
-Sans::Sans() : Enemy("Sans", 98, 0), attack(AttackMode.getPr(), AttackMode.getSAAttack(0), AttackMode.getAnimation()->left)
+Sans::Sans() : Enemy("Sans", 98, 0), attack(AttackMode->getPr(), AttackMode->getSAAttack(0), AttackMode->getAnimation()->left)
 {
 	teleport_ = false;
 	num4 = false;
@@ -316,7 +316,7 @@ void Sans::update()
 	ai(); //поведение к игроку
 
 	attacks(); //Pid у Санса фиксируется даже когда он потерял из виду врага
-	AttackMode.go_attack();
+	AttackMode->go_attack();
 
 	if (hp <= 0) life = false;
 }
@@ -404,10 +404,10 @@ void Sans::attacks()
 	
 	//Признаки и следствия активации телепорта и спец атаки
 	if (hp < max_hp)
-	if (*AttackMode.getPr()->x - attack::world->getEntity(jOp)->getPos().x > 1500 ||
-		*AttackMode.getPr()->x - attack::world->getEntity(jOp)->getPos().x < -1500 ||
-		*AttackMode.getPr()->y - attack::world->getEntity(jOp)->getPos().y > 1500 ||
-		*AttackMode.getPr()->y - attack::world->getEntity(jOp)->getPos().y < -1500)
+	if (*AttackMode->getPr()->x - attack::world->getEntity(jOp)->getPos().x > 1500 ||
+		*AttackMode->getPr()->x - attack::world->getEntity(jOp)->getPos().x < -1500 ||
+		*AttackMode->getPr()->y - attack::world->getEntity(jOp)->getPos().y > 1500 ||
+		*AttackMode->getPr()->y - attack::world->getEntity(jOp)->getPos().y < -1500)
 		teleport_ = true; //телепорт если противник далеко
 
 	if (attack::world->getEntity(jOp)->getPos().x > x - 200 &&
@@ -418,21 +418,21 @@ void Sans::attacks()
 	
 	//--------------------------------
 	//1 атака
-	if ((!SPNum4 && AttackMode.getNum(2)) || //если SPNum4(спец.атака) не активна 
+	if ((!SPNum4 && AttackMode->getNum(2)) || //если SPNum4(спец.атака) не активна 
 		(attack::world->getEntity(jOp)->getHp() < attack::world->getEntity(jOp)->getMaxHp() / 10)) //если у противника меньше 10% хп (добить)
-			AttackMode.setNum(1, true);
+			AttackMode->setNum(1, true);
 
 	//2 атака
 	if ((attack::world->getEntity(jOp)->getPos().x < x - 200 && attack::world->getEntity(jOp)->getPos().x > x - 600) ||
 		(attack::world->getEntity(jOp)->getPos().x > x + 200 && attack::world->getEntity(jOp)->getPos().x < x + 600) ||
 		(attack::world->getEntity(jOp)->getPos().y < y - 200 && attack::world->getEntity(jOp)->getPos().y > y - 600) ||
 		(attack::world->getEntity(jOp)->getPos().y > y + 200 && attack::world->getEntity(jOp)->getPos().y < y + 600)) //средняя дистанция
-		AttackMode.setNum(2, true); 
+		AttackMode->setNum(2, true);
 
 	//3 атака
 	if (teleport_ ||
 		attack::world->getEntity(jOp)->getHp() < attack::world->getEntity(jOp)->getMaxHp() / 4) //если у противника меньше 25% хп (добить)
-		AttackMode.setNum(3, true);
+		AttackMode->setNum(3, true);
 	//---------------------------------------
 
 	if (teleport_ && attack::time > RechargeTeleport) //использование отброса после телепорта

@@ -10,6 +10,7 @@ struct AnimationAttack //временная структура под анима
 {
 	RenderWindow* window;
 	Sprite intTile_8[100];
+	bool isActive; //активность атаки (вывод спрайтов когда = true)
 
 	void Reset() {
 		for (int j = 0; j < sizeof(intTile_8) / sizeof(intTile_8[0]); j++) {

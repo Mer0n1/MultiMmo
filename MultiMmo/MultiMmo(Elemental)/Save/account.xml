@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <account name="Developer" id="1">
     <character id="99" name="Developer" width="56" height="124">
-        <saveSA Numb1="3" Numb2="3" Numb3="6" />
+        <saveSA Numb1="1" Numb2="3" Numb3="6" />
         <AttackDamage At1="40" At2="50" At3="40" normAt="30" />
         <Speed Value="6" />
-        <Hp Value="1000" MaxHp="1000" />
+        <Hp Value="250" MaxHp="250" />
     </character>
     <saveCharacter id="99" />
     <!--Текущий выбранный персонаж при загрузке-->

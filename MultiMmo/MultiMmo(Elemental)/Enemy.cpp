@@ -28,6 +28,7 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 	memset(y_move, 0, 20 * 4);
 	hb.saveSetScale(1, 1); //настраиваем полоску жизней под бота
 
+	AttackMode = new AttackSystem();
 	group = new Group_Rpg; 
 	group->vec.push_back(this); //добавим группу и себя в нее
 	
@@ -55,8 +56,8 @@ Enemy::Enemy(string name1, int id_, int IDO_)
 	pr.currentAt = &rations.at1;
 	pr.group = group;
 
-	AttackMode.setPr(&pr);
-	AttackMode.inisialization(); //инициализируем всю систему
+	AttackMode->setPr(&pr);
+	AttackMode->inisialization(); //инициализируем всю систему
 }
 
 Enemy::~Enemy()
@@ -171,24 +172,21 @@ void Enemy::ai()
 
 void Enemy::controlEnemy()
 {
-	if (*time < controltime) return;
-	controltime = *time + 0.01;
-	
 	//движение
 	if (forward) {
-		y -= speed;
+		y -= speed * *TimeOptimization;
 		gamer.setTextureRect(IntRect(Width * 6, 0, Width, Height));
 	}
 	if (right) {
-		x += speed;
+		x += speed * *TimeOptimization;
 		gamer.setTextureRect(IntRect(0, 0, Width, Height));
 	}
 	if (left) {
-		x -= speed;
+		x -= speed * *TimeOptimization;
 		gamer.setTextureRect(IntRect(Width * 4, 0, Width, Height));
 	}
 	if (back) {
-		y += speed;
+		y += speed * *TimeOptimization;
 		gamer.setTextureRect(IntRect(Width * 2, 0, Width, Height));
 	}
 	
@@ -347,19 +345,22 @@ void Enemy::DownloadInformation()
 
 			if (qVide != 0 && SAAttack.VidE != 0) //если атака многообьектная
 				for (int j = 0; j < atoi(VidE->Attribute("qVide")); j++) 
-					AttackMode.addObj(AttackMode.getPr(), AttackMode.getSAAttack(numb));
+					AttackMode->addObj(AttackMode->getPr(), AttackMode->getSAAttack(numb));
 		}
-		AttackMode.setSAAttack(&SAAttack, numb);
+		AttackMode->setSAAttack(&SAAttack, numb);
 	}
 }
 
 void Enemy::setGroup(Group_Rpg* group_)
 {
 	group = group_;
-	group_->vecAS.push_back(&AttackMode); //добавляем недостающий AttackMode
+	group_->vecAS.push_back(AttackMode); //добавляем недостающий AttackMode
 
-	AttackMode.getPr()->group = group;
-	AttackMode.inisialization();
+	if (AttackMode != NULL)
+	{
+		AttackMode->getPr()->group = group;
+		AttackMode->inisialization();
+	}
 }
 
 void Enemy::setTether(int DistantionPoint_)

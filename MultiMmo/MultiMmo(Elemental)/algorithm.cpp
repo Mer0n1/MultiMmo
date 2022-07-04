@@ -3,7 +3,6 @@
 
 void algorithmLine(Vector2f begin, Vector2f end, Vector2i* coord)
 {
-	//найдем направление
 	Vector2f itog; //каждый тайловый итоговый ход
 	
 	int nx = 0, ny = 0; //направления
@@ -28,10 +27,9 @@ void algorithmLine(Vector2f begin, Vector2f end, Vector2i* coord)
 	//Отрезок как вектор, имеет направление (от begin до end)
 }
 
-Vector2f* algorithmLine2Prototype(Vector2f begin, Vector2f end)
+void algorithmLine2Prototype(Vector2f begin, Vector2f end, Vector2i* coord)
 {
-	Vector2f Massv[20];
-	float itogX = 0, itogY = 0; //каждый тайловый итоговый ход
+	Vector2f itog; //каждый тайловый итоговый ход
 
 	int nx = 0, ny = 0; //направления
 	if (end.x + begin.x < end.x) nx = 1; else nx = -1;
@@ -44,15 +42,14 @@ Vector2f* algorithmLine2Prototype(Vector2f begin, Vector2f end)
 	{
 		if (poX / poY > 1 || poX / poY < -1) { //если x превышает 1 то x = 1 а y < 1
 
-			itogX += nx;
-			itogY += poY / poX * nx;
+			itog.x += nx;
+			itog.y += poY / poX * nx;
 		}
 		else { //наоборот
-			itogX += poX / poY * ny;
-			itogY += ny;
+			itog.x += poX / poY * ny;
+			itog.y += ny;
 		}
-		Massv[j].x = begin.x + end.x + itogX; // (прибавляем начало атаки к дополнению)
-		Massv[j].y = begin.y + end.y + itogY;
+		coord[j].x = begin.x + end.x + itog.x; // (прибавляем начало атаки к дополнению)
+		coord[j].y = begin.y + end.y + itog.y;
 	}
-	return &Massv[0];
 }

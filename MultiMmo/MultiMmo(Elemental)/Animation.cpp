@@ -38,6 +38,7 @@ void AnimationAttackModule::DeleteAnimation(AnimationAttack* animation_)
 void AnimationAttackModule::draw(RenderWindow& window)
 {
 	for (int j = 0; j < list.size(); j++)
+		if (list[j]->isActive)
 		for (int c = 0; c < sizeof(list[j]->intTile_8) / sizeof(list[j]->intTile_8[0]); c++)
 		window.draw(list[j]->intTile_8[c]);
 }
