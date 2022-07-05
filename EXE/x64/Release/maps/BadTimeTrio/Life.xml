@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <World>
     <MyPerson x="500" y="900"/>
-	<character type ="BadTimeTrio" id ="98" IDO="0" name="sans" x="1900" y="2200" xp="500" maxXp="500" speed="3" visibility="500" DistanceFromOpponent="7" DistantionPoint="null"/> 
-	<character type ="BadTimeTrio" id ="97" IDO="0" name="papyrus" x="2050" y="2200" xp="500" maxXp="500" speed="2" visibility="800" DistanceFromOpponent="10" DistantionPoint="null"/>  
-	<character type ="BadTimeTrio" id ="96" IDO="0" name="chara" x="1950" y="2100" xp="500" maxXp="500" speed="6" visibility="800" DistanceFromOpponent="6" DistantionPoint="null"/> 
+	<character type ="BadTimeTrio" id ="98" IDO="0" name="sans" x="1900" y="2200" hp="500" maxHp="500" speed="3" visibility="500" DistanceFromOpponent="7" DistantionPoint="null"/> 
+	<character type ="BadTimeTrio" id ="97" IDO="0" name="papyrus" x="2050" y="2200" hp="500" maxHp="500" speed="2" visibility="800" DistanceFromOpponent="10" DistantionPoint="null"/>  
+	<character type ="BadTimeTrio" id ="96" IDO="0" name="chara" x="1950" y="2100" hp="500" maxHp="500" speed="6" visibility="800" DistanceFromOpponent="6" DistantionPoint="null"/> 
 	
 	<group name="BadTimeTrio">
 		<person id="98"/> <!--id friend-->

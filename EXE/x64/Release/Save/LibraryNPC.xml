@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Library>
-	<character id="101" IDO="0" name="redis" width="112" height="100" speed="1" xp="50" visibility="400" DistanceFromOpponent="5">
+	<character id="101" IDO="0" name="redis" width="112" height="100" speed="1" hp="50" visibility="400" DistanceFromOpponent="5">
 		<SA>
 			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
 			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
@@ -9,7 +9,7 @@
 		</SA>
 	</character>
 
-	<character id="102" IDO="0" name="ananas" width="40" height="75" speed="1" xp="80" visibility="400" DistanceFromOpponent="5">
+	<character id="102" IDO="0" name="ananas" width="40" height="75" speed="1" hp="80" visibility="400" DistanceFromOpponent="5">
 		<SA>
 			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
 			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
@@ -18,7 +18,7 @@
 		</SA>
 	</character>
 
-	<character id="98" name="Sans" IDO="0" width="90" height="130" speed="3" xp="500" visibility="400" DistanceFromOpponent="5">
+	<character id="98" name="Sans" IDO="0" width="90" height="130" speed="3" hp="500" visibility="400" DistanceFromOpponent="5">
 		<AttackDamage At1="30" At2="30" At3="30" normAt="30" />
 		<SA id="98" name="Sans1">
 			<delay Value="0 0 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0.01 0.01 0.01 0.01 0 0 0 0 0 " />
@@ -43,13 +43,13 @@
 		</SA>
 	</character>
 
-	<character id="97" name="Papyrus" IDO="0" width="87" height="163" speed="2" xp="1" visibility="800" DistanceFromOpponent="8">
+	<character id="97" name="Papyrus" IDO="0" width="87" height="163" speed="2" hp="500" visibility="800" DistanceFromOpponent="8">
 		<AttackDamage At1="50" At2="50" At3="10" normAt="0" />
 		<SA id="97" name="Papyrus1">
 			<delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
 			<duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
 			<Tile ValueX="1 2 3 4 5 6 -1 -2 -3 -4 -5 -6 -1 -2 -3 -4 -5 -6 1 2 3 4 5 6 0" ValueY="0 -1 -2 -3 -4 -5 0 -1 -2 -3 -4 -5 2 3 4 5 6 7 2 3 4 5 6 7 0" />
-			<Description FuncAttack="ClickPlace" TypeAttack="Do" Distantion="7" Recharge="10" QuanityTile="27" Size="32" />
+			<Description FuncAttack="NULL" TypeAttack="Do" Distantion="7" Recharge="10" QuanityTile="27" Size="32" />
 			<mobs Vide="0" pVide="0" qVide="0" tVide="0" />
 		</SA>
 		<SA id="97" name="Papyrus2"> <!--не существует-->
@@ -68,7 +68,7 @@
 		</SA>
 	</character>
 
-	<character id="96" name="Chara" IDO="0" width="78" height="120" speed="8" xp="1" visibility="500" DistanceFromOpponent="6">
+	<character id="96" name="Chara" IDO="0" width="78" height="120" speed="8" hp="500" visibility="500" DistanceFromOpponent="6">
 		<AttackDamage At1="10" At2="50" At3="20" normAt="100" />
 		<SA id="96" name="Chara1">
 			<delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
