@@ -563,10 +563,7 @@ void Redactor::CreateAttack()
 
 	//xml
 	TiXmlDocument object("Save/account.xml");
-	if (!object.LoadFile()) {
-		cout << "Loading level \"" << "inventor.xml" << "\" failed.-" << endl; 
-		return;
-	}
+	object.LoadFile();
 
 	TiXmlElement* sizeQ = object.FirstChildElement("account")->FirstChildElement("inventor");
 

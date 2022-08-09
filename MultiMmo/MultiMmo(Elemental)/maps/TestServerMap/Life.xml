@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="utf-8" ?>
+<World>
+    <character type="mobs" id="101" IDO="0" name="redis" x="200" y="400" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="1000" y="1000" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="3000" y="200" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="2850" y="300" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="2950" y="350" hp="80" maxHp="80" speed="" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="2750" y="250" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="2900" y="200" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="600" y="2400" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="2850" y="2850" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="101" IDO="0" name="redis" x="2400" y="1300" hp="80" maxHp="80" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="400" />
+    <character type="mobs" id="102" IDO="0" name="ananas" x="1550" y="650" hp="100" maxHp="100" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="600" />
+    <character type="mobs" id="102" IDO="0" name="ananas" x="500" y="2000" hp="100" maxHp="100" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="600" />
+    <character type="mobs" id="102" IDO="0" name="ananas" x="2000" y="2000" hp="100" maxHp="100" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="600" />
+    <character type="mobs" id="102" IDO="0" name="ananas" x="1500" y="2500" hp="100" maxHp="100" speed="1" visibility="400" DistanceFromOpponent="5" DistantionPoint="600" />
+    <character type="BadTimeTrio" id="98" IDO="0" name="sans" x="1900" y="2200" hp="500" maxHp="500" speed="3" visibility="500" DistanceFromOpponent="7" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="97" IDO="0" name="papyrus" x="2050" y="2200" hp="500" maxHp="500" speed="2" visibility="800" DistanceFromOpponent="10" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="96" IDO="0" name="chara" x="1950" y="2100" hp="500" maxHp="500" speed="6" visibility="800" DistanceFromOpponent="6" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="98" IDO="0" name="sans" x="1900" y="2200" hp="500" maxHp="500" speed="3" visibility="500" DistanceFromOpponent="7" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="97" IDO="0" name="papyrus" x="2050" y="2200" hp="500" maxHp="500" speed="2" visibility="800" DistanceFromOpponent="10" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="96" IDO="0" name="chara" x="1950" y="2100" hp="500" maxHp="500" speed="6" visibility="800" DistanceFromOpponent="6" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="98" IDO="0" name="sans" x="1900" y="2200" hp="500" maxHp="500" speed="3" visibility="500" DistanceFromOpponent="7" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="97" IDO="0" name="papyrus" x="2050" y="2200" hp="500" maxHp="500" speed="2" visibility="800" DistanceFromOpponent="10" DistantionPoint="null" />
+    <character type="BadTimeTrio" id="96" IDO="0" name="chara" x="1950" y="2100" hp="500" maxHp="500" speed="6" visibility="800" DistanceFromOpponent="6" DistantionPoint="null" />
+</World>

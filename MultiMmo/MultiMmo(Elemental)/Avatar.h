@@ -7,5 +7,5 @@ struct Avatar
 	int socketDescriptor;
 	int hp, maxHp;
 	int x, y;
-	bool life;
+	bool life; //?
 };

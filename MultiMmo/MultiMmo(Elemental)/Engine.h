@@ -9,23 +9,21 @@ using namespace sf;
 
 class Engine
 {
-	/*
-	Основной класс - движок, который обьединяет все классы игры
-	*/
+	/*Основной класс - движок, который обьединяет все классы игры*/
 public:
 	Engine();
 	~Engine();
 	void start(RenderWindow& window); //запуск движка
-	void LoadMap(string name); //загрузка карты
+	void LoadMap(string name, bool load); //загрузка карты где load - загрузка мобов
 private:
 	void changeview(); //доп функции карты //загрузка карты
 
-	AnimationAttackModule animation; //класс анимации
 	Player* pr; //класс нашего игрока
 	maps Map; //загрузка и вывод текстуры карты а также взаимодействие
 	GameWorld world; //класс мира и находящихся в нем игроков
 	RpgInterface* Interface;
 	GroupSystem* group; //класс групп
+	AnimationAttackModule* animation; //класс анимации
 
 	Vector2i pixelPos; //забираем коорд курсора
 	Vector2f pos; 

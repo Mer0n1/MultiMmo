@@ -120,7 +120,7 @@ Profile::Profile()
 	CurMap->name = "Valley"; //т.к карта стоит по стандарту
 } 
 
-void Profile::menu(RenderWindow& window)
+void Profile::menu(RenderWindow& window, Client& client)
 {
 	updateSA();
 	updateCharacter();
@@ -166,7 +166,8 @@ void Profile::menu(RenderWindow& window)
 			if (menunum == 7) SA_Inventor(window, 3);
 
 			if (menunum == 2) { //зайти в движок (инициализирование настроек движка перед его открытием)
-				engine.LoadMap(CurMap->name);
+				client.EnterWorld(CurMap->name, "Enter"); 
+				engine.LoadMap(CurMap->name, (client.statusCS && client.Connection_ != 0 || client.Connection_ == 0) ? 1 : 0);
 				engine.start(window);
 			} 
 

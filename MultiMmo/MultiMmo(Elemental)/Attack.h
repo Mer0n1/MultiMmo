@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "BridgeClient.h"
 #include "Tile.h"
+#include <sstream>
 
 using namespace std;
 using namespace sf;
@@ -110,7 +111,7 @@ private:
 	AAforASystem* animation; //группа из 4 анимаций на каждую attack
 	attack SAt1, SAt2, SAt3, Left; //3 особых атаки (speciality attacks) и Left обычная
 	vector<attack> many; //вектор множества атак (сохранение нескольких обьектов в одной атаке) :этап теста
-	static AnimationAttackModule* AnimationSystem;
+	AnimationAttackModule* AnimationSystem;
 
 	bool num1 = false, //запуск рендера атаки
 		 num2 = false,
@@ -134,8 +135,6 @@ public:
 	CurrentAttack* getSAAttack(int number); //number [1 - 3]
 	vector<attack> &getMany();
 	bool getNum(int number); //number [1 - 3] 4 - numLeft
-
-	static void setAnimationSystem(AnimationAttackModule*);
 };
 
 /*

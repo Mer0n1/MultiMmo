@@ -8,6 +8,8 @@
 #include <string>
 #include "Avatar.h"
 #include "Entity.h" 
+#include "Animation.h"
+#include "Tile.h"
 
 using std::string;
 using std::to_string;
@@ -23,6 +25,31 @@ struct siden //structure identefication
 	string email;
 	string username;
 };
+struct ShowAnimationStruct //test //как насчет отправлять структуру? //как насчет отправлять структуру AnimationAttack 
+{
+	int identn;
+	int pid;
+	int quan;
+	string type;
+	vector<Tile> tiles;
+};
+struct AnimationServ
+{
+	struct Animation //структура серверной анимации
+	{
+		int pid;
+		string identn; 
+		AnimationAttack* a;
+	};
+	void add(AnimationAttack* a, int pid_, string identn_) { 
+		Animation anim; 
+		anim.a = a; 
+		anim.identn = identn_;
+		anim.pid = pid_;
+		vec.push_back(anim);
+	}
+	vector<Animation> vec; //активные анимации отправляемые с сервера
+};
 
 class Client
 {
@@ -30,16 +57,19 @@ public:
 	Client();
 	~Client();
 	static void InisializationWorld(GameWorld* world); //иницилизируем 1 раз
-
+	
 	void Damage(int p_id, int damage); //нанесение урона
+	void ShowAttack(vector<Tile>&, int quan, string type, string identn, int pid);
 	int start(siden ident); //запуск подключения к серверу
 private:
 	void sockReady(); //2 поток принятие запросов от сервера и отправка
 	void sockReadyWorld(); //принятие и отправка udp запросов мира
+	void ReadyAttack(); //читать протокол ShowAttack
+	void EnterWorld(string name, string type); //протокол входа в мир
 
 	static GameWorld* world;
 	Avatar avatar;
-	Entity* MyPlayer;
+	AnimationServ aserv;
 
 	//Tcp
 	WSAData wsaData_;
@@ -51,12 +81,17 @@ private:
 	SOCKET sock; //QUdp - сокет для пересылки структур данных
 	sockaddr_in server_addr, client_addr;
 	int server_len, client_len;
+	bool statusCS = 0;
+	char udpData[1024];
 
 	//прочее
 	JsonDocument doc;
 	Clock clock;
 	float time; // таймер
 	float save_time;
+	string ActiveMap;
+
+	friend class Profile;
 };
 
 class ClientMenu

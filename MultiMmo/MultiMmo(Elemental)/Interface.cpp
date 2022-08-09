@@ -59,10 +59,11 @@ void HealthBarRpg::setHp(int hp, int maxHp)
 
 void HealthBarRpg::draw(RenderWindow& window)
 {
-    window.draw(q1); window.draw(q);
+    window.draw(q1); 
+    window.draw(q);
 
     text.setPosition(q.getPosition().x + 5, q.getPosition().y - 15);
-    window.draw(text);
+    window.draw(text); 
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -167,43 +168,34 @@ void Reference::setPositionView(int x, int y)
 /////////////////////////////////////////////////////////////////////////////////
 //RpgInterface
 
-RpgInterface::RpgInterface(HealthBarRpg* hb_, RechargeAttack* rech_, View* view_)
+RpgInterface::RpgInterface(HealthBarRpg* hb_, RechargeAttack* rech_, View* view_) 
 {
     sleeptime = 0; 
     time = 0;
+    view = view_;
+    hb = hb_;
+    ref = new Reference;
 
     frame_.loadFromFile("Textures/icon/frame.png");
 
     frame.setTexture(frame_);
-    frame.setPosition(20, 500);
+    frame.setPosition(30, 500);
 
     for (int j = 0; j < 3; j++) {
         f[j].setTexture(frame_);
         f[j].setScale(0.8, 0.8);
     }
-    f[0].setPosition(110, 270); 
-    f[1].setPosition(190, 270); 
-    f[2].setPosition(270, 270); 
-
-    view = view_;
-    hb = hb_;
-    ref = new Reference;
-
-    for (int j = 0; j < 3; j++) 
-        rech[j] = rech_++; 
+    f[0].setPosition(270, 470); 
+    f[1].setPosition(350, 470); 
+    f[2].setPosition(430, 470); 
     
-}
-
-void RpgInterface::setPosition(int posx, int posy)
-{ 
     for (int j = 0; j < 3; j++) {
-        f[j].setPosition(posx + 80 * j - 130, posy + 170);
-        rech[j]->setPosition(posx + 80 * j - 126, posy + 171);
+        rech[j] = rech_++;
+        rech[j]->setPosition(f[j].getPosition().x + 4, f[j].getPosition().y + 1);
     }
-  
-    frame.setPosition(posx - 370, posy + 200);
-    hb->setPosition(view->getCenter().x - 300, view->getCenter().y + 200);
-    ref->setPositionView(view->getCenter().x, view->getCenter().y);
+
+    hb->setPosition(100, 500);
+    ref->setPositionView(400, 300);
 }
 
 void RpgInterface::Interface(RenderWindow& window) //вывод основного интерфейса
@@ -211,29 +203,17 @@ void RpgInterface::Interface(RenderWindow& window) //вывод основног
     Vector2i pixelPos = Mouse::getPosition(window); //забираем координаты мыши
     Vector2f pos = window.mapPixelToCoords(pixelPos); //переводим их в игровые
     time = clock.getElapsedTime().asSeconds();
-   
-    int menunum = 0;
-
-    if (IntRect(20, 500, 60, 60).contains(Mouse::getPosition(window)))  
-        menunum = 1;  //меню профиля
-
-    if (Mouse::isButtonPressed(Mouse::Left) && time > sleeptime)
-    {
-        if (menunum == 1) {} //меню профиля
-
-        sleeptime = time + 0.2; 
-        Sleep(200);
-    }
 
     //------------------Draw
+    window.setView(window.getDefaultView());
     
     for (int j = 0; j < 3; j++) {
         window.draw(f[j]); //вывод рамок
         rech[j]->update(window); //вывод таймеров
     }
-
+ 
     window.draw(frame);
-    //hb->draw(window); //вывод полоски хп (полоска хп выводится в GameWorld)
     ref->draw(window); //вывод справки
+    hb->draw(window);
 }
 

@@ -2,10 +2,11 @@
 
 AnimationAttackModule::AnimationAttackModule()
 {
-	change8.loadFromFile("Textures/Redactor/Tile_8.png"); //version 8
+	change8.loadFromFile("Textures/Redactor/Tile_8.png"); 
 
 	change.setTexture(changeT);
 	change_8.setTexture(change8);
+	change_8.setColor(Color::Blue);
 }
 
 AnimationAttackModule::~AnimationAttackModule()
@@ -16,7 +17,7 @@ AnimationAttackModule::~AnimationAttackModule()
 AnimationAttack* AnimationAttackModule::newScructureAnimation()
 {
 	AnimationAttack* nw = new AnimationAttack();
-	nw->window = window;
+	//nw->window = window;
 	for (int j = 0; j < 100; j++) 
 		nw->intTile_8[j] = change_8;
 	
@@ -39,18 +40,21 @@ void AnimationAttackModule::draw(RenderWindow& window)
 {
 	for (int j = 0; j < list.size(); j++)
 		if (list[j]->isActive)
-		for (int c = 0; c < sizeof(list[j]->intTile_8) / sizeof(list[j]->intTile_8[0]); c++)
-		window.draw(list[j]->intTile_8[c]);
+			for (int c = 0; c < sizeof(list[j]->intTile_8) / sizeof(list[j]->intTile_8[0]); c++) 
+				window.draw(list[j]->intTile_8[c]);
 }
 
 void AnimationAttackModule::setWindow(RenderWindow& window_)
 {
-	window = &window_;
+	object.window = &window_;
 }
 
-TexturesFile* AnimationAttackModule::TFPack = NULL;
-vector<AnimationAttack*> AnimationAttackModule::list;
-RenderWindow* AnimationAttackModule::window = NULL;
+AnimationAttackModule& AnimationAttackModule::getObject()
+{
+	return object;
+}
+
+AnimationAttackModule AnimationAttackModule::object;
 
 //-------------------------------AnimationMotion
 

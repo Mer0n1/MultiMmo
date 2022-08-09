@@ -19,7 +19,7 @@ interpretation JsonDocument::value(string key)
 	int len = key.length();
 	string itog;
 
-	for (int j = 1; j < msg.length(); j++)
+	/*for (int j = 1; j < msg.length(); j++)
 		if (msg[j] == key[len - 1] && msg[j - 1] == key[len - 2] && bag(key, msg, len, j))
 		{
 			for (int c = 0; c < msg.length(); c++)
@@ -29,7 +29,21 @@ interpretation JsonDocument::value(string key)
 					break;
 				}
 			break;
+		} */
+
+	if (key == "" || key == " ") return interpretation("");
+
+	for (int j = 0; j < msg.length(); j++) {
+		if (msg[j] == '{') continue;
+		for (int l = 0; l < len; l++)
+		{
+			if (msg[j + l] != key[l] || msg[j + len] != '"' || msg[j - 1] != '"') break;
+			if (l == len - 1)
+				for (int c = j + len + 3; c < msg.length(); c++)
+					if (msg[c] == '"') break; else
+						itog += msg[c];
 		}
+	}
 
 	interpretation inc(itog);
 	return inc;

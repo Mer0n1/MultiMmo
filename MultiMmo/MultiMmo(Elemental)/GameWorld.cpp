@@ -16,6 +16,7 @@ void GameWorld::deleteEntity(int id, int pid)
 	for (int j = 0; j < entity.size(); j++)
 		if (entity[j]->getPid() == pid)
 		{
+			delete entity[j];
 			entity.erase(entity.begin() + j);
 			break;
 		}
@@ -34,13 +35,14 @@ int GameWorld::getSize()
 void GameWorld::update(RenderWindow& window)
 {
 	for (int j = 0; j < entity.size(); j++) {
-
-		if (!entity[j]->getLife()) 
-		{ delete entity[j]; continue; }
 		
+		if (!entity[j]->getLife()) 
+		{ deleteEntity(entity[j]->id, entity[j]->pid); continue; }
+
 		entity[j]->update();
 		window.draw(entity[j]->gamer); //вывод модели
-		entity[j]->hb.draw(window); 
+		if (j!=0) //полоска хп игрока выводится в interface 
+			entity[j]->hb.draw(window); 
 	}
 }
 
@@ -75,7 +77,7 @@ void GameWorld::DownloadWorld(string nameMap)
 {
 	string way = "maps/" + nameMap + "/Life.xml";
 	TiXmlDocument object(way.c_str()); //выбираем карту 
-
+	
 	if (!object.LoadFile()) { cout << "Error: loading life map failed\n"; return; } //test
 	object.FirstChildElement("World");
 
@@ -83,7 +85,7 @@ void GameWorld::DownloadWorld(string nameMap)
 	TiXmlElement* Mob = world->FirstChildElement("character");
 	TiXmlElement* MyPerson = world->FirstChildElement("MyPerson");
 	if (!Mob) return; //выход если мобов нет
-
+	
 	Enemy* mob = NULL; //наше существо-обьект для добавления в мир
 	
 	while(true) //добавление всех персонажей что есть на карте

@@ -25,7 +25,7 @@ private:
 	Group_Rpg* group = NULL; //ссылка на группу в которой состоит игрок
 	
 	AttackRatios rations; 
-	RechargeAttack* rech;
+	RechargeAttack rech[3];
 };
 
 

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <SFML/Graphics.hpp>
+#include <memory>
 using namespace sf;
 using std::to_string;
 
@@ -68,7 +69,7 @@ private:
     RechargeAttack* rech[3]; //3 таймера перезарядки атак
     Reference* ref; 
     View* view;
-
+    
     Texture frame_;
     Sprite frame; //основная рамка
     Sprite f[3]; //3 рамки способностей
@@ -79,6 +80,5 @@ private:
 
 public:
     RpgInterface(HealthBarRpg* hb_, RechargeAttack* rech, View* view_);
-    void setPosition(int posx, int posy); //задать позицию
     void Interface(RenderWindow& window); //вывод и обработка интерфейса
 };

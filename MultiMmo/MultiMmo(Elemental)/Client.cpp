@@ -35,7 +35,6 @@ Client::Client()
 
 Client::~Client()
 {
-	delete MyPlayer;
 }
 
 int Client::start(siden ident)
@@ -49,10 +48,10 @@ int Client::start(siden ident)
 
 	int sizeofaddr = sizeof(addr_);
 
-	addr_.sin_addr.s_addr = inet_addr("176.196.135.47"); 
+	addr_.sin_addr.s_addr = inet_addr("176.196.135.47"); //176.196.135.47
 	addr_.sin_port = htons(5555);
 	addr_.sin_family = AF_INET;
-	
+
 	while (true) {
 		Connection_ = socket(AF_INET, SOCK_STREAM, NULL);
 		
@@ -86,10 +85,6 @@ int Client::start(siden ident)
 	send(Connection_, len.c_str(), len.length(), NULL);
 	read(Connection_, msg, sizeof(msg));
 	Sleep(200);
-	
-	//3 сегмент - запрос на вход в мир (тестовой)
-	len = "{\"protocol\":\"EnterTheWorld\"}"; //новый протокол входа в мир
-	send(Connection_, len.c_str(), len.length(), NULL); //отправка сегмента на вход в мир
 
 	thread th(&Client::sockReady, this);
 	th.detach(); //Запуск 2 потока принимающего запросы
@@ -102,14 +97,13 @@ int Client::start(siden ident)
 	return true;
 }
 
-
 void Client::sockReady()
 {
 	//Принять пакет данных емайл
 	int rc = 0; //проверка состояние запросов и сокетов
-	char packet[10000]; //массив для приема tcp запросов
+	char packet[1024]; //массив для приема tcp запросов
 	string data;
-
+	
 	//делаем сокеты неблокирующими
 	u_long mode = 1; //неблокирующий сокет (для цикла, чтобы не было приостановок) (0 - отключение)
 	ioctlsocket(Connection_, FIONBIO, &mode);
@@ -120,77 +114,246 @@ void Client::sockReady()
 
 	while (true) //tcp и udp запросы ( udp постоянно отправляются)
 	{
-		sockReadyWorld(); //udp запросы мира
-
-		int rc = recv(Connection_, packet, sizeof(packet), NULL);
-		//if (read(Connection_, packet, sizeof(packet)) < 0) continue; //принимаем запрос
+		if (!ActiveMap.empty())
+			sockReadyWorld(); //udp запросы мира
+		
+		rc = recv(Connection_, packet, sizeof(packet), NULL);
 		if (rc < 0) continue; //принимаем запрос
 		if (rc == 0) exit(0); //выход при потере соединения с сервером
+		if (rc == 1024) 
+			while (rc > 0)
+			{
+				data.append(packet);
+				memset(packet, 0, 1024);
+				rc = recv(Connection_, packet, sizeof(packet)-1, NULL);
+			}
+		else data = packet;
+		
+		doc = data;
 
-		doc = data = packet; //установка на json
 		//Далее запросы
-		if (doc.value("type").toString() == "Unconnect")
+		if (doc.value("Protocol").toString() == "Unconnect")
 			for (int j = 0; j < world->getSize(); j++)
 				if (world->getEntity(j)->getPid() == atoi(doc.value("p_id").toString().c_str()))
 					world->deleteEntity(world->getEntity(j)->getId(), world->getEntity(j)->getPid()); //удаляем обьект игрока который вышел
 		
-		if (doc.value("type").toString() == "kick") {
+		if (doc.value("Protocol").toString() == "kick") {
 			cout << "\nСервер посчитал вас ботом и кикнул...\n\n";
 			exit(0); //запрос кика
+		}
+		if (doc.value("Protocol").toString() == "LoadServMap") { //протокол загрузки карты
+			TiXmlDocument object("maps/TestServerMap/Life.xml"); //+name от doc.value(nameMap);
+			object.LoadFile(); 
+			//Разделим слипнувшиеся запросы
+			vector<string> DataArr;
+			string current;
+			for (int j = 0; j < data.length(); j++)
+			{
+				if (data[j] == '\n') {
+					DataArr.push_back(current);
+					current.clear();
+					continue;
+				}
+				current += data[j];
+			}
+			for (int j = 0; j < DataArr.size(); j++)
+			{
+				doc = DataArr[j];
+				//Protocol: LoadMap, type: begin, map: TestServerMap, ... //Возможно ptype: AddEntity/AddGroup/
+				if (doc.value("ptype").toString() == "begin") {
+					object.Clear(); //очищает
+					TiXmlDeclaration* decl = new TiXmlDeclaration("1.0", "", "utf-8");
+					auto* World = new TiXmlElement("World");
+					object.LinkEndChild(decl);
+					object.LinkEndChild(World);
+				}
+
+				auto* character = new TiXmlElement("character");
+				object.FirstChildElement()->LinkEndChild(character);
+				character->SetAttribute("type", doc.value("type").toString().c_str());
+				character->SetAttribute("id", doc.value("id").toString().c_str());
+				character->SetAttribute("IDO", "0");
+				character->SetAttribute("name", doc.value("name").toString().c_str());
+				character->SetAttribute("x", doc.value("x").toString().c_str());
+				character->SetAttribute("y", doc.value("y").toString().c_str());
+				character->SetAttribute("hp", doc.value("hp").toString().c_str());
+				character->SetAttribute("maxHp", doc.value("maxHp").toString().c_str());
+				character->SetAttribute("speed", doc.value("speed").toString().c_str());
+				character->SetAttribute("visibility", doc.value("visibility").toString().c_str());
+				character->SetAttribute("DistanceFromOpponent", doc.value("DistanceFromOpponent").toString().c_str());
+				character->SetAttribute("DistantionPoint", doc.value("DistantionPoint").toString().c_str());
+				object.SaveFile("maps/TestServerMap/Life.xml");
+			}
+			//Отправка удачного подтверждения о загрузке карты
+			string len = "{\"protocol\":\"EnterTheWorld\",\"name\":\"" + ActiveMap + "\",\"type\":\"successful\"}"; 
+			send(Connection_, len.c_str(), len.length(), NULL); 
+		}
+		if (doc.value("Protocol").toString() == "SC")
+			statusCS = true;
+		
+		memset(packet, 0, sizeof(packet));
+		data.clear();
+	}
+}
+void Client::sockReadyWorld()
+{
+	time = clock.getElapsedTime().asSeconds();
+
+	if (time > save_time)
+	{
+		for (int j = 0; j < world->getSize(); j++)
+		{
+			avatar.socketDescriptor = atoi(Descriptor.c_str());
+			if (statusCS) {
+				if (typeid(*world->getEntity(j)).name() == static_cast<string>("class SPlayer"))
+					continue; //по сути любом аватар добавленный от сервера - игрок сервера
+				if (typeid(*world->getEntity(j)).name() != static_cast<string>("class Player"))
+				    avatar.socketDescriptor = 0;  //мобы имеют 0 дескриптор
+			}
+			
+			avatar.hp =    world->getEntity(j)->getHp();
+			avatar.id =    world->getEntity(j)->getId();
+			avatar.maxHp = world->getEntity(j)->getMaxHp();
+			avatar.x =     world->getEntity(j)->getPos().x;
+			avatar.y =     world->getEntity(j)->getPos().y;
+			avatar.pid =   world->getEntity(j)->getPid();
+			avatar.life =  world->getEntity(j)->getLife();
+			
+			sendto(sock, reinterpret_cast<char*>(&avatar), sizeof(avatar), 0, (sockaddr*)&server_addr, server_len);
+			if (!statusCS) break; //j=0 - это игрок. Без статуса мобы не отправляются
+			Sleep(1); 
+		}
+		save_time = time + 0.05;
+	}
+
+	Sleep(10); //тест
+	
+	while (true) //принимаем до тех пор пока есть очередь/загруженность пакетов
+		if (recvfrom(sock, udpData, 1024, 0, (sockaddr*)&server_addr, &server_len) > 0) //принимаем
+		{
+			if (((Avatar*)(&udpData))->id < 200 && ((Avatar*)(&udpData))->id > 0) {
+				avatar = *((Avatar*)(&udpData));
+				//if (avatar.pid == world->getEntity(0)->getPid()) break;  //проверка на собственное принятие
+				
+				for (int j = 0; j != world->getSize(); j++) //обновляем характеристики этого персонажа
+					if (world->getEntity(j)->getPid() == avatar.pid)
+					{
+						if (avatar.x < 0 || avatar.x > 15000) avatar.x = 0; //тест (ограничение если придет поврежденная структура)
+						if (avatar.y < 0 || avatar.y > 15000) avatar.y = 0;
+						
+						world->setAvatar(&avatar, j); 
+						break;
+					}
+					else
+						if (j == world->getSize() - 1) { //если такого нет создаем обьект
+							world->addEntity(new SPlayer(avatar.id, avatar.pid)); //добавляем сетевого игрока
+							world->setAvatar(&avatar, j); //можно же вместо сета описать данные в конструкторе
+						}
+			}
+			else ReadyAttack(); //если это json то читаем
+		}
+		else break;
+
+}
+
+void Client::ReadyAttack()
+{
+	doc = (string)udpData; 
+	int j = doc.value("number").toInt();
+	int pid = doc.value("pid").toInt();
+	int quan = doc.value("quan").toInt();
+	int size = doc.value("size").toInt();
+	string type = doc.value("type").toString();
+	string identn = doc.value("identn").toString();
+
+	if (type == "delete")
+	{
+		for (int j = 0; j < aserv.vec.size(); j++)
+			if (aserv.vec[j].pid == pid && aserv.vec[j].identn == identn) {
+				AnimationAttackModule::getObject().DeleteAnimation(aserv.vec[j].a);
+				aserv.vec.erase(aserv.vec.begin() + j);
+				break;
+			}
+	}
+
+	if (type == "active" || type == "delay")
+		for (int n = 0, k = -1; n < aserv.vec.size(); n++) {
+			if (aserv.vec[n].pid == pid && aserv.vec[n].identn == identn)
+				k = 0;
+			else if (n == aserv.vec.size() - 1)
+			{
+				aserv.add(AnimationAttackModule::getObject().newScructureAnimation(), pid, identn);
+				k = 1;
+			}
+			if (k > -1) {
+				for (int j = 0; j < quan; j++)
+				{
+					aserv.vec[n + k].a->intTile_8[j].setPosition(doc.value("x" + to_string(j)).toInt(), doc.value("y" + to_string(j)).toInt());
+					aserv.vec[n + k].a->intTile_8[j].setScale(size / 8.f, size / 8.f);
+					aserv.vec[n + k].a->intTile_8[j].setColor(Color::Blue);
+					aserv.vec[n + k].a->isActive = true;
+					if (type == "delay") aserv.vec[n + k].a->intTile_8[j].setColor(Color(255, 255, 255, 50));
+				}
+				break;
+			}
+		}
+	if (aserv.vec.size() == 0 && type != "delete") {
+		aserv.add(AnimationAttackModule::getObject().newScructureAnimation(), pid, identn);
+
+		for (int j = 0; j < quan; j++)
+		{
+			aserv.vec.back().a->intTile_8[j].setPosition(doc.value("x" + to_string(j)).toInt(), doc.value("y" + to_string(j)).toInt());
+			aserv.vec.back().a->intTile_8[j].setScale(size / 8.f, size / 8.f);
+			aserv.vec.back().a->intTile_8[j].setColor(Color::Blue);
+			aserv.vec.back().a->isActive = true;
+			if (type == "delay") aserv.vec.back().a->intTile_8[j].setColor(Color(255, 255, 255, 50));
 		}
 	}
 }
 
-void Client::sockReadyWorld()
-{
-	time = clock.getElapsedTime().asSeconds();
-	MyPlayer = world->getEntity(0);
-	
-	avatar.socketDescriptor = atoi(Descriptor.c_str());
-	avatar.id = MyPlayer->getId();
-	avatar.life = MyPlayer->getLife();
-	avatar.maxHp = MyPlayer->getMaxHp();
-	avatar.pid = MyPlayer->getPid();
-	avatar.hp = MyPlayer->getHp();
-	avatar.x = MyPlayer->getPos().x;
-	avatar.y = MyPlayer->getPos().y;
-
-	if (time > save_time) { //отправка структуры раз в 0.05 сек, а проверка бесконечная
-		sendto(sock, reinterpret_cast<char*>(&avatar), sizeof(avatar), 0, (sockaddr*)&server_addr, server_len);
-		save_time = time + 0.05; 
-	}
-	
-	Sleep(10); //тест
-	
-	if (recvfrom(sock, reinterpret_cast<char*>(&avatar), 256, 0, (sockaddr*)&server_addr, &server_len) > 0) //принимаем
-	{
-		for (int j = 0; j != world->getSize(); j++) //обновляем характеристики этого персонажа
-			if (world->getEntity(j)->getPid() == avatar.pid)
-			{
-				if (avatar.x < 0 || avatar.x > 15000) avatar.x = 0; //тест (ограничение если придет поврежденная структура)
-				if (avatar.y < 0 || avatar.y > 15000) avatar.y = 0;
-				
-				world->setAvatar(&avatar, j);
- 				break;
-			}
-			else
-				if (j == world->getSize() - 1) { //если такого нет создаем обьект
-					world->addEntity(new SPlayer(avatar.id, avatar.pid)); //добавляем сетевого игрока
-					world->setAvatar(&avatar, j); //можно же вместо сета описать данные в конструкторе
-				}
-	}
-	
-}
-
 void Client::Damage(int p_id, int damage)
 {
-	string data = "{\"type\":\"Attack\",\"p_id\":\"" + to_string(p_id) + "\",\"damage\":\"" + to_string(damage) + "\"}";
+	string data = "{\"Protocol\":\"Attack\",\"p_id\":\"" + to_string(p_id) + "\",\"damage\":\"" + to_string(damage) + "\"}";
 	sendto(sock, data.c_str(), data.length(), 0, (sockaddr*)&server_addr, server_len);
 }
+
+void Client::ShowAttack(vector<Tile>& tiles, int quan, string type, string identn, int pid)
+{
+	string data; 
+	data = "{\"Protocol\":\"ShowAttack\",\"size\":\"" + to_string(tiles[0].size) + "\",\"quan\":\"" + 
+		to_string(quan) + "\",\"type\":\"" + type.c_str() + "\",\"pid\":\"" + to_string(pid) + "\",\"identn\":\"" + identn;
+
+	for (int j = 0; j < quan; j++)
+		if (tiles[j].coord.x != 0 && tiles[j].coord.y != 0)
+			data += "\",\"x" + to_string(j) + "\":\"" + to_string(tiles[j].coord.x) +
+			        "\",\"y" + to_string(j) + "\":\"" + to_string(tiles[j].coord.y);
+		else break;
+	data += "\"}";
+
+	if(type == "delete") 
+		data = "{\"Protocol\":\"ShowAttack\",\"type\":\"delete\",\"pid\":\"" + to_string(pid) + "\",\"identn\":\"" + identn + "\"}";
+
+	sendto(sock, data.c_str(), data.length(), 0, (sockaddr*)&server_addr, server_len);
+}
+
 
 void Client::InisializationWorld(GameWorld* world_)
 {
 	world = world_; 
+}
+
+void Client::EnterWorld(string name, string type)
+{
+	//type: Exit (выход из мира) 
+	if (ActiveMap.empty()) 
+		ActiveMap = name;
+
+	if (type == "Exit") //протокол выхода из мира
+		ActiveMap.clear();
+
+	string len = "{\"protocol\":\"EnterTheWorld\",\"name\":\"" + name + "\",\"type\":\"" + type + "\"}"; //новый протокол входа в мир
+	send(Connection_, len.c_str(), len.length(), NULL); //отправка сегмента на вход в мир
+	Sleep(3000); //ожидание загрузки карты (пока не придет Sc)
 }
 
 GameWorld* Client::world = NULL;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <account name="Developer" id="1">
     <character id="99" name="Developer" width="56" height="124">
-        <saveSA Numb1="1" Numb2="3" Numb3="6" />
+        <saveSA Numb1="1" Numb2="2" Numb3="3" />
         <AttackDamage At1="40" At2="50" At3="40" normAt="30" />
         <Speed Value="6" />
         <Hp Value="250" MaxHp="250" />
@@ -23,7 +23,7 @@
             <Description FuncAttack="line" TypeAttack="dpsa" Distantion="9" Recharge="1" QuanityTile="20" Size="32" />
         </SA>
         <SA id="2" name="Line">
-            <delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
+            <delay Value="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
             <duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
             <Tile ValueX="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " ValueY="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " />
             <Description FuncAttack="line" TypeAttack="Do" Distantion="9" Recharge="1" QuanityTile="20" Size="32" />

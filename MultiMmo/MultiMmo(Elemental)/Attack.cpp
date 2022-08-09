@@ -101,7 +101,7 @@ void attack::attack_start()
 				animation->intTile_8[c].setColor(Color(255, 255, 255, 50)); //делаем полупрозрачным
 				animation->intTile_8[c].setPosition(tiles[c].coord.x, tiles[c].coord.y); //изменение размера клеток в соотвествии с атакой
 			}
-
+		
 		if (!delayBlock) { //если есть задержка
 			if (tiles[j].delay != 0 & save_j < j) {
 				newtimer = tiles[j].delay + time;
@@ -218,11 +218,17 @@ void attack::attack_start()
 			animation->intTile_8[j].setScale(tiles[j].size / 8.f, tiles[j].size / 8.f); //8
 			animation->intTile_8[j].setPosition(tiles[j].coord.x, tiles[j].coord.y); //изменение размера клеток в соотвествии с атакой
 		}
-
+		
 		if (newtimer > time) break; //выходим чтобы бесконечный цикл не создавать при продолжительности
 	}
-
 	
+	if (save_j == -1 || VidE != 0 || newtimer == tiles[save_j].duration + time || newtimer == tiles[save_j].delay + time) {
+		string                                      type = "active"; 
+		if (newtimer == tiles[save_j].delay + time) type = "delay";
+		if (!animation->isActive)                   type = "delete";
+		ostringstream sks; sks << this;
+		client_br->ShowAttack(tiles, QuanTile, type, sks.str(), pr->pid); 
+	}
 }
 
 void attack::funcAttack()
@@ -276,19 +282,19 @@ void attack::funcAttack()
 			tiles[j].coord.y = coord[j].y * tiles[j].size;
 		}
 	}
-
+	
 	if (FuncAttack == "ClickPlace" && life_attack && !BlockOnce) //функция атаки: по месту клика
 	{
 		//учитываем дистанцию
 		int x1 = *pr->x + pr->Width / 2;
 		int y1 = *pr->y + pr->Height / 2; 
 		int S = 32; 
-		
-		if (*pr->posX - x1 > distantion * S) *pr->posX = x1 + distantion * S + S; 
-		if (*pr->posX - x1 < -distantion * S) *pr->posX = x1 + (-distantion) * S - S; 
-		if (*pr->posY - y1 > distantion * S) *pr->posY = y1 + distantion * S + S;
-		if (*pr->posY - y1 < -distantion * S) *pr->posY = y1 + (-distantion) * S - S*2;
 
+		if (*pr->posX - x1 > distantion * S)  *pr->posX = x1 + distantion * S + S; 
+		if (*pr->posX - x1 < -distantion * S) *pr->posX = x1 + (-distantion) * S - S; 
+		if (*pr->posY - y1 > distantion * S)  *pr->posY = y1 + distantion * S + S;
+		if (*pr->posY - y1 < -distantion * S) *pr->posY = y1 + (-distantion) * S - S*2;
+		
 		//Расчет значений позиции атаки
 		int xI = *pr->posX - tiles[0].coord.x; //по клику
 		int yI = *pr->posY - tiles[0].coord.y;
@@ -586,6 +592,7 @@ View* attack::view = new View;
 //----------------AttackSystem
 AttackSystem::AttackSystem()
 {
+	AnimationSystem = &AnimationAttackModule::getObject();
 	animation = new AAforASystem();
 	animation->at1 = AnimationSystem->newScructureAnimation();
 	animation->at2 = AnimationSystem->newScructureAnimation();
@@ -725,9 +732,3 @@ void AttackSystem::addObj(playerPr* pr, CurrentAttack* cr_)
 	many.push_back(attack(pr, cr_, AnimationSystem->newScructureAnimation()));
 }
 
-void AttackSystem::setAnimationSystem(AnimationAttackModule* an)
-{
-	AnimationSystem = an;
-}
-
-AnimationAttackModule* AttackSystem::AnimationSystem = NULL;

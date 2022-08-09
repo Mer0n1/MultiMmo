@@ -7,7 +7,6 @@ Entity::Entity()
 
 Entity::~Entity() //ошибка при удалении динамического обьекта
 {
-	world->deleteEntity(id, pid);
 }
 
 void Entity::setPosX(int x_)
@@ -92,15 +91,6 @@ Vector2f Entity::getPos()
 {
 	return Vector2f(x,y);
 }
-//float Entity::getX()
-//{
-//	return pos.x;
-//}
-//
-//float Entity::getY()
-//{
-//	return y;
-//}
 
 int Entity::getId()
 {

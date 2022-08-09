@@ -8,7 +8,7 @@ enum type_at { Do, dpsa, ida, poisonous }; //тип атаки - перечис�
 
 struct AnimationAttack //временная структура под анимацию
 {
-	RenderWindow* window;
+	//RenderWindow* window;
 	Sprite intTile_8[100];
 	bool isActive; //активность атаки (вывод спрайтов когда = true)
 

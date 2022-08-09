@@ -9,16 +9,17 @@ Engine::Engine()
 	Entity::setMap(&Map);
 	Entity::setTime(&Timer, &TimeOptimization);
 	Entity::setGameWorld(&world); 
-	AttackSystem::setAnimationSystem(&animation);
 	attack::setAttribute(&world, &view); //инициализируем метод атаки
 	Client::InisializationWorld(&world);
-
+	
 	pr = new Player;
 	Interface = new RpgInterface(pr->getHealthBar(), pr->getModuleRA(), &view);
 	group = &GroupSystem::getObject();
+	animation = &AnimationAttackModule::getObject();
 
 	Timer = 0;
 	view.reset(FloatRect(0, 0, 800, 600));
+	view.zoom(1.3);
 }
 
 Engine::~Engine()
@@ -32,13 +33,14 @@ void Engine::start(RenderWindow& window)
 {
 	pr->inisialization(); //переинициализация характеристик 
 	AnimationAttackModule::setWindow(window);
-	
+	//delete pr; //using this client as a module
 	while (true)
 	{
+		window.setView(view);
 		pixelPos = Mouse::getPosition(window); //забираем координаты мыши
 		pos = window.mapPixelToCoords(pixelPos); //переводим их в игровые
 		Timer = clock.getElapsedTime().asSeconds();
-
+		
 		TimeOptimization = OneFrame.getElapsedTime().asMicroseconds();
 		OneFrame.restart();
 		TimeOptimization /= 10000;
@@ -51,17 +53,17 @@ void Engine::start(RenderWindow& window)
 			else if (events.type == Event::MouseWheelMoved);
 		}
 		
-		window.setView(view);
 		changeview(); 
 		window.clear();
+		window.setView(view);
 		
 		Map.draw_map(window); //вывод карты
 		world.update(window); //обновление всех игроков
-		animation.draw(window); //вывод анимации
-
-		Interface->setPosition(view.getCenter().x, view.getCenter().y); //вывод интерфейса управления
-		Interface->Interface(window);
-
+		animation->draw(window); //вывод анимации
+		
+		if (pr->getLife()) //временное условие пока не исправим неправильную архитектуру
+			Interface->Interface(window); 
+		
 		window.display();
 	}
 }
@@ -77,9 +79,9 @@ void Engine::changeview()
 			view.zoom(0.9950f); //масштабируем, увеличение
 }
 
-void Engine::LoadMap(string name)
+void Engine::LoadMap(string name, bool load)
 {
 	Map.TileMapEdit(name); //загружаем текстуру карты
-	world.DownloadWorld(name); //теперь загружаем информацию и персонажах карты
+	if (load) world.DownloadWorld(name); //теперь загружаем информацию и персонажах карты
 	group->LoadMap(&world, name); //и информацию и группах
 }

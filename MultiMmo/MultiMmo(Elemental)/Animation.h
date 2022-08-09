@@ -9,21 +9,24 @@ class AnimationAttackModule
 public:
 	/* Основа класса - структура AnimationAttack. 
 	Задача класса вывод анимации атак для каждого обьекта-Entity тоесть для каждого моба и игрока*/
-	AnimationAttackModule();
-	~AnimationAttackModule();
 	static void setWindow(RenderWindow& window);
-	AnimationAttack* newScructureAnimation(); //создает, возвращает и добавляет в список структуру
+	static AnimationAttackModule& getObject();
 
-	//void update();
 	void draw(RenderWindow& window);
 	void DeleteAnimation(AnimationAttack*);
+	AnimationAttack* newScructureAnimation(); //создает, возвращает и добавляет в список структуру
 private:
+	AnimationAttackModule();
+	~AnimationAttackModule();
+
 	Texture changeT, change8;
 	Sprite change, change_8; //спрайты тайлов
 
-	static RenderWindow* window;
-	static TexturesFile* TFPack;
-	static vector<AnimationAttack*> list; //выделить каждому персонажу свою структуру для анимации атаки
+	RenderWindow* window;
+	TexturesFile* TFPack;
+	vector<AnimationAttack*> list; //выделить каждому персонажу свою структуру для анимации атаки
+
+	static AnimationAttackModule object; 
 };
 
 class AnimationMotionModule

@@ -17,7 +17,6 @@ Player::Player()
 	TFPack->ModelCharacter[id].setTextureRect(IntRect(0, 0, Width, Height));
 	gamer = TFPack->ModelCharacter[id]; //загрузка модели
 
-	rech = new RechargeAttack[3]; 
 	for (int j = 0; j < 3; j++)
 		rech[j] = { j + 1, AttackMode.getSAAttack(j)->recharge };
 
@@ -45,21 +44,19 @@ Player::Player()
 Player::~Player()
 {
 	delete group;
-	//delete rech; //rech должен быть очищен еще в интерфейсе
 }
 
 void Player::update()
 {	
-	
 	gamer.setPosition(x, y);
 	hb.setProgress((float)hp / (float)max_hp);
 	hb.setHp(hp, max_hp);
-
-	controlPlayer(); //управление персонажем
+	
+	if (hp >= 0) controlPlayer(); //управление персонажем
 	interactionWithMap();
 	AttackMode.go_attack();
-	
-	if (hp <= 0) { life = false; exit(0); }
+	if (Keyboard::isKeyPressed(Keyboard::K)) hp = 0;
+	if (hp <= 0) { life = false; /*exit(0);*/ }
 }
 
 void Player::interactionWithMap()
@@ -154,7 +151,7 @@ void Player::updateHp(int atck)
 
 RechargeAttack* Player::getModuleRA() //возвращаем модуль интерфейса 
 {
-	return rech;
+	return &rech[0];
 }
 
 void Player::readyPerson()
