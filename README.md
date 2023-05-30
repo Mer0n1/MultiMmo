@@ -22,3 +22,6 @@ MultiMmo - пиксельная MMORPG 2D игра.
 ------------------------------
 * [Редактор](https://github.com/Mer0n1/Redactor-MultiMmo-)
 * [Сервер](https://github.com/Mer0n1/Server-MultiMmo-)
+
+------------------------------
+<img src="img/Скриншот 21-07-2022 210518.jpg">
